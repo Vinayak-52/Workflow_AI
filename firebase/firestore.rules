@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default Deny All
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // User profile and subcollections
+    match /users/{userId} {
+      // User can only read and update their own root profile
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow delete: if false;
+
+      // Google OAuth credentials MUST NEVER be read or written directly by client SDK
+      match /googleConnections/{connectionId} {
+        allow read, write: if false; // Server Admin SDK only
+      }
+
+      // Notes subcollection - strict per-user ownership
+      match /notes/{noteId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Tasks subcollection - strict per-user ownership
+      match /tasks/{taskId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Daily plans subcollection - strict per-user ownership
+      match /dailyPlans/{planId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Activity logs - write restricted, user read
+      match /activity/{activityId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Workspace links - strict per-user ownership
+      match /workspaceLinks/{linkId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Documents metadata - strict per-user ownership
+      match /documents/{docId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+  }
+}

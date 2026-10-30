@@ -1,0 +1,78 @@
+{
+  "model": "RandomForestClassifier",
+  "n_estimators": 100,
+  "features": [
+    "hours_until_deadline",
+    "duration_minutes",
+    "user_importance",
+    "available_free_mins",
+    "other_tasks_due",
+    "workload_score"
+  ],
+  "test_accuracy": 0.962,
+  "baseline_accuracy": 0.79,
+  "accuracy_delta": 0.172,
+  "confusion_matrix_labels": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "confusion_matrix": [
+    [
+      17,
+      1,
+      7
+    ],
+    [
+      1,
+      194,
+      5
+    ],
+    [
+      1,
+      4,
+      270
+    ]
+  ],
+  "feature_importances": {
+    "hours_until_deadline": 0.5849,
+    "duration_minutes": 0.0102,
+    "user_importance": 0.1335,
+    "available_free_mins": 0.2473,
+    "other_tasks_due": 0.0101,
+    "workload_score": 0.014
+  },
+  "classification_report": {
+    "high": {
+      "precision": 0.9574468085106383,
+      "recall": 0.9818181818181818,
+      "f1-score": 0.9694793536804309,
+      "support": 275.0
+    },
+    "low": {
+      "precision": 0.8947368421052632,
+      "recall": 0.68,
+      "f1-score": 0.7727272727272727,
+      "support": 25.0
+    },
+    "medium": {
+      "precision": 0.9748743718592965,
+      "recall": 0.97,
+      "f1-score": 0.9724310776942355,
+      "support": 200.0
+    },
+    "accuracy": 0.962,
+    "macro avg": {
+      "precision": 0.9423526741583993,
+      "recall": 0.8772727272727273,
+      "f1-score": 0.9048792347006464,
+      "support": 500.0
+    },
+    "weighted avg": {
+      "precision": 0.9612823355298329,
+      "recall": 0.962,
+      "f1-score": 0.9608224392382949,
+      "support": 500.0
+    }
+  }
+}
