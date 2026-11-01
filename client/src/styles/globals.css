@@ -2,31 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #08090c;
+    color: #f3f4f6;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+  }
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background-color: #0d0e11;
-  color: #f3f4f6;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  overflow: hidden;
+/* Subtle ambient backdrop glows */
+.ambient-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
 }
 
-/* Custom scrollbars for clean desktop experience */
+.ambient-card-glow {
+  background: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+}
+
+/* Glass & Card textures */
+.glass-panel {
+  background: rgba(18, 19, 27, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-dropdown {
+  background: rgba(20, 21, 30, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+}
+
+/* Custom minimal scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #2a2b36;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b3d4d;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Subtle selection color */
+::selection {
+  background-color: rgba(99, 102, 241, 0.35);
+  color: #ffffff;
 }

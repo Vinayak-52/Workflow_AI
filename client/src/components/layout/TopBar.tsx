@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Clock, ShieldCheck, AlertCircle } from 'lucide-react';
+import { Sparkles, Clock, ShieldCheck, AlertCircle, Command, Search } from 'lucide-react';
 import { api, ClockInfo, GoogleIntegrationStatus } from '../../lib/api';
 
 interface TopBarProps {
@@ -21,11 +21,9 @@ export const TopBar: React.FC<TopBarProps> = ({
   const [status, setStatus] = useState<GoogleIntegrationStatus | null>(null);
 
   useEffect(() => {
-    // Fetch clock from backend
     api.getClock().then(setClock).catch(() => {});
     api.getIntegrationStatus().then(setStatus).catch(() => {});
 
-    // Update local seconds ticker every 1s
     const timer = setInterval(() => {
       setClock((prev) => ({
         ...prev,
@@ -64,48 +62,67 @@ export const TopBar: React.FC<TopBarProps> = ({
   };
 
   return (
-    <header className="h-14 border-b border-workspace-border bg-workspace-sidebar/80 backdrop-blur px-6 flex items-center justify-between select-none">
+    <header className="h-16 border-b border-white/[0.06] bg-[#0c0d12]/80 backdrop-blur-xl px-6 flex items-center justify-between select-none relative z-20">
+      {/* Module Title / Breadcrumb */}
       <div className="flex items-center gap-3">
-        <h1 className="text-base font-semibold text-zinc-100 capitalize">{title}</h1>
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] font-mono uppercase text-zinc-500 tracking-wider">
+            Workspace
+          </span>
+          <span className="text-zinc-600">/</span>
+          <h1 className="text-sm font-semibold text-white tracking-tight capitalize">
+            {title}
+          </h1>
+        </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        {/* Live Clock Component */}
-        <div className="flex items-center gap-2 bg-zinc-900/80 border border-zinc-800 px-3 py-1 rounded-md text-xs font-mono text-zinc-300">
-          <Clock size={14} className="text-indigo-400" />
-          <span>{formatLocalTime(clock.now)}</span>
-          <span className="text-zinc-500">|</span>
-          <span className="text-zinc-400">{formatLocalDate(clock.now)}</span>
-          <span className="text-[10px] text-zinc-500 bg-zinc-800 px-1 py-0.5 rounded">
-            {clock.timezone}
+      {/* Global Actions, Live Clock, and Assistant Toggle */}
+      <div className="flex items-center gap-3.5">
+        {/* Quick Search Bar */}
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.06] text-xs text-zinc-400 w-52 hover:border-white/[0.12] transition-colors cursor-text">
+          <Search size={13} className="text-zinc-500" />
+          <span className="text-zinc-500 text-[11px]">Quick search...</span>
+          <kbd className="ml-auto text-[9px] font-mono px-1.5 py-0.5 rounded bg-white/[0.06] text-zinc-400 border border-white/[0.08]">
+            ⌘K
+          </kbd>
+        </div>
+
+        {/* Live IANA Clock */}
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.06] text-xs font-mono text-zinc-300">
+          <Clock size={13} className="text-indigo-400" />
+          <span className="font-semibold text-zinc-200">{formatLocalTime(clock.now)}</span>
+          <span className="text-zinc-600">·</span>
+          <span className="text-zinc-400 hidden sm:inline">{formatLocalDate(clock.now)}</span>
+          <span className="text-[9px] text-indigo-300 bg-indigo-500/10 px-1.5 py-0.5 rounded border border-indigo-500/20">
+            IST
           </span>
         </div>
 
         {/* Google Connection Status Pill */}
-        <div className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-md border border-zinc-800 bg-zinc-900/50">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.06] bg-white/[0.02] text-xs">
           {status?.connected ? (
             <>
-              <ShieldCheck size={14} className="text-emerald-400" />
-              <span className="text-zinc-300">Google: Read-Only</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+              <span className="text-zinc-300 text-[11px]">Google Read-Only</span>
             </>
           ) : (
             <>
-              <AlertCircle size={14} className="text-zinc-500" />
-              <span className="text-zinc-400">Google: Disconnected</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
+              <span className="text-zinc-400 text-[11px]">Disconnected</span>
             </>
           )}
         </div>
 
-        {/* Contextual Assistant Drawer Toggle */}
+        {/* Contextual Assistant Trigger */}
         <button
           onClick={onToggleAssistant}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors border ${
+          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 border ${
             assistantOpen
-              ? 'bg-indigo-600 text-white border-indigo-500 shadow-sm'
-              : 'bg-workspace-card text-zinc-300 border-workspace-border hover:bg-workspace-cardHover hover:text-white'
+              ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-indigo-400/30 shadow-[0_0_15px_rgba(99,102,241,0.4)]'
+              : 'bg-[#151620] text-zinc-200 border-white/[0.08] hover:border-white/[0.18] hover:bg-[#1a1c29]'
           }`}
         >
-          <Sparkles size={14} />
+          <Sparkles size={13} className={assistantOpen ? 'text-white' : 'text-indigo-400'} />
           <span>AI Assistant</span>
         </button>
       </div>
