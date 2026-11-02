@@ -1,0 +1,54 @@
+[
+  {
+    "task_id": "TASK-TEST-99",
+    "timestamp": "2026-11-02T13:19:57.201960",
+    "predicted_priority": "medium",
+    "user_priority": "high",
+    "is_override": true,
+    "completed_on_time": true,
+    "hours_to_deadline": 8.0,
+    "actual_duration_min": 75,
+    "estimated_duration_min": 60,
+    "duration_error_ratio": 1.25,
+    "category": "project"
+  },
+  {
+    "task_id": "TASK-TEST-99",
+    "timestamp": "2026-11-02T13:45:36.474463",
+    "predicted_priority": "medium",
+    "user_priority": "high",
+    "is_override": true,
+    "completed_on_time": true,
+    "hours_to_deadline": 8.0,
+    "actual_duration_min": 75,
+    "estimated_duration_min": 60,
+    "duration_error_ratio": 1.25,
+    "category": "project"
+  },
+  {
+    "task_id": "task-15963452",
+    "timestamp": "2026-11-02T13:47:06.406039",
+    "predicted_priority": "medium",
+    "user_priority": "medium",
+    "is_override": false,
+    "completed_on_time": true,
+    "hours_to_deadline": 24.0,
+    "actual_duration_min": 90,
+    "estimated_duration_min": 90,
+    "duration_error_ratio": 1.0,
+    "category": "academic"
+  },
+  {
+    "task_id": "task-48ad6a41",
+    "timestamp": "2026-11-02T13:48:12.664753",
+    "predicted_priority": "medium",
+    "user_priority": "medium",
+    "is_override": false,
+    "completed_on_time": true,
+    "hours_to_deadline": 24.0,
+    "actual_duration_min": 90,
+    "estimated_duration_min": 90,
+    "duration_error_ratio": 1.0,
+    "category": "academic"
+  }
+]

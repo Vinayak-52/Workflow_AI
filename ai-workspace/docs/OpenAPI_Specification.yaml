@@ -1,0 +1,99 @@
+openapi: 3.0.3
+info:
+  title: AI Workspace API
+  version: 1.0.0
+  description: Backend REST API for AI Workspace (HITK CSBS Academic Project)
+  contact:
+    name: Ankit Kumar Kunwar (Member 2)
+    email: ankit.kunwar@hitk.edu.in
+servers:
+  - url: http://localhost:5000/api/v1
+    description: Local Development Server
+
+paths:
+  /auth/login:
+    post:
+      summary: User Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: Login successful
+
+  /tasks:
+    get:
+      summary: List user tasks
+      parameters:
+        - name: status
+          in: query
+          schema: { type: string, enum: [todo, in_progress, done] }
+        - name: priority
+          in: query
+          schema: { type: string, enum: [low, medium, high] }
+        - name: category
+          in: query
+          schema: { type: string, enum: [academic, project, administrative, personal] }
+      responses:
+        '200':
+          description: List of tasks
+    post:
+      summary: Create new task and predict ML priority
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title]
+              properties:
+                title: { type: string }
+                description: { type: string }
+                category: { type: string }
+                userPriority: { type: string }
+                dueAt: { type: string, format: date-time }
+                estimatedMinutes: { type: integer }
+      responses:
+        '201':
+          description: Task created with ML priority prediction
+
+  /reminders/smart-eval:
+    get:
+      summary: Evaluate smart reminders across all active tasks
+      responses:
+        '200':
+          description: Active context-aware reminders ranked by urgency score
+
+  /planner/daily:
+    post:
+      summary: Generate deterministic time-blocked daily plan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date: { type: string, format: date }
+      responses:
+        '200':
+          description: Daily plan with proposed focus blocks and breaks
+
+  /documents/upload:
+    post:
+      summary: Upload document and generate NLP summary
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file: { type: string, format: binary }
+      responses:
+        '201':
+          description: Document stored and preliminary summary extracted

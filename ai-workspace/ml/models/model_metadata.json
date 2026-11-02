@@ -1,0 +1,92 @@
+{
+  "model_name": "RandomForestClassifier",
+  "n_estimators": 120,
+  "max_depth": 12,
+  "test_accuracy": 0.887,
+  "baseline_accuracy": 0.579,
+  "feature_names": [
+    "hours_to_deadline",
+    "is_overdue",
+    "estimated_duration_min",
+    "user_importance",
+    "workload_pending_tasks",
+    "workload_minutes_today",
+    "available_free_minutes",
+    "historical_completion_rate",
+    "dependency_count",
+    "cat_academic",
+    "cat_administrative",
+    "cat_personal",
+    "cat_project"
+  ],
+  "feature_importances": {
+    "hours_to_deadline": 0.3395,
+    "available_free_minutes": 0.2357,
+    "user_importance": 0.212,
+    "is_overdue": 0.0518,
+    "historical_completion_rate": 0.0324,
+    "dependency_count": 0.0314,
+    "workload_pending_tasks": 0.028,
+    "workload_minutes_today": 0.0267,
+    "estimated_duration_min": 0.0239,
+    "cat_academic": 0.0048,
+    "cat_personal": 0.0047,
+    "cat_project": 0.0047,
+    "cat_administrative": 0.0044
+  },
+  "classes": [
+    "high",
+    "low",
+    "medium"
+  ],
+  "metrics": {
+    "high": {
+      "precision": 0.972972972972973,
+      "recall": 0.861244019138756,
+      "f1-score": 0.9137055837563451,
+      "support": 209.0
+    },
+    "low": {
+      "precision": 0.8681672025723473,
+      "recall": 0.8766233766233766,
+      "f1-score": 0.8723747980613893,
+      "support": 308.0
+    },
+    "medium": {
+      "precision": 0.8670634920634921,
+      "recall": 0.9047619047619048,
+      "f1-score": 0.8855116514690983,
+      "support": 483.0
+    },
+    "accuracy": 0.887,
+    "macro avg": {
+      "precision": 0.9027345558696042,
+      "recall": 0.8808764335080125,
+      "f1-score": 0.8905306777622776,
+      "support": 1000.0
+    },
+    "weighted avg": {
+      "precision": 0.889538516410301,
+      "recall": 0.887,
+      "f1-score": 0.8873580324675585,
+      "support": 1000.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      270,
+      38,
+      0
+    ],
+    [
+      41,
+      437,
+      5
+    ],
+    [
+      0,
+      29,
+      180
+    ]
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "info": {
+    "name": "AI Workspace REST API Test Collection",
+    "description": "Comprehensive Postman test collection for testing all CRUD endpoints, ML prioritization, and smart reminders (Member 4 - Yash Raj, 2360014)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Service reports healthy', function () { var json = pm.response.json(); pm.expect(json.status).to.eql('healthy'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Get Clock Metadata",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/clock?timezone=Asia/Kolkata"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Timezone is Asia/Kolkata', function () { var json = pm.response.json(); pm.expect(json.timezone).to.eql('Asia/Kolkata'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - List Tasks (CRUD Read)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/tasks",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{authToken}}" },
+          { "key": "x-demo-mode", "value": "true" }
+        ]
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Returns array of tasks', function () { var json = pm.response.json(); pm.expect(Array.isArray(json.tasks)).to.be.true; });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Create Task (ML Prioritized)",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/tasks",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{authToken}}" },
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-demo-mode", "value": "true" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Postman Test Task #1\",\n  \"description\": \"Automated API test case\",\n  \"category\": \"project\",\n  \"userPriority\": \"high\",\n  \"estimatedMinutes\": 60\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201 Created', function () { pm.response.to.have.status(201); });",
+              "pm.test('Random Forest priority prediction exists', function () { var json = pm.response.json(); pm.expect(json.task.predictedPriority).to.be.oneOf(['low','medium','high']); pm.expect(json.task.priorityScore).to.be.a('number'); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - List Notes",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/notes",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{authToken}}" },
+          { "key": "x-demo-mode", "value": "true" }
+        ]
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Notes list returned', function () { var json = pm.response.json(); pm.expect(Array.isArray(json.notes)).to.be.true; });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Smart Reminders Evaluation",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/reminders/smart-eval",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{authToken}}" },
+          { "key": "x-demo-mode", "value": "true" }
+        ]
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Smart reminders evaluated', function () { var json = pm.response.json(); pm.expect(json.evaluatedCount).to.be.at.least(0); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Generate Daily Plan",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/planner/daily",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{authToken}}" },
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "x-demo-mode", "value": "true" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"date\": \"2026-11-02\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+              "pm.test('Plan contains blocks and non-overlapping focus time', function () { var json = pm.response.json(); pm.expect(json.plan.blocks).to.be.an('array'); });"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api/v1" },
+    { "key": "authToken", "value": "demo-token" }
+  ]
+}

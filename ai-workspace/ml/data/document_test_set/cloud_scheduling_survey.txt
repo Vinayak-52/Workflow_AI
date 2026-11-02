@@ -1,0 +1,8 @@
+AI-Driven Job Scheduling in Cloud Computing: A Comprehensive Review
+Authors: Sanjalawe et al. (2025), Springer Nature Artificial Intelligence Review.
+
+Cloud computing data centers handle millions of heterogeneous user tasks with variable resource demands and strict quality-of-service constraints. Traditional heuristic scheduling algorithms such as First-Come-First-Served and Round-Robin fail to adapt to bursty workloads and dynamic queueing states.
+Machine learning and Reinforcement Learning approaches offer substantial improvements in makespan minimization, energy efficiency, and task deadline compliance.
+The authors survey deep Q-networks, policy gradient algorithms, and actor-critic frameworks deployed across enterprise cloud testbeds.
+Experimental benchmarks demonstrate that AI-enhanced schedulers reduce task rejection ratios by 28% while improving throughput across virtual machine clusters.
+In future iterations, federated scheduling across multi-cloud environments will address strict user data privacy requirements.

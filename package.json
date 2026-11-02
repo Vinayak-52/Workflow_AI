@@ -1,0 +1,19 @@
+{
+  "name": "ai-workspace-root",
+  "version": "1.0.0",
+  "description": "AI Workspace (Workflow AI) - Academic Project, Department of CSBS, HITK",
+  "scripts": {
+    "dev:server": "npm --prefix ai-workspace/server run dev",
+    "dev:client": "npm --prefix ai-workspace/client run dev",
+    "start:ml": "python ai-workspace/ml/src/ml_service.py",
+    "test:ml": "python ai-workspace/ml/tests/test_ml_pipeline.py",
+    "test:reminders": "python ai-workspace/tests/test_priorities_and_reminders.py",
+    "test:summarizer": "python ai-workspace/ml/data/document_test_set/evaluate_test_set.py",
+    "build:server": "npm --prefix ai-workspace/server run build",
+    "build:client": "npm --prefix ai-workspace/client run build",
+    "build": "npm run build:server && npm run build:client",
+    "seed": "npm --prefix ai-workspace/server run seed"
+  },
+  "author": "Group 7 (HITK CSBS) - Ayantik Goswami, Ankit Kumar Kunwar, Vinayak Chandra, Yash Raj",
+  "license": "ISC"
+}

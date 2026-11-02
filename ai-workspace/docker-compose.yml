@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  ml-service:
+    build:
+      context: ./ml
+      dockerfile: Dockerfile
+    container_name: ai-workspace-ml
+    ports:
+      - "5001:5001"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5001/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: ai-workspace-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - ML_SERVICE_URL=http://ml-service:5001
+      - JWT_SECRET=hitk-csbs-ai-workspace-key-2026
+    depends_on:
+      ml-service:
+        condition: service_healthy
+    volumes:
+      - server-data:/app/data
+      - server-uploads:/app/uploads
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: ai-workspace-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  server-data:
+  server-uploads:

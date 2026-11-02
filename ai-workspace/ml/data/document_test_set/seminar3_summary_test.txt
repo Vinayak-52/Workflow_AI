@@ -1,0 +1,13 @@
+Heritage Institute of Technology, Kolkata
+Department of Computer Science and Business Systems
+AI Workspace - Problem Statement and Proposal of a Feasible Solution (Seminar 3 Report)
+Mentor: Prof. Sajal Mitra
+Group 7: Ayantik Goswami, Yash Raj, Ankit Kumar Kunwar, Vinayak Chandra
+
+The rapid proliferation of digital tools for task management, scheduling, note-taking, and collaboration has paradoxically increased cognitive load on users rather than reducing it. Students, professionals, and teams today routinely juggle between multiple standalone applications - a calendar here, a to-do list there, a notes app somewhere else - with no intelligent system linking them together.
+The proposed AI Workspace platform consolidates task management, AI-powered scheduling, knowledge organization, and NLP-based summarization into a single application backed by cloud infrastructure. The platform is designed to learn from the user's behavior over time, making its recommendations progressively more accurate and personalized.
+The core problem is the fragmentation of modern productivity tools and the absence of intelligent, adaptive task management.
+At its core, the workspace collects structured user data: tasks, deadlines, meetings, goals, and notes. Machine learning algorithms process this data continuously to prioritize activities, generate optimized schedules, and surface timely reminders.
+NLP models handle document and note summarization, reducing information overload.
+The three-layer architecture comprises the User Interface layer (React.js), AI/ML processing layer (scikit-learn and transformers), and Cloud Infrastructure layer (Firebase and REST APIs).
+All team members must complete their module testing before the upcoming Seminar 4 evaluation.
