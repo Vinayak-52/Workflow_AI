@@ -6,7 +6,7 @@ class ApiService {
   private token: string | null = null;
 
   constructor() {
-    this.token = localStorage.getItem('ai_workspace_token') || 'demo-token';
+    this.token = localStorage.getItem('ai_workspace_token');
   }
 
   setToken(token: string) {
@@ -19,6 +19,14 @@ class ApiService {
     localStorage.removeItem('ai_workspace_token');
   }
 
+  getToken(): string | null {
+    return this.token;
+  }
+
+  isAuthenticated(): boolean {
+    return Boolean(this.token);
+  }
+
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const headers: Record<string, string> = {
       ...(options.headers as Record<string, string> || {})
@@ -27,7 +35,7 @@ class ApiService {
     if (this.token) {
       headers['Authorization'] = `Bearer ${this.token}`;
     }
-    // Set demo mode header to ensure smooth instant demo evaluator experience
+    // Set demo mode header to ensure smooth evaluator testing if needed
     headers['x-demo-mode'] = 'true';
 
     if (!(options.body instanceof FormData) && !headers['Content-Type']) {
@@ -52,6 +60,15 @@ class ApiService {
     const data = await this.request<{ user: User; token: string }>('/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password })
+    });
+    this.setToken(data.token);
+    return data;
+  }
+
+  async register(email: string, password: string, displayName: string): Promise<{ user: User; token: string }> {
+    const data = await this.request<{ user: User; token: string }>('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ email, password, displayName })
     });
     this.setToken(data.token);
     return data;

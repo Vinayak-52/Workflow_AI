@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   LayoutDashboard, CheckSquare, BookOpen, Calendar, FileText,
-  Bell, Settings, Bot, Sparkles, Plus, Menu, X, ChevronRight, User
+  Bell, Settings, Bot, Sparkles, Plus, Menu, X, ChevronRight, User, LogOut
 } from 'lucide-react';
 import { LiveClock } from './LiveClock.tsx';
 import { DashboardView } from '../features/dashboard/DashboardView.tsx';
@@ -12,8 +12,14 @@ import { DocumentsView } from '../features/documents/DocumentsView.tsx';
 import { RemindersView } from '../features/reminders/RemindersView.tsx';
 import { SettingsView } from '../features/settings/SettingsView.tsx';
 import { AssistantPanel } from '../features/assistant/AssistantPanel.tsx';
+import { User as UserType } from '../types/index.ts';
 
-export const AppShell: React.FC = () => {
+interface AppShellProps {
+  currentUser?: UserType | null;
+  onSignOut?: () => void;
+}
+
+export const AppShell: React.FC<AppShellProps> = ({ currentUser, onSignOut }) => {
   const [currentView, setCurrentView] = useState<string>('dashboard');
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -64,6 +70,14 @@ export const AppShell: React.FC = () => {
         );
     }
   };
+
+  const displayName = currentUser?.displayName || 'Vinayak Chandra';
+  const initials = displayName
+    .split(' ')
+    .map(p => p[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
     <div className="min-h-screen flex bg-charcoal-950 text-charcoal-100 font-sans selection:bg-brand-600 selection:text-white">
@@ -120,20 +134,32 @@ export const AppShell: React.FC = () => {
           })}
         </nav>
 
-        {/* Bottom Profile / Mentor badge */}
+        {/* Bottom Profile & Sign Out badge */}
         {isSidebarOpen && (
-          <div className="p-3 border-t border-charcoal-800 bg-charcoal-950/40 text-[11px] text-charcoal-400">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-charcoal-800 border border-charcoal-700 flex items-center justify-center font-bold text-xs text-brand-400">
-                VC
+          <div className="p-3 border-t border-charcoal-800 bg-charcoal-950/40 text-[11px] text-charcoal-400 space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 overflow-hidden">
+                <div className="w-7 h-7 rounded-full bg-charcoal-800 border border-charcoal-700 flex items-center justify-center font-bold text-xs text-brand-400 shrink-0">
+                  {initials}
+                </div>
+                <div className="truncate">
+                  <p className="font-semibold text-charcoal-200 truncate">{displayName}</p>
+                  <p className="text-[10px] text-charcoal-500 truncate">{currentUser?.email || 'vinayak@hitk.edu.in'}</p>
+                </div>
               </div>
-              <div className="truncate">
-                <p className="font-semibold text-charcoal-200 truncate">Vinayak Chandra</p>
-                <p className="text-[10px] text-charcoal-500 truncate">Roll: 2360035</p>
-              </div>
+              {onSignOut && (
+                <button
+                  onClick={onSignOut}
+                  title="Sign Out / Switch Account"
+                  className="p-1.5 rounded-lg text-charcoal-400 hover:text-rose-400 hover:bg-charcoal-800 transition"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
-            <div className="mt-2 text-[10px] text-charcoal-500">
-              Mentor: Prof. Sajal Mitra
+            <div className="text-[10px] text-charcoal-500 flex items-center justify-between pt-1 border-t border-charcoal-800/60">
+              <span>Mentor: Prof. Sajal Mitra</span>
+              <span className="text-emerald-400 text-[9px] font-mono">Logged In</span>
             </div>
           </div>
         )}
@@ -187,6 +213,18 @@ export const AppShell: React.FC = () => {
               <Bot className="w-3.5 h-3.5" />
               <span>AI Assistant</span>
             </button>
+
+            {/* Sign Out Button in TopBar */}
+            {onSignOut && (
+              <button
+                onClick={onSignOut}
+                title="Sign Out"
+                className="p-2 rounded-lg bg-charcoal-800 hover:bg-charcoal-700 text-charcoal-400 hover:text-rose-400 border border-charcoal-700 transition flex items-center gap-1 text-xs"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Sign Out</span>
+              </button>
+            )}
           </div>
         </header>
 
