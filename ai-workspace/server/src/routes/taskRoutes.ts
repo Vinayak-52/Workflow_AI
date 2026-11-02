@@ -66,6 +66,15 @@ router.post('/', activityLogger('task', 'TASK_CREATED'), async (req: Authenticat
       return res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'Task title is required' } });
     }
 
+    if (dueAt && new Date(dueAt).getTime() < Date.now() - 60000) {
+      return res.status(400).json({
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: 'Task deadline cannot be in the past. Please select a future date and time.'
+        }
+      });
+    }
+
     const dueDate = dueAt ? new Date(dueAt) : new Date(Date.now() + 24 * 3600 * 1000);
     const now = new Date();
     const hoursToDeadline = (dueDate.getTime() - now.getTime()) / (3600 * 1000);
@@ -142,7 +151,17 @@ router.patch('/:id', activityLogger('task', 'TASK_UPDATED'), async (req: Authent
     if (title !== undefined) task.title = title;
     if (description !== undefined) task.description = description;
     if (category !== undefined) task.category = category;
-    if (dueAt !== undefined) task.dueAt = dueAt;
+    if (dueAt !== undefined) {
+      if (task.status !== 'done' && new Date(dueAt).getTime() < Date.now() - 60000) {
+        return res.status(400).json({
+          error: {
+            code: 'VALIDATION_ERROR',
+            message: 'Task deadline cannot be in the past. Please select a future date and time.'
+          }
+        });
+      }
+      task.dueAt = dueAt;
+    }
     if (estimatedMinutes !== undefined) task.estimatedMinutes = Number(estimatedMinutes);
 
     // Manual Priority Override tracking

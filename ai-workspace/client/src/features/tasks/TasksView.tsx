@@ -26,6 +26,13 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
   const [dueAt, setDueAt] = useState('');
   const [estimatedMinutes, setEstimatedMinutes] = useState(60);
   const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+
+  const getMinDateTime = () => {
+    const now = new Date();
+    const pad = (n: number) => String(n).padStart(2, '0');
+    return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  };
 
   useEffect(() => {
     loadTasks();
@@ -45,7 +52,13 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
 
   const handleCreateTask = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
     if (!title.trim() || submitting) return;
+
+    if (dueAt && new Date(dueAt).getTime() < Date.now()) {
+      setFormError('Task deadline cannot be in the past. Please select a future date and time.');
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -61,7 +74,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
       resetForm();
       onCloseCreate();
     } catch (err: any) {
-      alert(`Error creating task: ${err.message}`);
+      setFormError(`Error creating task: ${err.message}`);
     } finally {
       setSubmitting(false);
     }
@@ -69,7 +82,13 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
 
   const handleUpdateTask = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
     if (!editingTask || submitting) return;
+
+    if (editingTask.status !== 'done' && dueAt && new Date(dueAt).getTime() < Date.now()) {
+      setFormError('Task deadline cannot be in the past. Please select a future date and time.');
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -85,7 +104,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
       setEditingTask(null);
       resetForm();
     } catch (err: any) {
-      alert(`Error updating task: ${err.message}`);
+      setFormError(`Error updating task: ${err.message}`);
     } finally {
       setSubmitting(false);
     }
@@ -122,6 +141,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
   };
 
   const openEdit = (task: Task) => {
+    setFormError(null);
     setEditingTask(task);
     setTitle(task.title);
     setDescription(task.description);
@@ -132,6 +152,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
   };
 
   const resetForm = () => {
+    setFormError(null);
     setTitle('');
     setDescription('');
     setCategory('project');
@@ -457,14 +478,34 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                 </div>
               </div>
 
+              {formError && (
+                <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs flex items-center gap-2 animate-in fade-in">
+                  <AlertTriangle className="w-4 h-4 shrink-0 text-red-500" />
+                  <span>{formError}</span>
+                </div>
+              )}
+
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">Due Date &amp; Time</label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-slate-600 dark:text-charcoal-400 font-medium">Due Date &amp; Time</label>
+                    <span className="text-[10px] text-brand-600 dark:text-brand-400 font-medium">Future only</span>
+                  </div>
                   <input
                     type="datetime-local"
+                    min={getMinDateTime()}
                     value={dueAt}
-                    onChange={e => setDueAt(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500"
+                    onChange={e => {
+                      setDueAt(e.target.value);
+                      if (e.target.value && new Date(e.target.value).getTime() < Date.now()) {
+                        setFormError('Task deadline cannot be in the past. Please select a future date and time.');
+                      } else {
+                        setFormError(null);
+                      }
+                    }}
+                    className={`w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border ${
+                      formError ? 'border-red-500 focus:border-red-500' : 'border-slate-200 dark:border-charcoal-700 focus:border-brand-500'
+                    } text-slate-900 dark:text-charcoal-200`}
                   />
                 </div>
 

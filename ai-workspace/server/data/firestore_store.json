@@ -25,11 +25,11 @@
       "id": "task-001",
       "title": "Prepare Seminar 3 Slides for Prof. Sajal Mitra",
       "description": "Complete the slide deck covering Problem Statement, Feasibility Analysis, and 3-Layer Architecture.",
-      "status": "done",
+      "status": "todo",
       "category": "academic",
       "userPriority": "high",
       "predictedPriority": "high",
-      "priorityScore": 92.5,
+      "priorityScore": 93.3,
       "dueAt": "2026-11-02T12:16:54.934Z",
       "estimatedMinutes": 90,
       "isOverdue": false,
@@ -37,18 +37,18 @@
       "sourceType": "manual",
       "userId": "user-hitk-vinayak-001",
       "createdAt": "2026-11-02T08:16:54.934Z",
-      "updatedAt": "2026-11-02T09:04:26.515Z",
+      "updatedAt": "2026-11-02T13:07:14.930Z",
       "completedAt": "2026-11-02T09:04:26.512Z"
     },
     "task-002": {
       "id": "task-002",
       "title": "Evaluate Random Forest Model with ROUGE & Confusion Matrix",
       "description": "Run train_model.py, verify test accuracy > 85%, and generate classification report for Member 1.",
-      "status": "done",
+      "status": "todo",
       "category": "project",
       "userPriority": "high",
       "predictedPriority": "high",
-      "priorityScore": 88,
+      "priorityScore": 90.7,
       "dueAt": "2026-11-02T16:16:54.934Z",
       "estimatedMinutes": 60,
       "isOverdue": false,
@@ -57,7 +57,7 @@
       "sourceReference": "Generated from AI Assistant planning recommendation",
       "userId": "user-hitk-vinayak-001",
       "createdAt": "2026-11-02T08:16:54.934Z",
-      "updatedAt": "2026-11-02T09:04:27.745Z",
+      "updatedAt": "2026-11-02T13:07:22.381Z",
       "completedAt": "2026-11-02T09:04:27.742Z"
     },
     "task-003": {
@@ -150,6 +150,24 @@
       "sourceType": "manual",
       "createdAt": "2026-11-02T08:18:12.615Z",
       "updatedAt": "2026-11-02T08:18:12.665Z"
+    },
+    "task-97173f25": {
+      "id": "task-97173f25",
+      "userId": "user-hitk-vinayak-001",
+      "title": "Project report",
+      "description": "Documentation and testing of the project",
+      "status": "todo",
+      "category": "project",
+      "userPriority": "medium",
+      "predictedPriority": "medium",
+      "priorityScore": 56.8,
+      "dueAt": "2026-11-03T13:04:00.000Z",
+      "estimatedMinutes": 60,
+      "isOverdue": false,
+      "dependencyCount": 0,
+      "sourceType": "manual",
+      "createdAt": "2026-11-02T13:04:24.906Z",
+      "updatedAt": "2026-11-02T13:04:24.906Z"
     }
   },
   "notes": {
@@ -235,248 +253,548 @@
     }
   },
   "dailyPlans": {
-    "plan-2026-11-02-fb532b": {
-      "id": "plan-2026-11-02-fb532b",
+    "plan-2026-11-01-82a8e3": {
+      "id": "plan-2026-11-01-82a8e3",
       "userId": "user-hitk-vinayak-001",
-      "planDate": "2026-11-02",
+      "planDate": "2026-11-01",
       "timezone": "Asia/Kolkata",
       "blocks": [
         {
-          "id": "block-1f48f026",
+          "id": "block-3d1b84fd",
           "taskId": "task-001",
           "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
-          "startAt": "2026-11-02T03:30:00.000Z",
-          "endAt": "2026-11-02T04:30:00.000Z",
-          "durationMinutes": 60,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: HIGH (Score 92.5). Allocated in available unbooked slot."
-        },
-        {
-          "id": "block-2573a1f7",
-          "title": "CBS3293: Cloud & Distributed Systems Lecture",
-          "startAt": "2026-11-02T10:00:00+05:30",
-          "endAt": "2026-11-02T11:30:00+05:30",
+          "startAt": "2026-11-01T03:30:00.000Z",
+          "endAt": "2026-11-01T05:00:00.000Z",
           "durationMinutes": 90,
-          "kind": "fixed_event_reference",
-          "reason": "Fixed commitment from HITK Academic Schedule (Room 304, Main Building)"
-        },
-        {
-          "id": "block-06614ac1",
-          "taskId": "task-002",
-          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
-          "startAt": "2026-11-02T06:00:00.000Z",
-          "endAt": "2026-11-02T07:00:00.000Z",
-          "durationMinutes": 60,
           "kind": "proposed_focus",
-          "reason": "ML Priority: HIGH (Score 88). Allocated in available unbooked slot."
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot."
         },
         {
-          "id": "block-b2c2d5d6",
+          "id": "block-b7cf8319",
           "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-02T07:00:00.000Z",
-          "endAt": "2026-11-02T07:15:00.000Z",
+          "startAt": "2026-11-01T05:00:00.000Z",
+          "endAt": "2026-11-01T05:15:00.000Z",
           "durationMinutes": 15,
           "kind": "break",
           "reason": "Prevents cognitive fatigue between intense focus sessions."
         },
         {
-          "id": "block-7f083b33",
+          "id": "block-d2864301",
+          "taskId": "task-002",
+          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
+          "startAt": "2026-11-01T05:15:00.000Z",
+          "endAt": "2026-11-01T06:15:00.000Z",
+          "durationMinutes": 60,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-fef8d367",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-01T06:15:00.000Z",
+          "endAt": "2026-11-01T06:30:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-1e7afd97",
+          "taskId": "task-48ad6a41",
+          "title": "Focus: E2E Integration Test Task",
+          "startAt": "2026-11-01T06:30:00.000Z",
+          "endAt": "2026-11-01T08:00:00.000Z",
+          "durationMinutes": 90,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-2e4951af",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-01T08:00:00.000Z",
+          "endAt": "2026-11-01T08:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-34f168af",
           "taskId": "task-15963452",
           "title": "Focus: E2E Integration Test Task",
-          "startAt": "2026-11-02T07:15:00.000Z",
-          "endAt": "2026-11-02T08:45:00.000Z",
+          "startAt": "2026-11-01T08:15:00.000Z",
+          "endAt": "2026-11-01T09:45:00.000Z",
           "durationMinutes": 90,
           "kind": "proposed_focus",
           "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot."
         },
         {
-          "id": "block-3e2a797a",
+          "id": "block-c658dc0a",
           "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-02T08:45:00.000Z",
-          "endAt": "2026-11-02T09:00:00.000Z",
+          "startAt": "2026-11-01T09:45:00.000Z",
+          "endAt": "2026-11-01T10:00:00.000Z",
           "durationMinutes": 15,
           "kind": "break",
           "reason": "Prevents cognitive fatigue between intense focus sessions."
         },
         {
-          "id": "block-8d8debc8",
-          "title": "Project Review with Prof. Sajal Mitra",
-          "startAt": "2026-11-02T14:30:00+05:30",
-          "endAt": "2026-11-02T15:30:00+05:30",
+          "id": "block-6e6a594b",
+          "taskId": "task-97173f25",
+          "title": "Focus: Project report",
+          "startAt": "2026-11-01T10:00:00.000Z",
+          "endAt": "2026-11-01T11:00:00.000Z",
           "durationMinutes": 60,
-          "kind": "fixed_event_reference",
-          "reason": "Fixed commitment from HITK Faculty Meetings (Faculty Cabin 12)"
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot."
         },
         {
-          "id": "block-7c612a43",
+          "id": "block-9c1d9b10",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-01T11:00:00.000Z",
+          "endAt": "2026-11-01T11:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-c9cb7b7b",
           "taskId": "task-003",
           "title": "Focus: Submit HITK Library Due Books & Clearance Form",
-          "startAt": "2026-11-02T10:00:00.000Z",
-          "endAt": "2026-11-02T10:45:00.000Z",
+          "startAt": "2026-11-01T11:15:00.000Z",
+          "endAt": "2026-11-01T12:00:00.000Z",
           "durationMinutes": 45,
           "kind": "proposed_focus",
           "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot."
         },
         {
-          "id": "block-13113364",
+          "id": "block-066f54a0",
           "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-02T10:45:00.000Z",
-          "endAt": "2026-11-02T11:00:00.000Z",
+          "startAt": "2026-11-01T12:00:00.000Z",
+          "endAt": "2026-11-01T12:15:00.000Z",
           "durationMinutes": 15,
           "kind": "break",
           "reason": "Prevents cognitive fatigue between intense focus sessions."
-        },
-        {
-          "id": "block-e42aa3bb",
-          "taskId": "task-005",
-          "title": "Focus: Setup Docker Container & Cloud Deployment Script",
-          "startAt": "2026-11-02T11:00:00.000Z",
-          "endAt": "2026-11-02T12:30:00.000Z",
-          "durationMinutes": 90,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: MEDIUM (Score 51.5). Allocated in available unbooked slot."
         }
       ],
-      "totalWorkMinutes": 345,
-      "totalBreakMinutes": 45,
+      "totalWorkMinutes": 435,
+      "totalBreakMinutes": 90,
       "conflicts": [],
       "assumptions": [
         "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
         "Fixed Google Calendar events take absolute scheduling precedence.",
         "Tasks allocated sequentially by ML priority score into unbooked slots."
       ],
-      "createdAt": "2026-11-02T08:17:06.434Z"
+      "createdAt": "2026-11-02T13:07:57.995Z"
     },
-    "plan-2026-11-02-389960": {
-      "id": "plan-2026-11-02-389960",
+    "plan-2026-11-03-b91b67": {
+      "id": "plan-2026-11-03-b91b67",
       "userId": "user-hitk-vinayak-001",
-      "planDate": "2026-11-02",
+      "planDate": "2026-11-03",
       "timezone": "Asia/Kolkata",
       "blocks": [
         {
-          "id": "block-801ede52",
+          "id": "block-2f7d81d2",
           "taskId": "task-001",
           "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
-          "startAt": "2026-11-02T03:30:00.000Z",
-          "endAt": "2026-11-02T04:30:00.000Z",
-          "durationMinutes": 60,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: HIGH (Score 92.5). Allocated in available unbooked slot."
-        },
-        {
-          "id": "block-cca318ad",
-          "title": "CBS3293: Cloud & Distributed Systems Lecture",
-          "startAt": "2026-11-02T10:00:00+05:30",
-          "endAt": "2026-11-02T11:30:00+05:30",
+          "startAt": "2026-11-03T03:30:00.000Z",
+          "endAt": "2026-11-03T05:00:00.000Z",
           "durationMinutes": 90,
-          "kind": "fixed_event_reference",
-          "reason": "Fixed commitment from HITK Academic Schedule (Room 304, Main Building)"
-        },
-        {
-          "id": "block-612eab8e",
-          "taskId": "task-002",
-          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
-          "startAt": "2026-11-02T06:00:00.000Z",
-          "endAt": "2026-11-02T07:00:00.000Z",
-          "durationMinutes": 60,
           "kind": "proposed_focus",
-          "reason": "ML Priority: HIGH (Score 88). Allocated in available unbooked slot."
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot."
         },
         {
-          "id": "block-a25fb44b",
+          "id": "block-2e01e46b",
           "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-02T07:00:00.000Z",
-          "endAt": "2026-11-02T07:15:00.000Z",
+          "startAt": "2026-11-03T05:00:00.000Z",
+          "endAt": "2026-11-03T05:15:00.000Z",
           "durationMinutes": 15,
           "kind": "break",
           "reason": "Prevents cognitive fatigue between intense focus sessions."
         },
         {
-          "id": "block-a8a81769",
+          "id": "block-ed9cc84b",
+          "taskId": "task-002",
+          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
+          "startAt": "2026-11-03T05:15:00.000Z",
+          "endAt": "2026-11-03T06:15:00.000Z",
+          "durationMinutes": 60,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-af2bbe7d",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-03T06:15:00.000Z",
+          "endAt": "2026-11-03T06:30:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-2eead99a",
+          "taskId": "task-48ad6a41",
+          "title": "Focus: E2E Integration Test Task",
+          "startAt": "2026-11-03T06:30:00.000Z",
+          "endAt": "2026-11-03T08:00:00.000Z",
+          "durationMinutes": 90,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-fc56c1b8",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-03T08:00:00.000Z",
+          "endAt": "2026-11-03T08:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-fd1c0414",
           "taskId": "task-15963452",
           "title": "Focus: E2E Integration Test Task",
-          "startAt": "2026-11-02T07:15:00.000Z",
-          "endAt": "2026-11-02T08:45:00.000Z",
+          "startAt": "2026-11-03T08:15:00.000Z",
+          "endAt": "2026-11-03T09:45:00.000Z",
           "durationMinutes": 90,
           "kind": "proposed_focus",
           "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot."
         },
         {
-          "id": "block-6fc0902d",
+          "id": "block-1e6cd406",
           "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-02T08:45:00.000Z",
-          "endAt": "2026-11-02T09:00:00.000Z",
+          "startAt": "2026-11-03T09:45:00.000Z",
+          "endAt": "2026-11-03T10:00:00.000Z",
           "durationMinutes": 15,
           "kind": "break",
           "reason": "Prevents cognitive fatigue between intense focus sessions."
         },
         {
-          "id": "block-21536e72",
-          "title": "Project Review with Prof. Sajal Mitra",
-          "startAt": "2026-11-02T14:30:00+05:30",
-          "endAt": "2026-11-02T15:30:00+05:30",
+          "id": "block-175ba5b3",
+          "taskId": "task-97173f25",
+          "title": "Focus: Project report",
+          "startAt": "2026-11-03T10:00:00.000Z",
+          "endAt": "2026-11-03T11:00:00.000Z",
           "durationMinutes": 60,
-          "kind": "fixed_event_reference",
-          "reason": "Fixed commitment from HITK Faculty Meetings (Faculty Cabin 12)"
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot."
         },
         {
-          "id": "block-fc8c2550",
+          "id": "block-edc0e30c",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-03T11:00:00.000Z",
+          "endAt": "2026-11-03T11:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-01c0c55a",
           "taskId": "task-003",
           "title": "Focus: Submit HITK Library Due Books & Clearance Form",
-          "startAt": "2026-11-02T10:00:00.000Z",
-          "endAt": "2026-11-02T10:45:00.000Z",
+          "startAt": "2026-11-03T11:15:00.000Z",
+          "endAt": "2026-11-03T12:00:00.000Z",
           "durationMinutes": 45,
           "kind": "proposed_focus",
           "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot."
         },
         {
-          "id": "block-995d886e",
+          "id": "block-0a77a8da",
           "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-02T10:45:00.000Z",
-          "endAt": "2026-11-02T11:00:00.000Z",
+          "startAt": "2026-11-03T12:00:00.000Z",
+          "endAt": "2026-11-03T12:15:00.000Z",
           "durationMinutes": 15,
           "kind": "break",
           "reason": "Prevents cognitive fatigue between intense focus sessions."
-        },
-        {
-          "id": "block-aea7e093",
-          "taskId": "task-005",
-          "title": "Focus: Setup Docker Container & Cloud Deployment Script",
-          "startAt": "2026-11-02T11:00:00.000Z",
-          "endAt": "2026-11-02T12:30:00.000Z",
-          "durationMinutes": 90,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: MEDIUM (Score 51.5). Allocated in available unbooked slot."
         }
       ],
-      "totalWorkMinutes": 345,
-      "totalBreakMinutes": 45,
+      "totalWorkMinutes": 435,
+      "totalBreakMinutes": 90,
       "conflicts": [],
       "assumptions": [
         "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
         "Fixed Google Calendar events take absolute scheduling precedence.",
         "Tasks allocated sequentially by ML priority score into unbooked slots."
       ],
-      "createdAt": "2026-11-02T08:17:06.480Z"
+      "createdAt": "2026-11-02T13:08:04.634Z"
     },
-    "plan-2026-11-02-3a3335": {
-      "id": "plan-2026-11-02-3a3335",
+    "plan-2026-11-04-4b0e3d": {
+      "id": "plan-2026-11-04-4b0e3d",
+      "userId": "user-hitk-vinayak-001",
+      "planDate": "2026-11-04",
+      "timezone": "Asia/Kolkata",
+      "blocks": [
+        {
+          "id": "block-c468b0d6",
+          "taskId": "task-001",
+          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
+          "startAt": "2026-11-04T03:30:00.000Z",
+          "endAt": "2026-11-04T05:00:00.000Z",
+          "durationMinutes": 90,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-0062a133",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-04T05:00:00.000Z",
+          "endAt": "2026-11-04T05:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-afdb0f06",
+          "taskId": "task-002",
+          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
+          "startAt": "2026-11-04T05:15:00.000Z",
+          "endAt": "2026-11-04T06:15:00.000Z",
+          "durationMinutes": 60,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-1da35b1c",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-04T06:15:00.000Z",
+          "endAt": "2026-11-04T06:30:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-81c931c0",
+          "taskId": "task-48ad6a41",
+          "title": "Focus: E2E Integration Test Task",
+          "startAt": "2026-11-04T06:30:00.000Z",
+          "endAt": "2026-11-04T08:00:00.000Z",
+          "durationMinutes": 90,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-446e4bc8",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-04T08:00:00.000Z",
+          "endAt": "2026-11-04T08:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-0c6bdc7e",
+          "taskId": "task-15963452",
+          "title": "Focus: E2E Integration Test Task",
+          "startAt": "2026-11-04T08:15:00.000Z",
+          "endAt": "2026-11-04T09:45:00.000Z",
+          "durationMinutes": 90,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-cb7a0264",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-04T09:45:00.000Z",
+          "endAt": "2026-11-04T10:00:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-a3ae63d3",
+          "taskId": "task-97173f25",
+          "title": "Focus: Project report",
+          "startAt": "2026-11-04T10:00:00.000Z",
+          "endAt": "2026-11-04T11:00:00.000Z",
+          "durationMinutes": 60,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-b9659f0b",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-04T11:00:00.000Z",
+          "endAt": "2026-11-04T11:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-b3d95109",
+          "taskId": "task-003",
+          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
+          "startAt": "2026-11-04T11:15:00.000Z",
+          "endAt": "2026-11-04T12:00:00.000Z",
+          "durationMinutes": 45,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-1fe646ec",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-04T12:00:00.000Z",
+          "endAt": "2026-11-04T12:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        }
+      ],
+      "totalWorkMinutes": 435,
+      "totalBreakMinutes": 90,
+      "conflicts": [],
+      "assumptions": [
+        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
+        "Fixed Google Calendar events take absolute scheduling precedence.",
+        "Tasks allocated sequentially by ML priority score into unbooked slots."
+      ],
+      "createdAt": "2026-11-02T13:08:13.597Z"
+    },
+    "plan-2026-11-13-e89ece": {
+      "id": "plan-2026-11-13-e89ece",
+      "userId": "user-hitk-vinayak-001",
+      "planDate": "2026-11-13",
+      "timezone": "Asia/Kolkata",
+      "blocks": [
+        {
+          "id": "block-9223b669",
+          "taskId": "task-001",
+          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
+          "startAt": "2026-11-13T03:30:00.000Z",
+          "endAt": "2026-11-13T05:00:00.000Z",
+          "durationMinutes": 90,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-4d49901f",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-13T05:00:00.000Z",
+          "endAt": "2026-11-13T05:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-13ee96ad",
+          "taskId": "task-002",
+          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
+          "startAt": "2026-11-13T05:15:00.000Z",
+          "endAt": "2026-11-13T06:15:00.000Z",
+          "durationMinutes": 60,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-e381738d",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-13T06:15:00.000Z",
+          "endAt": "2026-11-13T06:30:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-624029a9",
+          "taskId": "task-48ad6a41",
+          "title": "Focus: E2E Integration Test Task",
+          "startAt": "2026-11-13T06:30:00.000Z",
+          "endAt": "2026-11-13T08:00:00.000Z",
+          "durationMinutes": 90,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-7554a457",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-13T08:00:00.000Z",
+          "endAt": "2026-11-13T08:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-b22a36b2",
+          "taskId": "task-15963452",
+          "title": "Focus: E2E Integration Test Task",
+          "startAt": "2026-11-13T08:15:00.000Z",
+          "endAt": "2026-11-13T09:45:00.000Z",
+          "durationMinutes": 90,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-7a3aeb0f",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-13T09:45:00.000Z",
+          "endAt": "2026-11-13T10:00:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-1940cca5",
+          "taskId": "task-97173f25",
+          "title": "Focus: Project report",
+          "startAt": "2026-11-13T10:00:00.000Z",
+          "endAt": "2026-11-13T11:00:00.000Z",
+          "durationMinutes": 60,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-b33d4cb1",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-13T11:00:00.000Z",
+          "endAt": "2026-11-13T11:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "id": "block-322d5061",
+          "taskId": "task-003",
+          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
+          "startAt": "2026-11-13T11:15:00.000Z",
+          "endAt": "2026-11-13T12:00:00.000Z",
+          "durationMinutes": 45,
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot."
+        },
+        {
+          "id": "block-f3ff3c8e",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-13T12:00:00.000Z",
+          "endAt": "2026-11-13T12:15:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        }
+      ],
+      "totalWorkMinutes": 435,
+      "totalBreakMinutes": 90,
+      "conflicts": [],
+      "assumptions": [
+        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
+        "Fixed Google Calendar events take absolute scheduling precedence.",
+        "Tasks allocated sequentially by ML priority score into unbooked slots."
+      ],
+      "createdAt": "2026-11-02T13:08:19.889Z"
+    },
+    "plan-2026-11-02-701e77": {
+      "id": "plan-2026-11-02-701e77",
       "userId": "user-hitk-vinayak-001",
       "planDate": "2026-11-02",
       "timezone": "Asia/Kolkata",
       "blocks": [
         {
-          "id": "block-e324fdd0",
+          "id": "block-bf1d0f5a",
           "taskId": "task-001",
           "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
           "startAt": "2026-11-02T03:30:00.000Z",
           "endAt": "2026-11-02T04:30:00.000Z",
           "durationMinutes": 60,
           "kind": "proposed_focus",
-          "reason": "ML Priority: HIGH (Score 92.5). Allocated in available unbooked slot."
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot."
         },
         {
-          "id": "block-d8d102a6",
+          "id": "block-79c4717d",
           "title": "CBS3293: Cloud & Distributed Systems Lecture",
           "startAt": "2026-11-02T10:00:00+05:30",
           "endAt": "2026-11-02T11:30:00+05:30",
@@ -485,17 +803,17 @@
           "reason": "Fixed commitment from HITK Academic Schedule (Room 304, Main Building)"
         },
         {
-          "id": "block-26f7977f",
+          "id": "block-9af46707",
           "taskId": "task-002",
           "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
           "startAt": "2026-11-02T06:00:00.000Z",
           "endAt": "2026-11-02T07:00:00.000Z",
           "durationMinutes": 60,
           "kind": "proposed_focus",
-          "reason": "ML Priority: HIGH (Score 88). Allocated in available unbooked slot."
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot."
         },
         {
-          "id": "block-d5a7d624",
+          "id": "block-490521f5",
           "title": "Scheduled Recovery Break",
           "startAt": "2026-11-02T07:00:00.000Z",
           "endAt": "2026-11-02T07:15:00.000Z",
@@ -504,7 +822,7 @@
           "reason": "Prevents cognitive fatigue between intense focus sessions."
         },
         {
-          "id": "block-c994abfa",
+          "id": "block-b1d18bfa",
           "taskId": "task-48ad6a41",
           "title": "Focus: E2E Integration Test Task",
           "startAt": "2026-11-02T07:15:00.000Z",
@@ -514,7 +832,7 @@
           "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot."
         },
         {
-          "id": "block-86639149",
+          "id": "block-85c71506",
           "title": "Scheduled Recovery Break",
           "startAt": "2026-11-02T08:45:00.000Z",
           "endAt": "2026-11-02T09:00:00.000Z",
@@ -523,7 +841,7 @@
           "reason": "Prevents cognitive fatigue between intense focus sessions."
         },
         {
-          "id": "block-3b6644a5",
+          "id": "block-8f9ebc00",
           "title": "Project Review with Prof. Sajal Mitra",
           "startAt": "2026-11-02T14:30:00+05:30",
           "endAt": "2026-11-02T15:30:00+05:30",
@@ -532,7 +850,7 @@
           "reason": "Fixed commitment from HITK Faculty Meetings (Faculty Cabin 12)"
         },
         {
-          "id": "block-bd48fbd7",
+          "id": "block-39b4e4d9",
           "taskId": "task-15963452",
           "title": "Focus: E2E Integration Test Task",
           "startAt": "2026-11-02T10:00:00.000Z",
@@ -542,7 +860,7 @@
           "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot."
         },
         {
-          "id": "block-b3ba8a4a",
+          "id": "block-822cfb93",
           "title": "Scheduled Recovery Break",
           "startAt": "2026-11-02T11:30:00.000Z",
           "endAt": "2026-11-02T11:45:00.000Z",
@@ -551,14 +869,14 @@
           "reason": "Prevents cognitive fatigue between intense focus sessions."
         },
         {
-          "id": "block-598754d2",
-          "taskId": "task-003",
-          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
+          "id": "block-f86194b2",
+          "taskId": "task-97173f25",
+          "title": "Focus: Project report",
           "startAt": "2026-11-02T11:45:00.000Z",
           "endAt": "2026-11-02T12:30:00.000Z",
           "durationMinutes": 45,
           "kind": "proposed_focus",
-          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot."
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot."
         }
       ],
       "totalWorkMinutes": 345,
@@ -569,119 +887,7 @@
         "Fixed Google Calendar events take absolute scheduling precedence.",
         "Tasks allocated sequentially by ML priority score into unbooked slots."
       ],
-      "createdAt": "2026-11-02T08:18:12.678Z"
-    },
-    "plan-2026-11-02-189d5b": {
-      "id": "plan-2026-11-02-189d5b",
-      "userId": "user-hitk-vinayak-001",
-      "planDate": "2026-11-02",
-      "timezone": "Asia/Kolkata",
-      "blocks": [
-        {
-          "id": "block-75aa7239",
-          "taskId": "task-001",
-          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
-          "startAt": "2026-11-02T03:30:00.000Z",
-          "endAt": "2026-11-02T04:30:00.000Z",
-          "durationMinutes": 60,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: HIGH (Score 92.5). Allocated in available unbooked slot."
-        },
-        {
-          "id": "block-11a78fb2",
-          "title": "CBS3293: Cloud & Distributed Systems Lecture",
-          "startAt": "2026-11-02T10:00:00+05:30",
-          "endAt": "2026-11-02T11:30:00+05:30",
-          "durationMinutes": 90,
-          "kind": "fixed_event_reference",
-          "reason": "Fixed commitment from HITK Academic Schedule (Room 304, Main Building)"
-        },
-        {
-          "id": "block-6338f6d0",
-          "taskId": "task-002",
-          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
-          "startAt": "2026-11-02T06:00:00.000Z",
-          "endAt": "2026-11-02T07:00:00.000Z",
-          "durationMinutes": 60,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: HIGH (Score 88). Allocated in available unbooked slot."
-        },
-        {
-          "id": "block-f034f77e",
-          "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-02T07:00:00.000Z",
-          "endAt": "2026-11-02T07:15:00.000Z",
-          "durationMinutes": 15,
-          "kind": "break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions."
-        },
-        {
-          "id": "block-dc5c2b2a",
-          "taskId": "task-48ad6a41",
-          "title": "Focus: E2E Integration Test Task",
-          "startAt": "2026-11-02T07:15:00.000Z",
-          "endAt": "2026-11-02T08:45:00.000Z",
-          "durationMinutes": 90,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot."
-        },
-        {
-          "id": "block-98f1293d",
-          "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-02T08:45:00.000Z",
-          "endAt": "2026-11-02T09:00:00.000Z",
-          "durationMinutes": 15,
-          "kind": "break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions."
-        },
-        {
-          "id": "block-aff21274",
-          "title": "Project Review with Prof. Sajal Mitra",
-          "startAt": "2026-11-02T14:30:00+05:30",
-          "endAt": "2026-11-02T15:30:00+05:30",
-          "durationMinutes": 60,
-          "kind": "fixed_event_reference",
-          "reason": "Fixed commitment from HITK Faculty Meetings (Faculty Cabin 12)"
-        },
-        {
-          "id": "block-d570ca88",
-          "taskId": "task-15963452",
-          "title": "Focus: E2E Integration Test Task",
-          "startAt": "2026-11-02T10:00:00.000Z",
-          "endAt": "2026-11-02T11:30:00.000Z",
-          "durationMinutes": 90,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot."
-        },
-        {
-          "id": "block-208e3506",
-          "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-02T11:30:00.000Z",
-          "endAt": "2026-11-02T11:45:00.000Z",
-          "durationMinutes": 15,
-          "kind": "break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions."
-        },
-        {
-          "id": "block-36744ed0",
-          "taskId": "task-003",
-          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
-          "startAt": "2026-11-02T11:45:00.000Z",
-          "endAt": "2026-11-02T12:30:00.000Z",
-          "durationMinutes": 45,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot."
-        }
-      ],
-      "totalWorkMinutes": 345,
-      "totalBreakMinutes": 45,
-      "conflicts": [],
-      "assumptions": [
-        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
-        "Fixed Google Calendar events take absolute scheduling precedence.",
-        "Tasks allocated sequentially by ML priority score into unbooked slots."
-      ],
-      "createdAt": "2026-11-02T08:18:12.709Z"
+      "createdAt": "2026-11-02T13:22:41.520Z"
     }
   },
   "activityLogs": [
@@ -786,6 +992,154 @@
         "title": "Evaluate Random Forest Model with ROUGE & Confusion Matrix"
       },
       "createdAt": "2026-11-02T09:04:27.745Z"
+    },
+    {
+      "id": "act-72a0b637",
+      "userId": "user-hitk-vinayak-001",
+      "action": "TASK_UPDATED",
+      "entityType": "task",
+      "entityId": "task-001",
+      "metadata": {
+        "method": "PATCH",
+        "path": "/api/v1/tasks/task-001",
+        "title": "Prepare Seminar 3 Slides for Prof. Sajal Mitra"
+      },
+      "createdAt": "2026-11-02T13:03:18.674Z"
+    },
+    {
+      "id": "act-31c93478",
+      "userId": "user-hitk-vinayak-001",
+      "action": "TASK_UPDATED",
+      "entityType": "task",
+      "entityId": "task-002",
+      "metadata": {
+        "method": "PATCH",
+        "path": "/api/v1/tasks/task-002",
+        "title": "Evaluate Random Forest Model with ROUGE & Confusion Matrix"
+      },
+      "createdAt": "2026-11-02T13:03:20.857Z"
+    },
+    {
+      "id": "act-2d367a8b",
+      "userId": "user-hitk-vinayak-001",
+      "action": "TASK_CREATED",
+      "entityType": "task",
+      "entityId": "task-97173f25",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/tasks",
+        "title": "Project report"
+      },
+      "createdAt": "2026-11-02T13:04:25.032Z"
+    },
+    {
+      "id": "act-181dad41",
+      "userId": "user-hitk-vinayak-001",
+      "action": "PLAN_GENERATED",
+      "entityType": "plan",
+      "entityId": "entity-action",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/planner/daily"
+      },
+      "createdAt": "2026-11-02T13:05:16.972Z"
+    },
+    {
+      "id": "act-667c5155",
+      "userId": "user-hitk-vinayak-001",
+      "action": "PLAN_GENERATED",
+      "entityType": "plan",
+      "entityId": "entity-action",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/planner/daily"
+      },
+      "createdAt": "2026-11-02T13:05:19.956Z"
+    },
+    {
+      "id": "act-e6813ff3",
+      "userId": "user-hitk-vinayak-001",
+      "action": "PLAN_GENERATED",
+      "entityType": "plan",
+      "entityId": "entity-action",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/planner/daily"
+      },
+      "createdAt": "2026-11-02T13:05:22.167Z"
+    },
+    {
+      "id": "act-da0c6347",
+      "userId": "user-hitk-vinayak-001",
+      "action": "PLAN_GENERATED",
+      "entityType": "plan",
+      "entityId": "entity-action",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/planner/daily"
+      },
+      "createdAt": "2026-11-02T13:05:22.937Z"
+    },
+    {
+      "id": "act-e22abe54",
+      "userId": "user-hitk-vinayak-001",
+      "action": "PLAN_GENERATED",
+      "entityType": "plan",
+      "entityId": "entity-action",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/planner/daily"
+      },
+      "createdAt": "2026-11-02T13:05:27.300Z"
+    },
+    {
+      "id": "act-2eff1725",
+      "userId": "user-hitk-vinayak-001",
+      "action": "PLAN_GENERATED",
+      "entityType": "plan",
+      "entityId": "entity-action",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/planner/daily"
+      },
+      "createdAt": "2026-11-02T13:14:17.687Z"
+    },
+    {
+      "id": "act-be8b6c89",
+      "userId": "user-hitk-vinayak-001",
+      "action": "TASK_CREATED",
+      "entityType": "task",
+      "entityId": "task-a288d4da",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/tasks",
+        "title": "Future Task Test"
+      },
+      "createdAt": "2026-11-02T13:22:41.514Z"
+    },
+    {
+      "id": "act-f0acd4c4",
+      "userId": "user-hitk-vinayak-001",
+      "action": "PLAN_GENERATED",
+      "entityType": "plan",
+      "entityId": "entity-action",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/planner/daily"
+      },
+      "createdAt": "2026-11-02T13:22:41.521Z"
+    },
+    {
+      "id": "act-c92248d9",
+      "userId": "user-hitk-vinayak-001",
+      "action": "TASK_DELETED",
+      "entityType": "task",
+      "entityId": "task-a288d4da",
+      "metadata": {
+        "method": "DELETE",
+        "path": "/api/v1/tasks/task-a288d4da"
+      },
+      "createdAt": "2026-11-02T13:22:50.359Z"
     }
   ]
 }

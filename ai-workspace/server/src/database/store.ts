@@ -199,10 +199,20 @@ class DatabaseStore {
 
   // Daily Plan operations
   getDailyPlan(userId: string, planDate: string): DailyPlan | undefined {
-    return Object.values(this.data.dailyPlans).find(p => p.userId === userId && p.planDate === planDate);
+    const plans = Object.values(this.data.dailyPlans)
+      .filter(p => p.userId === userId && p.planDate === planDate)
+      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+    return plans[0];
   }
 
   saveDailyPlan(plan: DailyPlan): DailyPlan {
+    // Purge older plans for the same user and date to guarantee a single active plan
+    for (const key of Object.keys(this.data.dailyPlans)) {
+      const existing = this.data.dailyPlans[key];
+      if (existing.userId === plan.userId && existing.planDate === plan.planDate) {
+        delete this.data.dailyPlans[key];
+      }
+    }
     this.data.dailyPlans[plan.id] = plan;
     this.save();
     return plan;
