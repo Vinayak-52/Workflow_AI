@@ -27,7 +27,11 @@ function getFirestoreInstance(): Firestore | null {
   if (CONFIG.FIREBASE_PROJECT_ID && CONFIG.FIREBASE_CLIENT_EMAIL && CONFIG.FIREBASE_PRIVATE_KEY) {
     try {
       if (getApps().length === 0) {
-        const formattedKey = CONFIG.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n');
+        let formattedKey = CONFIG.FIREBASE_PRIVATE_KEY.trim();
+        if ((formattedKey.startsWith('"') && formattedKey.endsWith('"')) || (formattedKey.startsWith("'") && formattedKey.endsWith("'"))) {
+          formattedKey = formattedKey.slice(1, -1);
+        }
+        formattedKey = formattedKey.replace(/\\n/g, '\n');
         initializeApp({
           credential: cert({
             projectId: CONFIG.FIREBASE_PROJECT_ID,

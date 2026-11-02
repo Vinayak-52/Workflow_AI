@@ -7,3 +7,7 @@ uploads/
 backups/
 .DS_Store
 .obsidian/
+serviceAccountKey.json
+*serviceAccountKey*.json
+*.pem
+data/

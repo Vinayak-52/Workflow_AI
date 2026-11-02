@@ -1,5 +1,19 @@
 import dotenv from 'dotenv';
-dotenv.config();
+import path from 'path';
+import fs from 'fs';
+
+const candidateEnvPaths = [
+  path.resolve(process.cwd(), '.env'),
+  path.resolve(process.cwd(), 'ai-workspace/server/.env'),
+  path.resolve(process.cwd(), 'server/.env')
+];
+
+for (const p of candidateEnvPaths) {
+  if (fs.existsSync(p)) {
+    dotenv.config({ path: p });
+    break;
+  }
+}
 
 export const CONFIG = {
   PORT: parseInt(process.env.PORT || '5000', 10),
