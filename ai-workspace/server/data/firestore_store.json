@@ -24,7 +24,7 @@
       "id": "task-001",
       "title": "Prepare Seminar 3 Slides for Prof. Sajal Mitra",
       "description": "Complete the slide deck covering Problem Statement, Feasibility Analysis, and 3-Layer Architecture.",
-      "status": "in_progress",
+      "status": "done",
       "category": "academic",
       "userPriority": "high",
       "predictedPriority": "high",
@@ -36,13 +36,14 @@
       "sourceType": "manual",
       "userId": "user-hitk-vinayak-001",
       "createdAt": "2026-11-02T08:16:54.934Z",
-      "updatedAt": "2026-11-02T08:16:54.934Z"
+      "updatedAt": "2026-11-02T09:04:26.515Z",
+      "completedAt": "2026-11-02T09:04:26.512Z"
     },
     "task-002": {
       "id": "task-002",
       "title": "Evaluate Random Forest Model with ROUGE & Confusion Matrix",
       "description": "Run train_model.py, verify test accuracy > 85%, and generate classification report for Member 1.",
-      "status": "todo",
+      "status": "done",
       "category": "project",
       "userPriority": "high",
       "predictedPriority": "high",
@@ -55,7 +56,8 @@
       "sourceReference": "Generated from AI Assistant planning recommendation",
       "userId": "user-hitk-vinayak-001",
       "createdAt": "2026-11-02T08:16:54.934Z",
-      "updatedAt": "2026-11-02T08:16:54.934Z"
+      "updatedAt": "2026-11-02T09:04:27.745Z",
+      "completedAt": "2026-11-02T09:04:27.742Z"
     },
     "task-003": {
       "id": "task-003",
@@ -757,6 +759,32 @@
         "path": "/api/v1/planner/daily"
       },
       "createdAt": "2026-11-02T08:18:12.678Z"
+    },
+    {
+      "id": "act-535b9ae0",
+      "userId": "user-hitk-vinayak-001",
+      "action": "TASK_UPDATED",
+      "entityType": "task",
+      "entityId": "task-001",
+      "metadata": {
+        "method": "PATCH",
+        "path": "/api/v1/tasks/task-001",
+        "title": "Prepare Seminar 3 Slides for Prof. Sajal Mitra"
+      },
+      "createdAt": "2026-11-02T09:04:26.516Z"
+    },
+    {
+      "id": "act-faa9f8bc",
+      "userId": "user-hitk-vinayak-001",
+      "action": "TASK_UPDATED",
+      "entityType": "task",
+      "entityId": "task-002",
+      "metadata": {
+        "method": "PATCH",
+        "path": "/api/v1/tasks/task-002",
+        "title": "Evaluate Random Forest Model with ROUGE & Confusion Matrix"
+      },
+      "createdAt": "2026-11-02T09:04:27.745Z"
     }
   ]
 }

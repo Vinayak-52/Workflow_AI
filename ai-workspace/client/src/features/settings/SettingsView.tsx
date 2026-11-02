@@ -44,58 +44,58 @@ export const SettingsView: React.FC = () => {
     <div className="max-w-4xl space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-xl font-bold text-charcoal-100">
+        <h1 className="text-xl font-bold text-slate-900 dark:text-charcoal-100">
           Settings &amp; Academic Configuration
         </h1>
-        <p className="text-xs text-charcoal-400 mt-1">
+        <p className="text-xs text-slate-500 dark:text-charcoal-400 mt-1">
           Manage workspace profile, calendar working hours, and read-only integration policies.
         </p>
       </div>
 
       {/* User Profile & Working Hours Form */}
-      <form onSubmit={handleSavePreferences} className="p-6 rounded-2xl bg-charcoal-900 border border-charcoal-800 space-y-4">
-        <h2 className="text-sm font-bold text-charcoal-200 flex items-center gap-2">
-          <User className="w-4 h-4 text-brand-400" /> Working Hours &amp; Timezone
+      <form onSubmit={handleSavePreferences} className="p-6 rounded-2xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 space-y-4 shadow-sm">
+        <h2 className="text-sm font-bold text-slate-900 dark:text-charcoal-200 flex items-center gap-2">
+          <User className="w-4 h-4 text-brand-500 dark:text-brand-400" /> Working Hours &amp; Timezone
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
-            <label className="block text-charcoal-400 mb-1 font-medium">User Profile</label>
+            <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">User Profile</label>
             <input
               type="text"
               disabled
               value={user?.displayName || 'Vinayak Chandra (HITK CSBS)'}
-              className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-300"
+              className="w-full px-3 py-2 rounded-lg bg-slate-100 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300"
             />
           </div>
 
           <div>
-            <label className="block text-charcoal-400 mb-1 font-medium">IANA Timezone</label>
+            <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">IANA Timezone</label>
             <input
               type="text"
               disabled
               value="Asia/Kolkata (UTC +05:30)"
-              className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-300 font-mono"
+              className="w-full px-3 py-2 rounded-lg bg-slate-100 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-charcoal-400 mb-1 font-medium">Work Day Starts</label>
+            <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">Work Day Starts</label>
             <input
               type="time"
               value={workingStart}
               onChange={e => setWorkingStart(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-200 focus:border-brand-500 font-mono"
+              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500 font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-charcoal-400 mb-1 font-medium">Work Day Ends</label>
+            <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">Work Day Ends</label>
             <input
               type="time"
               value={workingEnd}
               onChange={e => setWorkingEnd(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-200 focus:border-brand-500 font-mono"
+              className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500 font-mono"
             />
           </div>
         </div>
@@ -112,64 +112,64 @@ export const SettingsView: React.FC = () => {
       </form>
 
       {/* Integration Boundaries & Security Policy */}
-      <div className="p-6 rounded-2xl bg-charcoal-900 border border-charcoal-800 space-y-4">
-        <h2 className="text-sm font-bold text-charcoal-200 flex items-center gap-2">
-          <Lock className="w-4 h-4 text-emerald-400" /> Integration Boundaries &amp; Security Policy
+      <div className="p-6 rounded-2xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 space-y-4 shadow-sm">
+        <h2 className="text-sm font-bold text-slate-900 dark:text-charcoal-200 flex items-center gap-2">
+          <Lock className="w-4 h-4 text-emerald-500 dark:text-emerald-400" /> Integration Boundaries &amp; Security Policy
         </h2>
 
-        <div className="p-4 rounded-xl bg-charcoal-950/60 border border-charcoal-800 space-y-2 text-xs">
+        <div className="p-4 rounded-xl bg-slate-50 dark:bg-charcoal-950/60 border border-slate-200 dark:border-charcoal-800 space-y-2 text-xs">
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-charcoal-200">Google Calendar API</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="font-semibold text-slate-900 dark:text-charcoal-200">Google Calendar API</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-medium">
               Read-Only
             </span>
           </div>
-          <p className="text-[11px] text-charcoal-400">
-            Scope: <code className="text-brand-300">https://www.googleapis.com/auth/calendar.readonly</code>. The AI cannot create, modify, or delete calendar events.
+          <p className="text-[11px] text-slate-500 dark:text-charcoal-400">
+            Scope: <code className="text-brand-600 dark:text-brand-300">https://www.googleapis.com/auth/calendar.readonly</code>. The AI cannot create, modify, or delete calendar events.
           </p>
         </div>
 
-        <div className="p-4 rounded-xl bg-charcoal-950/60 border border-charcoal-800 space-y-2 text-xs">
+        <div className="p-4 rounded-xl bg-slate-50 dark:bg-charcoal-950/60 border border-slate-200 dark:border-charcoal-800 space-y-2 text-xs">
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-charcoal-200">Gmail API</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="font-semibold text-slate-900 dark:text-charcoal-200">Gmail API</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-medium">
               Read-Only
             </span>
           </div>
-          <p className="text-[11px] text-charcoal-400">
-            Scope: <code className="text-brand-300">https://www.googleapis.com/auth/gmail.readonly</code>. No send, compose, or trash permissions granted.
+          <p className="text-[11px] text-slate-500 dark:text-charcoal-400">
+            Scope: <code className="text-brand-600 dark:text-brand-300">https://www.googleapis.com/auth/gmail.readonly</code>. No send, compose, or trash permissions granted.
           </p>
         </div>
       </div>
 
       {/* Academic Project Credits */}
-      <div className="p-6 rounded-2xl bg-charcoal-900 border border-charcoal-800 space-y-3 text-xs">
-        <h2 className="text-sm font-bold text-charcoal-200 flex items-center gap-2">
+      <div className="p-6 rounded-2xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 space-y-3 text-xs shadow-sm">
+        <h2 className="text-sm font-bold text-slate-900 dark:text-charcoal-200 flex items-center gap-2">
           <Cpu className="w-4 h-4 text-brand-500" /> Project &amp; Team Details
         </h2>
-        <div className="text-charcoal-400 space-y-1 text-xs">
+        <div className="text-slate-600 dark:text-charcoal-400 space-y-1 text-xs">
           <p><strong>Institution:</strong> Heritage Institute of Technology, Kolkata (HITK)</p>
           <p><strong>Department:</strong> Computer Science and Business Systems</p>
           <p><strong>Project Title:</strong> AI Workspace (Group 7)</p>
           <p><strong>Mentor:</strong> Prof. Sajal Mitra</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-charcoal-800 text-[11px]">
-          <div className="p-2.5 rounded-lg bg-charcoal-800/50">
-            <span className="font-semibold text-charcoal-200">Member 1: Ayantik Goswami (2360006)</span>
-            <p className="text-charcoal-400">Machine Learning, Random Forest Prioritization, Smart Reminders</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-charcoal-800 text-[11px]">
+          <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-charcoal-800/50 border border-slate-200/60 dark:border-transparent">
+            <span className="font-semibold text-slate-900 dark:text-charcoal-200">Member 1: Ayantik Goswami (2360006)</span>
+            <p className="text-slate-500 dark:text-charcoal-400">Machine Learning, Random Forest Prioritization, Smart Reminders</p>
           </div>
-          <div className="p-2.5 rounded-lg bg-charcoal-800/50">
-            <span className="font-semibold text-charcoal-200">Member 2: Ankit Kumar Kunwar (2360031)</span>
-            <p className="text-charcoal-400">Node/Express Backend, REST APIs, Database, Cloud Deployment</p>
+          <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-charcoal-800/50 border border-slate-200/60 dark:border-transparent">
+            <span className="font-semibold text-slate-900 dark:text-charcoal-200">Member 2: Ankit Kumar Kunwar (2360031)</span>
+            <p className="text-slate-500 dark:text-charcoal-400">Node/Express Backend, REST APIs, Database, Cloud Deployment</p>
           </div>
-          <div className="p-2.5 rounded-lg bg-charcoal-800/50">
-            <span className="font-semibold text-charcoal-200">Member 3: Vinayak Chandra (2360035)</span>
-            <p className="text-charcoal-400">React Frontend, Dashboard, Tasks, Calendar, Notes, UI/UX</p>
+          <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-charcoal-800/50 border border-slate-200/60 dark:border-transparent">
+            <span className="font-semibold text-slate-900 dark:text-charcoal-200">Member 3: Vinayak Chandra (2360035)</span>
+            <p className="text-slate-500 dark:text-charcoal-400">React Frontend, Dashboard, Tasks, Calendar, Notes, UI/UX</p>
           </div>
-          <div className="p-2.5 rounded-lg bg-charcoal-800/50">
-            <span className="font-semibold text-charcoal-200">Member 4: Yash Raj (2360014)</span>
-            <p className="text-charcoal-400">Research Mapping, Testing, Postman Test Suite, QA &amp; Evaluation</p>
+          <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-charcoal-800/50 border border-slate-200/60 dark:border-transparent">
+            <span className="font-semibold text-slate-900 dark:text-charcoal-200">Member 4: Yash Raj (2360014)</span>
+            <p className="text-slate-500 dark:text-charcoal-400">Research Mapping, Testing, Postman Test Suite, QA &amp; Evaluation</p>
           </div>
         </div>
       </div>

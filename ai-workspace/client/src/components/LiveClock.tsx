@@ -33,12 +33,14 @@ export const LiveClock: React.FC<{ timezone?: string }> = ({ timezone = 'Asia/Ko
   }, [timezone]);
 
   return (
-    <div className="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-charcoal-900 border border-charcoal-800 text-xs">
-      <Clock className="w-3.5 h-3.5 text-brand-accent animate-pulse" />
-      <span className="font-mono font-medium text-charcoal-100">{timeStr}</span>
-      <span className="text-charcoal-500">|</span>
-      <span className="text-charcoal-400">{dateStr}</span>
-      <span className="text-[10px] px-1.5 py-0.5 rounded bg-charcoal-800 text-charcoal-400 font-mono">IST</span>
+    <div className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 text-xs text-slate-700 dark:text-charcoal-200">
+      <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-brand-accent animate-pulse" />
+      <span className="font-mono font-medium text-slate-900 dark:text-charcoal-100">{timeStr}</span>
+      <span className="text-slate-300 dark:text-charcoal-600">|</span>
+      <span className="text-slate-500 dark:text-charcoal-400">{dateStr}</span>
+      <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-200 dark:bg-charcoal-800 text-slate-600 dark:text-charcoal-400 font-mono font-semibold">
+        IST
+      </span>
     </div>
   );
 };

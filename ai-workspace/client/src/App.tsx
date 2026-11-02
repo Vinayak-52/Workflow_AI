@@ -7,6 +7,22 @@ import { User } from './types/index.ts';
 export const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    return (localStorage.getItem('ai_workspace_theme') as 'light' | 'dark') || 'light';
+  });
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('ai_workspace_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   useEffect(() => {
     // Check if token exists in localStorage
@@ -15,7 +31,6 @@ export const App: React.FC = () => {
       api.getMe()
         .then(user => setCurrentUser(user))
         .catch(() => {
-          // Token invalid, clear and prompt login
           localStorage.removeItem('ai_workspace_token');
           setCurrentUser(null);
         })
@@ -32,20 +47,26 @@ export const App: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-charcoal-950 flex items-center justify-center text-xs text-charcoal-400 font-mono">
+      <div className="min-h-screen bg-[#f7f8fb] dark:bg-charcoal-950 flex items-center justify-center text-xs text-slate-500 dark:text-charcoal-400 font-mono">
         Loading AI Workspace...
       </div>
     );
   }
 
   if (!currentUser) {
-    return <AuthView onSuccess={user => setCurrentUser(user)} />;
+    return (
+      <AuthView
+        onSuccess={user => setCurrentUser(user)}
+      />
+    );
   }
 
   return (
     <AppShell
       currentUser={currentUser}
       onSignOut={handleSignOut}
+      theme={theme}
+      onToggleTheme={toggleTheme}
     />
   );
 };

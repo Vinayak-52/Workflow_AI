@@ -50,5 +50,31 @@
     "estimated_duration_min": 90,
     "duration_error_ratio": 1.0,
     "category": "academic"
+  },
+  {
+    "task_id": "task-001",
+    "timestamp": "2026-11-02T14:34:26.514882",
+    "predicted_priority": "high",
+    "user_priority": "high",
+    "is_override": false,
+    "completed_on_time": true,
+    "hours_to_deadline": 3.207895,
+    "actual_duration_min": 90,
+    "estimated_duration_min": 90,
+    "duration_error_ratio": 1.0,
+    "category": "academic"
+  },
+  {
+    "task_id": "task-002",
+    "timestamp": "2026-11-02T14:34:27.744726",
+    "predicted_priority": "high",
+    "user_priority": "high",
+    "is_override": false,
+    "completed_on_time": true,
+    "hours_to_deadline": 7.207553333333333,
+    "actual_duration_min": 60,
+    "estimated_duration_min": 60,
+    "duration_error_ratio": 1.0,
+    "category": "project"
   }
 ]

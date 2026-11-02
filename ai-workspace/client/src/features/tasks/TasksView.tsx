@@ -156,13 +156,13 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
       {/* Header & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-charcoal-100 flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 dark:text-charcoal-100 flex items-center gap-2">
             Tasks &amp; Prioritization
-            <span className="text-xs px-2 py-0.5 rounded-full bg-charcoal-800 text-charcoal-400 font-mono">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-charcoal-800 text-slate-600 dark:text-charcoal-400 font-mono">
               {filteredTasks.length}
             </span>
           </h1>
-          <p className="text-xs text-charcoal-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-charcoal-400 mt-1">
             Priorities predicted by Random Forest ML classifier with continuous learning adaptation.
           </p>
         </div>
@@ -180,15 +180,15 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
       </div>
 
       {/* Search and Filters Toolbar */}
-      <div className="p-3.5 rounded-xl bg-charcoal-900 border border-charcoal-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="p-3.5 rounded-xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 shadow-sm flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2 flex-1 min-w-[200px]">
-          <Search className="w-4 h-4 text-charcoal-500 ml-1" />
+          <Search className="w-4 h-4 text-slate-400 dark:text-charcoal-500 ml-1" />
           <input
             type="text"
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search tasks by title or keyword..."
-            className="w-full bg-transparent border-none text-charcoal-200 placeholder-charcoal-500 focus:outline-none text-xs"
+            className="w-full bg-transparent border-none text-slate-800 dark:text-charcoal-200 placeholder-slate-400 dark:placeholder-charcoal-500 focus:outline-none text-xs"
           />
         </div>
 
@@ -197,7 +197,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
           <select
             value={statusFilter}
             onChange={e => setStatusFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-300 focus:border-brand-500"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 focus:border-brand-500"
           >
             <option value="all">All Status</option>
             <option value="todo">To Do</option>
@@ -209,7 +209,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
           <select
             value={priorityFilter}
             onChange={e => setPriorityFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-300 focus:border-brand-500"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 focus:border-brand-500"
           >
             <option value="all">All Priorities</option>
             <option value="high">High Priority</option>
@@ -221,7 +221,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
           <select
             value={categoryFilter}
             onChange={e => setCategoryFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-300 focus:border-brand-500"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 focus:border-brand-500"
           >
             <option value="all">All Categories</option>
             <option value="academic">Academic</option>
@@ -233,7 +233,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
           <button
             onClick={loadTasks}
             title="Refresh"
-            className="p-1.5 rounded-lg bg-charcoal-800 hover:bg-charcoal-700 text-charcoal-400"
+            className="p-1.5 rounded-lg bg-slate-100 dark:bg-charcoal-800 hover:bg-slate-200 dark:hover:bg-charcoal-700 text-slate-600 dark:text-charcoal-400"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -243,11 +243,11 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
       {/* Task List */}
       <div className="space-y-2.5">
         {loading ? (
-          <div className="p-12 text-center text-xs text-charcoal-400 italic">
+          <div className="p-12 text-center text-xs text-slate-400 dark:text-charcoal-400 italic">
             Loading tasks and priority models...
           </div>
         ) : filteredTasks.length === 0 ? (
-          <div className="p-12 text-center rounded-xl bg-charcoal-900 border border-charcoal-800 text-xs text-charcoal-500 space-y-2">
+          <div className="p-12 text-center rounded-xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 text-xs text-slate-500 dark:text-charcoal-500 space-y-2 shadow-sm">
             <p>No tasks match your current filter criteria.</p>
             <button
               onClick={() => {
@@ -256,7 +256,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                 setCategoryFilter('all');
                 setSearch('');
               }}
-              className="text-brand-400 hover:underline"
+              className="text-brand-500 dark:text-brand-400 hover:underline font-medium"
             >
               Clear filters
             </button>
@@ -267,8 +267,8 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
               key={task.id}
               className={`p-4 rounded-xl border transition ${
                 task.status === 'done'
-                  ? 'bg-charcoal-950/40 border-charcoal-900 opacity-60'
-                  : 'bg-charcoal-900 border-charcoal-800 hover:border-charcoal-700'
+                  ? 'bg-slate-50/60 dark:bg-charcoal-950/40 border-slate-200/60 dark:border-charcoal-900 opacity-60'
+                  : 'bg-white dark:bg-charcoal-900 border-slate-200/80 dark:border-charcoal-800 hover:border-slate-300 dark:hover:border-charcoal-700 shadow-sm'
               }`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -277,8 +277,8 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                     onClick={() => handleToggleStatus(task)}
                     className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center border transition ${
                       task.status === 'done'
-                        ? 'bg-emerald-500 border-emerald-500 text-charcoal-950'
-                        : 'border-charcoal-700 bg-charcoal-800 hover:border-brand-500'
+                        ? 'bg-emerald-500 border-emerald-500 text-white dark:text-charcoal-950'
+                        : 'border-slate-300 dark:border-charcoal-700 bg-slate-50 dark:bg-charcoal-800 hover:border-brand-500'
                     }`}
                   >
                     {task.status === 'done' && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -287,19 +287,19 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                     <h3
                       className={`text-xs font-semibold ${
                         task.status === 'done'
-                          ? 'line-through text-charcoal-500'
-                          : 'text-charcoal-100'
+                          ? 'line-through text-slate-400 dark:text-charcoal-500'
+                          : 'text-slate-900 dark:text-charcoal-100'
                       }`}
                     >
                       {task.title}
                     </h3>
                     {task.description && (
-                      <p className="text-[11px] text-charcoal-400 mt-1 line-clamp-1">
+                      <p className="text-[11px] text-slate-500 dark:text-charcoal-400 mt-1 line-clamp-1">
                         {task.description}
                       </p>
                     )}
-                    <div className="flex flex-wrap items-center gap-2 mt-2 text-[10px] text-charcoal-400">
-                      <span className="px-1.5 py-0.5 rounded bg-charcoal-800 text-charcoal-300 capitalize font-medium">
+                    <div className="flex flex-wrap items-center gap-2 mt-2 text-[10px] text-slate-500 dark:text-charcoal-400">
+                      <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-charcoal-800 text-slate-700 dark:text-charcoal-300 capitalize font-medium">
                         {task.category}
                       </span>
                       <span>•</span>
@@ -308,13 +308,13 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                         {task.estimatedMinutes}m duration
                       </span>
                       <span>•</span>
-                      <span className={task.isOverdue && task.status !== 'done' ? 'text-rose-400 font-semibold' : ''}>
+                      <span className={task.isOverdue && task.status !== 'done' ? 'text-rose-500 font-semibold' : ''}>
                         Due: {new Date(task.dueAt).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                       </span>
                       {task.sourceType !== 'manual' && (
                         <>
                           <span>•</span>
-                          <span className="text-brand-400 capitalize">via {task.sourceType}</span>
+                          <span className="text-brand-600 dark:text-brand-400 capitalize">via {task.sourceType}</span>
                         </>
                       )}
                     </div>
@@ -326,11 +326,11 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                   {/* ML Priority Score Badge */}
                   <div
                     title="Random Forest ML Priority Score (0-100)"
-                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-charcoal-800 border border-charcoal-700 text-[11px]"
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-[11px]"
                   >
-                    <Sparkles className="w-3 h-3 text-amber-400" />
-                    <span className="text-charcoal-400">Score:</span>
-                    <span className="font-mono font-bold text-charcoal-200">
+                    <Sparkles className="w-3 h-3 text-amber-500 dark:text-amber-400" />
+                    <span className="text-slate-500 dark:text-charcoal-400">Score:</span>
+                    <span className="font-mono font-bold text-slate-800 dark:text-charcoal-200">
                       {task.priorityScore}
                     </span>
                   </div>
@@ -339,10 +339,10 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                   <span
                     className={`text-[10px] uppercase font-bold px-2.5 py-1 rounded-lg border ${
                       task.predictedPriority === 'high'
-                        ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+                        ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30'
                         : task.predictedPriority === 'medium'
-                        ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                        : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                        ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30'
+                        : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
                     }`}
                   >
                     ML: {task.predictedPriority}
@@ -351,7 +351,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                   {task.userPriority !== task.predictedPriority && (
                     <span
                       title="User Override Applied"
-                      className="text-[10px] px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+                      className="text-[10px] px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 font-medium"
                     >
                       Override: {task.userPriority}
                     </span>
@@ -361,19 +361,19 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                   <button
                     onClick={() => handleRepredict(task.id)}
                     title="Re-run Random Forest priority prediction"
-                    className="p-1.5 rounded-lg text-charcoal-400 hover:text-brand-400 hover:bg-charcoal-800 transition"
+                    className="p-1.5 rounded-lg text-slate-400 dark:text-charcoal-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-charcoal-800 transition"
                   >
                     <RefreshCw className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => openEdit(task)}
-                    className="p-1.5 rounded-lg text-charcoal-400 hover:text-charcoal-200 hover:bg-charcoal-800 transition"
+                    className="p-1.5 rounded-lg text-slate-400 dark:text-charcoal-400 hover:text-slate-700 dark:hover:text-charcoal-200 hover:bg-slate-100 dark:hover:bg-charcoal-800 transition"
                   >
                     <Edit3 className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => handleDelete(task.id)}
-                    className="p-1.5 rounded-lg text-charcoal-400 hover:text-rose-400 hover:bg-charcoal-800 transition"
+                    className="p-1.5 rounded-lg text-slate-400 dark:text-charcoal-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-charcoal-800 transition"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -386,10 +386,10 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
 
       {/* Create / Edit Modal */}
       {(isCreateOpen || editingTask) && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal-950/80 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="w-full max-w-lg bg-charcoal-900 border border-charcoal-800 rounded-2xl shadow-2xl p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-charcoal-800 pb-3">
-              <h2 className="text-sm font-bold text-charcoal-100 flex items-center gap-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 dark:bg-charcoal-950/80 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="w-full max-w-lg bg-white dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-800 rounded-2xl shadow-2xl p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-charcoal-800 pb-3">
+              <h2 className="text-sm font-bold text-slate-900 dark:text-charcoal-100 flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-brand-500" />
                 {editingTask ? 'Edit Workspace Task' : 'Create Task (ML Prioritized)'}
               </h2>
@@ -398,7 +398,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                   setEditingTask(null);
                   onCloseCreate();
                 }}
-                className="text-charcoal-400 hover:text-charcoal-200"
+                className="text-slate-400 hover:text-slate-600 dark:text-charcoal-400 dark:hover:text-charcoal-200"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -406,35 +406,35 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
 
             <form onSubmit={editingTask ? handleUpdateTask : handleCreateTask} className="space-y-4 text-xs">
               <div>
-                <label className="block text-charcoal-400 mb-1 font-medium">Task Title *</label>
+                <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">Task Title *</label>
                 <input
                   type="text"
                   required
                   value={title}
                   onChange={e => setTitle(e.target.value)}
                   placeholder="e.g., Complete Assignment 3 for Prof. Sajal Mitra"
-                  className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-100 placeholder-charcoal-500 focus:border-brand-500"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-100 placeholder-slate-400 dark:placeholder-charcoal-500 focus:border-brand-500"
                 />
               </div>
 
               <div>
-                <label className="block text-charcoal-400 mb-1 font-medium">Description</label>
+                <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">Description</label>
                 <textarea
                   rows={2}
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   placeholder="Task details and deliverables..."
-                  className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-100 placeholder-charcoal-500 focus:border-brand-500"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-100 placeholder-slate-400 dark:placeholder-charcoal-500 focus:border-brand-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-charcoal-400 mb-1 font-medium">Category</label>
+                  <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">Category</label>
                   <select
                     value={category}
                     onChange={e => setCategory(e.target.value as TaskCategory)}
-                    className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-200 focus:border-brand-500"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500"
                   >
                     <option value="academic">Academic</option>
                     <option value="project">Project</option>
@@ -444,11 +444,11 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                 </div>
 
                 <div>
-                  <label className="block text-charcoal-400 mb-1 font-medium">User Priority</label>
+                  <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">User Priority</label>
                   <select
                     value={userPriority}
                     onChange={e => setUserPriority(e.target.value as TaskPriority)}
-                    className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-200 focus:border-brand-500"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -459,17 +459,17 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-charcoal-400 mb-1 font-medium">Due Date &amp; Time</label>
+                  <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">Due Date &amp; Time</label>
                   <input
                     type="datetime-local"
                     value={dueAt}
                     onChange={e => setDueAt(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-200 focus:border-brand-500"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-charcoal-400 mb-1 font-medium">Estimated Duration (mins)</label>
+                  <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">Estimated Duration (mins)</label>
                   <input
                     type="number"
                     min={15}
@@ -477,33 +477,33 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                     step={15}
                     value={estimatedMinutes}
                     onChange={e => setEstimatedMinutes(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-charcoal-800 border border-charcoal-700 text-charcoal-200 focus:border-brand-500"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500"
                   />
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg bg-charcoal-800/60 border border-charcoal-700/80 text-[11px] text-charcoal-400 flex items-start gap-2">
-                <Sparkles className="w-4 h-4 text-brand-400 shrink-0 mt-0.5" />
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-charcoal-800/60 border border-slate-200 dark:border-charcoal-700/80 text-[11px] text-slate-600 dark:text-charcoal-400 flex items-start gap-2">
+                <Sparkles className="w-4 h-4 text-brand-500 shrink-0 mt-0.5" />
                 <span>
                   The Random Forest model evaluates hours to deadline, available calendar time, and workload to assign priority score upon saving.
                 </span>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-charcoal-800">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-charcoal-800">
                 <button
                   type="button"
                   onClick={() => {
                     setEditingTask(null);
                     onCloseCreate();
                   }}
-                  className="px-4 py-2 rounded-lg bg-charcoal-800 hover:bg-charcoal-700 text-charcoal-300"
+                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-slate-700 dark:text-charcoal-300 font-medium transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-md shadow-brand-500/20"
+                  className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-md shadow-brand-500/20 transition"
                 >
                   {submitting ? 'Evaluating...' : editingTask ? 'Save Changes' : 'Create & Predict Priority'}
                 </button>

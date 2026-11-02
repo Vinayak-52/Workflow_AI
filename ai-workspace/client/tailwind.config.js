@@ -7,6 +7,10 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+      },
       colors: {
         charcoal: {
           950: '#0d1117',
@@ -25,7 +29,8 @@ export default {
           500: '#6366f1',
           600: '#4f46e5',
           700: '#4338ca',
-          accent: '#38bdf8'
+          accent: '#38bdf8',
+          blue: '#2563eb'
         }
       }
     },

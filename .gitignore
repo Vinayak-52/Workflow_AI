@@ -6,3 +6,4 @@ __pycache__/
 uploads/
 backups/
 .DS_Store
+.obsidian/

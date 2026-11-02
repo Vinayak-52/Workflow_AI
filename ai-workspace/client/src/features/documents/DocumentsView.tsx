@@ -74,10 +74,10 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-charcoal-100 flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 dark:text-charcoal-100 flex items-center gap-2">
             Document Repository &amp; NLP Summarizer
           </h1>
-          <p className="text-xs text-charcoal-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-charcoal-400 mt-1">
             Transformer-inspired extractive salience engine for academic PDFs, seminar notes, and research papers.
           </p>
         </div>
@@ -92,17 +92,17 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
           setDragActive(false);
           if (e.dataTransfer.files?.[0]) handleFileUpload(e.dataTransfer.files[0]);
         }}
-        className={`p-6 rounded-2xl border-2 border-dashed transition text-center cursor-pointer ${
+        className={`p-6 rounded-2xl border-2 border-dashed transition text-center cursor-pointer shadow-sm ${
           dragActive
             ? 'border-brand-500 bg-brand-500/10'
-            : 'border-charcoal-800 bg-charcoal-900/60 hover:border-charcoal-700'
+            : 'border-slate-300 dark:border-charcoal-800 bg-white/80 dark:bg-charcoal-900/60 hover:border-slate-400 dark:hover:border-charcoal-700'
         }`}
       >
-        <Upload className="w-8 h-8 text-brand-400 mx-auto mb-2 opacity-80" />
-        <p className="text-xs font-semibold text-charcoal-200">
+        <Upload className="w-8 h-8 text-brand-500 dark:text-brand-400 mx-auto mb-2 opacity-80" />
+        <p className="text-xs font-semibold text-slate-800 dark:text-charcoal-200">
           Drag and drop your academic document here, or click to browse
         </p>
-        <p className="text-[11px] text-charcoal-500 mt-1">
+        <p className="text-[11px] text-slate-500 dark:text-charcoal-500 mt-1">
           Supports PDF, TXT, Markdown, and Word DOCX (up to 10 MB)
         </p>
         <input
@@ -116,7 +116,7 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
         />
         <label
           htmlFor="doc-upload"
-          className="inline-block mt-3 px-4 py-2 rounded-xl bg-charcoal-800 hover:bg-charcoal-700 text-charcoal-300 text-xs font-medium cursor-pointer transition border border-charcoal-700"
+          className="inline-block mt-3 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-slate-700 dark:text-charcoal-300 text-xs font-medium cursor-pointer transition border border-slate-200 dark:border-charcoal-700"
         >
           {uploading ? 'Parsing Document...' : 'Select File'}
         </label>
@@ -126,13 +126,13 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Document List */}
         <div className="space-y-3">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-charcoal-400">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-charcoal-400">
             Uploaded Files ({documents.length})
           </h2>
 
           <div className="space-y-2">
             {documents.length === 0 ? (
-              <div className="p-6 text-center rounded-xl bg-charcoal-900 border border-charcoal-800 text-xs text-charcoal-500">
+              <div className="p-6 text-center rounded-xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 text-xs text-slate-500 dark:text-charcoal-500 shadow-sm">
                 No documents uploaded yet.
               </div>
             ) : (
@@ -140,15 +140,15 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
                 <div
                   key={doc.id}
                   onClick={() => setSelectedDoc(doc)}
-                  className={`p-3.5 rounded-xl border cursor-pointer transition text-xs space-y-1 ${
+                  className={`p-3.5 rounded-xl border cursor-pointer transition text-xs space-y-1 shadow-sm ${
                     selectedDoc?.id === doc.id
-                      ? 'bg-charcoal-850 border-brand-500/50 shadow-md'
-                      : 'bg-charcoal-900 border-charcoal-800 hover:border-charcoal-700'
+                      ? 'bg-brand-50/70 dark:bg-charcoal-850 border-brand-300 dark:border-brand-500/50'
+                      : 'bg-white dark:bg-charcoal-900 border-slate-200/80 dark:border-charcoal-800 hover:border-slate-300 dark:hover:border-charcoal-700'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-charcoal-200 truncate pr-2 flex items-center gap-1.5">
-                      <FileText className="w-3.5 h-3.5 text-brand-400 shrink-0" />
+                    <span className="font-semibold text-slate-900 dark:text-charcoal-200 truncate pr-2 flex items-center gap-1.5">
+                      <FileText className="w-3.5 h-3.5 text-brand-500 dark:text-brand-400 shrink-0" />
                       {doc.fileName}
                     </span>
                     <button
@@ -156,12 +156,12 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
                         e.stopPropagation();
                         handleDelete(doc.id);
                       }}
-                      className="text-charcoal-500 hover:text-rose-400 p-1"
+                      className="text-slate-400 hover:text-rose-500 dark:text-charcoal-500 dark:hover:text-rose-400 p-1"
                     >
                       <Trash2 className="w-3 h-3" />
                     </button>
                   </div>
-                  <div className="flex items-center gap-2 text-[10px] text-charcoal-500 font-mono">
+                  <div className="flex items-center gap-2 text-[10px] text-slate-500 dark:text-charcoal-500 font-mono">
                     <span>{Math.round(doc.sizeBytes / 1024)} KB</span>
                     <span>•</span>
                     <span>{new Date(doc.createdAt).toLocaleDateString()}</span>
@@ -175,14 +175,14 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
         {/* Summary Detail Card */}
         <div className="md:col-span-2">
           {selectedDoc ? (
-            <div className="p-6 rounded-2xl bg-charcoal-900 border border-charcoal-800 space-y-5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-charcoal-800 pb-4">
+            <div className="p-6 rounded-2xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 space-y-5 shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-charcoal-800 pb-4">
                 <div>
-                  <h3 className="text-sm font-bold text-charcoal-100 flex items-center gap-2">
-                    <FileCheck className="w-4 h-4 text-emerald-400" />
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-charcoal-100 flex items-center gap-2">
+                    <FileCheck className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                     {selectedDoc.fileName}
                   </h3>
-                  <p className="text-[11px] text-charcoal-400 mt-0.5">
+                  <p className="text-[11px] text-slate-500 dark:text-charcoal-400 mt-0.5">
                     Storage: Secure Local/Firebase Storage • Size: {Math.round(selectedDoc.sizeBytes / 1024)} KB
                   </p>
                 </div>
@@ -199,16 +199,16 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
               {/* Summary Results */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-400 flex items-center gap-1.5">
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5" />
                     NLP Extractive Summary
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold">
                     Factuality Score: 100% (Grounded)
                   </span>
                 </div>
 
-                <div className="p-4 rounded-xl bg-charcoal-950/70 border border-charcoal-800 text-xs text-charcoal-200 leading-relaxed font-sans">
+                <div className="p-4 rounded-xl bg-slate-50 dark:bg-charcoal-950/70 border border-slate-200 dark:border-charcoal-800 text-xs text-slate-800 dark:text-charcoal-200 leading-relaxed font-sans">
                   {selectedDoc.summary || 'Summary generation in progress...'}
                 </div>
               </div>
@@ -216,13 +216,13 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
               {/* Key Takeaways */}
               {selectedDoc.keyTakeaways && selectedDoc.keyTakeaways.length > 0 && (
                 <div className="space-y-2">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-charcoal-300">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-charcoal-300">
                     Key Extracted Bullet Points
                   </h4>
-                  <ul className="space-y-1.5 text-xs text-charcoal-300">
+                  <ul className="space-y-1.5 text-xs text-slate-800 dark:text-charcoal-300">
                     {selectedDoc.keyTakeaways.map((point, idx) => (
-                      <li key={idx} className="p-2.5 rounded-lg bg-charcoal-850/60 border border-charcoal-800 flex items-start gap-2">
-                        <CheckCircle className="w-3.5 h-3.5 text-brand-400 shrink-0 mt-0.5" />
+                      <li key={idx} className="p-2.5 rounded-lg bg-slate-50 dark:bg-charcoal-850/60 border border-slate-200 dark:border-charcoal-800 flex items-start gap-2">
+                        <CheckCircle className="w-3.5 h-3.5 text-brand-500 dark:text-brand-400 shrink-0 mt-0.5" />
                         <span>{point}</span>
                       </li>
                     ))}
@@ -231,17 +231,17 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
               )}
 
               {/* Raw Parsed Text Snippet */}
-              <div className="space-y-2 pt-2 border-t border-charcoal-800">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-charcoal-400">
+              <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-charcoal-800">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-charcoal-400">
                   Extracted Document Text (Sample)
                 </h4>
-                <div className="p-3 rounded-lg bg-charcoal-950/40 border border-charcoal-850 text-[11px] font-mono text-charcoal-400 max-h-36 overflow-y-auto leading-relaxed whitespace-pre-wrap">
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-charcoal-950/40 border border-slate-200 dark:border-charcoal-855 text-[11px] font-mono text-slate-600 dark:text-charcoal-400 max-h-36 overflow-y-auto leading-relaxed whitespace-pre-wrap">
                   {selectedDoc.extractedText.slice(0, 1000)}...
                 </div>
               </div>
             </div>
           ) : (
-            <div className="p-12 text-center rounded-2xl bg-charcoal-900 border border-charcoal-800 text-xs text-charcoal-500">
+            <div className="p-12 text-center rounded-2xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 text-xs text-slate-500 dark:text-charcoal-500 shadow-sm">
               Select an uploaded file to view its extracted summary and key takeaways.
             </div>
           )}
