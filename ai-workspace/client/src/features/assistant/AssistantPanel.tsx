@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Bot, Sparkles, Send, X, ExternalLink, AlertTriangle, CheckCircle, RefreshCw } from 'lucide-react';
 import { api } from '../../services/api.ts';
+import { FormattedMessage } from '../../components/FormattedMessage.tsx';
 
 interface AssistantPanelProps {
   isOpen: boolean;
@@ -201,7 +202,7 @@ export const AssistantPanel: React.FC<AssistantPanelProps> = ({
                       : 'bg-slate-100 dark:bg-charcoal-800/90 text-slate-800 dark:text-charcoal-200 border border-slate-200/80 dark:border-charcoal-700/60 rounded-bl-none shadow-xs'
                   }`}
                 >
-                  <div className="whitespace-pre-wrap">{m.text}</div>
+                  <FormattedMessage content={m.text} />
 
                   {/* Grounded Sources */}
                   {m.sources && m.sources.length > 0 && (

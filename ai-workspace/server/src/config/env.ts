@@ -4,14 +4,17 @@ import fs from 'fs';
 
 const candidateEnvPaths = [
   path.resolve(process.cwd(), '.env'),
+  path.resolve(process.cwd(), '..', '.env'),
   path.resolve(process.cwd(), 'ai-workspace/server/.env'),
-  path.resolve(process.cwd(), 'server/.env')
+  path.resolve(process.cwd(), 'server/.env'),
+  path.resolve(__dirname, '../../../.env'),
+  path.resolve(__dirname, '../../.env'),
+  path.resolve(__dirname, '../.env')
 ];
 
 for (const p of candidateEnvPaths) {
   if (fs.existsSync(p)) {
-    dotenv.config({ path: p });
-    break;
+    dotenv.config({ path: p, override: false });
   }
 }
 
@@ -25,5 +28,6 @@ export const CONFIG = {
   FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL || '',
   FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY || '',
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || '',
-  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || ''
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || '',
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY || ''
 };

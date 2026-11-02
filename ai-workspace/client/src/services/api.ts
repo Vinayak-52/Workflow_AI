@@ -212,11 +212,25 @@ class ApiService {
   }
 
   // Assistant & Recommendations
-  async chatAssistant(message: string, context?: any): Promise<any> {
+  async chatAssistant(
+    message: string,
+    context?: any,
+    model?: string,
+    history?: any[],
+    clearHistory?: boolean
+  ): Promise<any> {
     return this.request('/assistant/chat', {
       method: 'POST',
-      body: JSON.stringify({ message, context })
+      body: JSON.stringify({ message, context, model, history, clearHistory })
     });
+  }
+
+  async clearAssistantContext(): Promise<{ success: boolean; message: string }> {
+    return this.request('/assistant/context/clear', { method: 'POST' });
+  }
+
+  async getAssistantContextStatus(): Promise<{ promptCount: number; maxPrompts: number }> {
+    return this.request('/assistant/context/status');
   }
 
   async getRecommendations(): Promise<{ recommendations: any[] }> {

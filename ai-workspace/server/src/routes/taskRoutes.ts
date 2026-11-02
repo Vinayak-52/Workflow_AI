@@ -15,6 +15,58 @@ import { Task } from '../models/types.js';
 const router = Router();
 router.use(authMiddleware);
 
+function getWorkloadContext(userId: string) {
+  const allTasks = db.getTasksByUserId(userId);
+  const pendingTasks = allTasks.filter(t => t.status !== 'done');
+  const workload_pending_tasks = pendingTasks.length;
+
+  const now = new Date();
+  const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const endOfDay = startOfDay + 24 * 3600 * 1000;
+
+  const workload_minutes_today = pendingTasks.reduce((sum, t) => {
+    const dueTime = new Date(t.dueAt).getTime();
+    if (dueTime <= endOfDay) {
+      return sum + (t.estimatedMinutes || 60);
+    }
+    return sum;
+  }, 0);
+
+  const events = db.getCalendarEventsByUserId(userId);
+  let busyMinutesToday = 0;
+  for (const ev of events) {
+    const evStart = new Date(ev.startAt).getTime();
+    const evEnd = new Date(ev.endAt).getTime();
+    const overlapStart = Math.max(evStart, startOfDay);
+    const overlapEnd = Math.min(evEnd, endOfDay);
+    if (overlapEnd > overlapStart) {
+      busyMinutesToday += Math.round((overlapEnd - overlapStart) / (60 * 1000));
+    }
+  }
+
+  const remainingMinutesToday = Math.max(0, Math.round((endOfDay - now.getTime()) / (60 * 1000)));
+  const baseProductiveWindow = Math.min(480, remainingMinutesToday > 0 ? remainingMinutesToday : 480);
+  const available_free_minutes = Math.max(15, baseProductiveWindow - busyMinutesToday);
+
+  const completedTasks = allTasks.filter(t => t.status === 'done');
+  let historical_completion_rate = 0.85;
+  if (completedTasks.length > 0) {
+    const onTimeCount = completedTasks.filter(t => {
+      if (!t.completedAt || !t.dueAt) return true;
+      return new Date(t.completedAt).getTime() <= new Date(t.dueAt).getTime();
+    }).length;
+    historical_completion_rate = Math.round((onTimeCount / completedTasks.length) * 100) / 100;
+  }
+
+  return {
+    workload_pending_tasks,
+    workload_minutes_today: Math.max(60, workload_minutes_today),
+    available_free_minutes,
+    historical_completion_rate
+  };
+}
+
+
 // List Tasks with filters
 router.get('/', (req: AuthenticatedRequest, res: Response) => {
   const userId = req.user!.id;
@@ -66,7 +118,7 @@ router.post('/', activityLogger('task', 'TASK_CREATED'), async (req: Authenticat
       return res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'Task title is required' } });
     }
 
-    if (dueAt && new Date(dueAt).getTime() < Date.now() - 60000) {
+    if (dueAt && new Date(dueAt).getTime() < Date.now() - 5 * 60 * 1000) {
       return res.status(400).json({
         error: {
           code: 'VALIDATION_ERROR',
@@ -80,17 +132,18 @@ router.post('/', activityLogger('task', 'TASK_CREATED'), async (req: Authenticat
     const hoursToDeadline = (dueDate.getTime() - now.getTime()) / (3600 * 1000);
     const isOverdue = hoursToDeadline < 0;
 
-    // Call ML Priority Prediction (Random Forest)
+    // Call ML Priority Prediction (Random Forest / Heuristic Engine)
+    const workloadCtx = getWorkloadContext(userId);
     const mlResult = await MLClient.predictPriority({
       hours_to_deadline: hoursToDeadline,
       is_overdue: isOverdue ? 1 : 0,
-      estimated_duration_min: estimatedMinutes,
+      estimated_duration_min: Number(estimatedMinutes),
       user_importance: userPriority === 'high' ? 5 : (userPriority === 'medium' ? 3 : 1),
-      workload_pending_tasks: db.getTasksByUserId(userId).filter(t => t.status !== 'done').length,
-      workload_minutes_today: 180,
-      available_free_minutes: 120,
-      historical_completion_rate: 0.85,
-      dependency_count: dependencyCount,
+      workload_pending_tasks: workloadCtx.workload_pending_tasks,
+      workload_minutes_today: workloadCtx.workload_minutes_today,
+      available_free_minutes: workloadCtx.available_free_minutes,
+      historical_completion_rate: workloadCtx.historical_completion_rate,
+      dependency_count: Number(dependencyCount),
       category
     });
 
@@ -147,12 +200,16 @@ router.patch('/:id', activityLogger('task', 'TASK_UPDATED'), async (req: Authent
 
     const oldStatus = task.status;
     const oldUserPriority = task.userPriority;
+    const oldDueAt = task.dueAt;
+    const oldEstimatedMinutes = task.estimatedMinutes;
+    const oldCategory = task.category;
 
     if (title !== undefined) task.title = title;
     if (description !== undefined) task.description = description;
     if (category !== undefined) task.category = category;
     if (dueAt !== undefined) {
-      if (task.status !== 'done' && new Date(dueAt).getTime() < Date.now() - 60000) {
+      const isNewDeadline = task.dueAt ? new Date(dueAt).getTime() !== new Date(task.dueAt).getTime() : true;
+      if (task.status !== 'done' && isNewDeadline && new Date(dueAt).getTime() < Date.now() - 5 * 60 * 1000) {
         return res.status(400).json({
           error: {
             code: 'VALIDATION_ERROR',
@@ -200,6 +257,37 @@ router.patch('/:id', activityLogger('task', 'TASK_UPDATED'), async (req: Authent
           category: task.category
         });
       }
+    }
+
+    // Automatic dynamic ML priority re-prediction if critical factors changed
+    const shouldRepredict = (
+      (dueAt !== undefined && new Date(dueAt).getTime() !== new Date(oldDueAt).getTime()) ||
+      (userPriority !== undefined && userPriority !== oldUserPriority) ||
+      (estimatedMinutes !== undefined && Number(estimatedMinutes) !== oldEstimatedMinutes) ||
+      (category !== undefined && category !== oldCategory)
+    );
+
+    if (shouldRepredict && task.status !== 'done') {
+      const workloadCtx = getWorkloadContext(req.user!.id);
+      const now = new Date();
+      const hoursToDeadline = (new Date(task.dueAt).getTime() - now.getTime()) / (3600 * 1000);
+      const isOverdue = hoursToDeadline < 0;
+
+      const mlResult = await MLClient.predictPriority({
+      hours_to_deadline: hoursToDeadline,
+      is_overdue: hoursToDeadline < 0 ? 1 : 0,
+      estimated_duration_min: task.estimatedMinutes,
+      user_importance: task.userPriority === 'high' ? 5 : (task.userPriority === 'medium' ? 3 : 1),
+      workload_pending_tasks: workloadCtx.workload_pending_tasks,
+      workload_minutes_today: workloadCtx.workload_minutes_today,
+      available_free_minutes: workloadCtx.available_free_minutes,
+      historical_completion_rate: workloadCtx.historical_completion_rate,
+      dependency_count: task.dependencyCount || 0,
+      category: task.category
+    });
+
+      task.predictedPriority = mlResult.predicted_priority;
+      task.priorityScore = mlResult.priority_score;
     }
 
     task.updatedAt = new Date().toISOString();
