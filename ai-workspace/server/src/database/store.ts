@@ -6,6 +6,9 @@
 
 import fs from 'fs';
 import path from 'path';
+import { initializeApp, getApps, cert } from 'firebase-admin/app';
+import { getFirestore, Firestore } from 'firebase-admin/firestore';
+import { CONFIG } from '../config/env.js';
 import {
   User,
   Task,
@@ -16,6 +19,32 @@ import {
   DailyPlan,
   ActivityLog
 } from '../models/types.js';
+
+let firestoreInstance: Firestore | null = null;
+
+function getFirestoreInstance(): Firestore | null {
+  if (firestoreInstance) return firestoreInstance;
+  if (CONFIG.FIREBASE_PROJECT_ID && CONFIG.FIREBASE_CLIENT_EMAIL && CONFIG.FIREBASE_PRIVATE_KEY) {
+    try {
+      if (getApps().length === 0) {
+        const formattedKey = CONFIG.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n');
+        initializeApp({
+          credential: cert({
+            projectId: CONFIG.FIREBASE_PROJECT_ID,
+            clientEmail: CONFIG.FIREBASE_CLIENT_EMAIL,
+            privateKey: formattedKey,
+          }),
+        });
+      }
+      firestoreInstance = getFirestore();
+      console.log(`[Firebase] Connected to Firestore project: ${CONFIG.FIREBASE_PROJECT_ID}`);
+      return firestoreInstance;
+    } catch (e: any) {
+      console.warn('[Firebase] Firestore init failed, falling back to local store:', e.message);
+    }
+  }
+  return null;
+}
 
 interface DatabaseSchema {
   users: Record<string, User>;
@@ -90,6 +119,10 @@ class DatabaseStore {
   saveUser(user: User): User {
     this.data.users[user.id] = user;
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('users').doc(user.id).set(user, { merge: true }).catch((err: any) => console.warn('[Firebase] Sync user error:', err.message));
+    }
     return user;
   }
 
@@ -106,6 +139,10 @@ class DatabaseStore {
   saveTask(task: Task): Task {
     this.data.tasks[task.id] = task;
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('tasks').doc(task.id).set(task, { merge: true }).catch((err: any) => console.warn('[Firebase] Sync task error:', err.message));
+    }
     return task;
   }
 
@@ -114,6 +151,10 @@ class DatabaseStore {
     if (!t) return false;
     delete this.data.tasks[id];
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('tasks').doc(id).delete().catch(() => {});
+    }
     return true;
   }
 
@@ -130,6 +171,10 @@ class DatabaseStore {
   saveNote(note: Note): Note {
     this.data.notes[note.id] = note;
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('notes').doc(note.id).set(note, { merge: true }).catch((err: any) => console.warn('[Firebase] Sync note error:', err.message));
+    }
     return note;
   }
 
@@ -138,6 +183,10 @@ class DatabaseStore {
     if (!n) return false;
     delete this.data.notes[id];
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('notes').doc(id).delete().catch(() => {});
+    }
     return true;
   }
 
@@ -149,6 +198,10 @@ class DatabaseStore {
   saveReminder(reminder: Reminder): Reminder {
     this.data.reminders[reminder.id] = reminder;
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('reminders').doc(reminder.id).set(reminder, { merge: true }).catch((err: any) => console.warn('[Firebase] Sync reminder error:', err.message));
+    }
     return reminder;
   }
 
@@ -157,6 +210,10 @@ class DatabaseStore {
     if (r && r.userId === userId) {
       r.isDismissed = true;
       this.save();
+      const fsDb = getFirestoreInstance();
+      if (fsDb) {
+        fsDb.collection('reminders').doc(id).set({ isDismissed: true }, { merge: true }).catch(() => {});
+      }
       return true;
     }
     return false;
@@ -175,6 +232,10 @@ class DatabaseStore {
   saveDocument(doc: DocumentRecord): DocumentRecord {
     this.data.documents[doc.id] = doc;
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('documents').doc(doc.id).set(doc, { merge: true }).catch((err: any) => console.warn('[Firebase] Sync document error:', err.message));
+    }
     return doc;
   }
 
@@ -183,6 +244,10 @@ class DatabaseStore {
     if (!doc) return false;
     delete this.data.documents[id];
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('documents').doc(id).delete().catch(() => {});
+    }
     return true;
   }
 
@@ -194,6 +259,10 @@ class DatabaseStore {
   saveCalendarEvent(event: CalendarEvent): CalendarEvent {
     this.data.calendarEvents[event.id] = event;
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('calendarEvents').doc(event.id).set(event, { merge: true }).catch((err: any) => console.warn('[Firebase] Sync event error:', err.message));
+    }
     return event;
   }
 
@@ -215,6 +284,10 @@ class DatabaseStore {
     }
     this.data.dailyPlans[plan.id] = plan;
     this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('dailyPlans').doc(plan.id).set(plan, { merge: true }).catch((err: any) => console.warn('[Firebase] Sync plan error:', err.message));
+    }
     return plan;
   }
 

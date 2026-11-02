@@ -10,8 +10,10 @@ Integrates:
 """
 
 import os
+import re
 import json
 import joblib
+import traceback
 import pandas as pd
 import numpy as np
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -152,6 +154,62 @@ def predict_task_priority(task_data: dict) -> dict:
             'model_version': 'baseline-v1.0'
         }
 
+def extract_text_from_file(file_path: str) -> dict:
+    if not os.path.exists(file_path):
+        return {'success': False, 'error': f"File not found: {file_path}", 'text': '', 'page_count': 0}
+    
+    ext = os.path.splitext(file_path)[1].lower()
+    text = ""
+    page_count = 1
+    
+    try:
+        if ext == '.pdf':
+            from pypdf import PdfReader
+            reader = PdfReader(file_path)
+            page_count = len(reader.pages)
+            pages = []
+            for page in reader.pages:
+                try:
+                    p_text = page.extract_text()
+                    if p_text and p_text.strip():
+                        pages.append(p_text.strip())
+                except Exception:
+                    pass
+            text = "\n\n".join(pages)
+            
+        elif ext in ['.docx', '.doc']:
+            try:
+                import docx
+                doc = docx.Document(file_path)
+                paragraphs = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
+                text = "\n\n".join(paragraphs)
+            except Exception as e:
+                text = ""
+                
+        elif ext in ['.txt', '.md', '.markdown', '.json', '.csv']:
+            with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                text = f.read()
+                
+        else:
+            with open(file_path, 'rb') as f:
+                content = f.read()
+            text = content.decode('utf-8', errors='ignore')
+            text = ''.join(c for c in text if c.isprintable() or c in '\n\r\t ')
+            
+    except Exception as e:
+        return {'success': False, 'error': str(e), 'text': '', 'page_count': 0}
+
+    # Clean whitespace
+    text = re.sub(r'[ \t]+', ' ', text)
+    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+        
+    return {
+        'success': True,
+        'text': text,
+        'char_count': len(text),
+        'page_count': page_count
+    }
+
 class MLRequestHandler(BaseHTTPRequestHandler):
     def _send_json(self, status_code: int, data: dict):
         response_bytes = json.dumps(data, indent=2).encode('utf-8')
@@ -222,6 +280,11 @@ class MLRequestHandler(BaseHTTPRequestHandler):
             candidate = body.get('candidate', '')
             scores = SUMMARIZER.compute_rouge_scores(reference, candidate)
             self._send_json(200, scores)
+
+        elif path in ['/extract-text', '/api/v1/ml/extract-text']:
+            file_path = body.get('file_path', '')
+            res = extract_text_from_file(file_path)
+            self._send_json(200, res)
 
         elif path in ['/feedback', '/api/v1/ml/feedback']:
             res = CONTINUOUS_LEARNER.record_task_feedback(

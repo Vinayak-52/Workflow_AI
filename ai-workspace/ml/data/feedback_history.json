@@ -76,5 +76,18 @@
     "estimated_duration_min": 60,
     "duration_error_ratio": 1.0,
     "category": "project"
+  },
+  {
+    "task_id": "task-6a1553f1",
+    "timestamp": "2026-11-02T19:35:25.844511",
+    "predicted_priority": "low",
+    "user_priority": "low",
+    "is_override": false,
+    "completed_on_time": true,
+    "hours_to_deadline": 311.9261622222222,
+    "actual_duration_min": 120,
+    "estimated_duration_min": 120,
+    "duration_error_ratio": 1.0,
+    "category": "personal"
   }
 ]

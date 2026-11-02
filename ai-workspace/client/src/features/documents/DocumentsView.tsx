@@ -47,7 +47,7 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
     if (!selectedDoc) return;
     setSummarizing(true);
     try {
-      const res = await api.summarizeDocument(selectedDoc.id, 4);
+      const res = await api.summarizeDocument(selectedDoc.id, 7);
       setSelectedDoc(prev => (prev ? { ...prev, summary: res.summary, keyTakeaways: res.keyTakeaways, factualityScore: res.factualityScore } : null));
       setDocuments(prev => prev.map(d => (d.id === selectedDoc.id ? { ...d, summary: res.summary, keyTakeaways: res.keyTakeaways } : d)));
     } catch (e: any) {

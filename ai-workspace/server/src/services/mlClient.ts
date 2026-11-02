@@ -59,13 +59,33 @@ export class MLClient {
     }));
   }
 
+  static async extractText(filePath: string): Promise<string> {
+    try {
+      const response = await fetch(`${this.baseUrl}/extract-text`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file_path: filePath }),
+        signal: AbortSignal.timeout(15000)
+      });
+      if (response.ok) {
+        const data = await response.json() as any;
+        if (data.success && data.text && data.text.trim().length > 0) {
+          return data.text;
+        }
+      }
+    } catch (e) {
+      console.warn('[MLClient] Text extraction via ML service failed:', e);
+    }
+    return '';
+  }
+
   static async summarize(text: string, maxSentences: number = 3): Promise<any> {
     try {
       const response = await fetch(`${this.baseUrl}/summarize`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, max_sentences: maxSentences }),
-        signal: AbortSignal.timeout(4000)
+        signal: AbortSignal.timeout(15000)
       });
       if (response.ok) {
         return await response.json();

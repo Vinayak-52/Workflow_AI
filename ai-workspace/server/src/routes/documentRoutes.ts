@@ -64,22 +64,30 @@ router.post('/upload', upload.single('file'), activityLogger('document', 'DOCUME
     const filePath = req.file.path;
     let extractedText = '';
 
-    // Extract text based on file format
+    // Extract text cleanly using ML service (supports PDF, DOCX, TXT, MD, etc.)
     const ext = path.extname(req.file.originalname).toLowerCase();
     if (ext === '.txt' || ext === '.md' || ext === '.markdown' || ext === '.json') {
-      extractedText = fs.readFileSync(filePath, 'utf-8');
+      try {
+        extractedText = fs.readFileSync(filePath, 'utf-8');
+      } catch (_) {
+        extractedText = await MLClient.extractText(filePath);
+      }
     } else {
-      // For binary files, extract printable text characters
-      const buffer = fs.readFileSync(filePath);
-      extractedText = buffer.toString('utf-8').replace(/[^\x20-\x7E\t\r\n]/g, ' ');
-      extractedText = extractedText.replace(/\s{2,}/g, ' ').trim();
-      if (extractedText.length < 20) {
-        extractedText = `Extracted content from ${req.file.originalname}. Analysis pending.`;
+      extractedText = await MLClient.extractText(filePath);
+      if (!extractedText || extractedText.trim().length === 0) {
+        // Fallback for unrecognized formats
+        const buffer = fs.readFileSync(filePath);
+        extractedText = buffer.toString('utf-8').replace(/[^\x20-\x7E\t\r\n]/g, ' ');
+        extractedText = extractedText.replace(/\s{2,}/g, ' ').trim();
       }
     }
 
-    // Auto-generate preliminary extractive summary
-    const summaryResult = await MLClient.summarize(extractedText, 3);
+    if (!extractedText || extractedText.trim().length < 10) {
+      extractedText = `Extracted content from ${req.file.originalname}. Analysis pending.`;
+    }
+
+    // Auto-generate preliminary extractive summary with 7 high-salience points
+    const summaryResult = await MLClient.summarize(extractedText, 7);
 
     const docRecord: DocumentRecord = {
       id: `doc-${uuidv4().slice(0, 8)}`,
@@ -123,7 +131,7 @@ router.post('/:id/summarize', async (req: AuthenticatedRequest, res: Response, n
       return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Document not found' } });
     }
 
-    const { maxSentences = 4 } = req.body;
+    const { maxSentences = 7 } = req.body;
     const summaryResult = await MLClient.summarize(doc.extractedText, maxSentences);
 
     doc.summary = summaryResult.summary;

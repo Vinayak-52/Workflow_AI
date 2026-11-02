@@ -6,6 +6,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 
 import authRoutes from './routes/authRoutes.js';
@@ -74,6 +75,24 @@ export function createApp() {
   // Serve static uploaded documents
   const uploadDir = path.resolve(process.cwd(), 'uploads');
   app.use('/uploads', express.static(uploadDir));
+
+  // Serve static frontend in production if built client exists
+  const possibleClientPaths = [
+    path.resolve(process.cwd(), '../client/dist'),
+    path.resolve(process.cwd(), 'ai-workspace/client/dist'),
+    path.resolve(process.cwd(), 'client/dist'),
+    '/app/client/dist'
+  ];
+  const clientDist = possibleClientPaths.find(p => fs.existsSync(p));
+  if (clientDist) {
+    app.use(express.static(clientDist));
+    app.get('*', (req, res, next) => {
+      if (req.path.startsWith('/api/') || req.path.startsWith('/uploads/')) {
+        return next();
+      }
+      res.sendFile(path.join(clientDist, 'index.html'));
+    });
+  }
 
   // 404 handler for undefined API routes
   app.use('/api/*', (req, res) => {
