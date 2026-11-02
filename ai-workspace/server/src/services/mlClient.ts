@@ -146,33 +146,132 @@ export class MLClient {
     const hours = Number(task.hours_to_deadline ?? 24);
     const isOverdue = Boolean(task.is_overdue || hours < 0);
     const importance = Number(task.user_importance ?? 3);
+    const estimatedMinutes = Number(task.estimated_duration_min ?? task.estimatedMinutes ?? 60);
+    const availableFreeMinutes = Number(task.available_free_minutes ?? 120);
+    const workloadPending = Number(task.workload_pending_tasks ?? 3);
+    const category = String(task.category || 'project').toLowerCase();
 
-    if (isOverdue || hours <= 4) {
-      return {
-        predicted_priority: 'high',
-        priority_score: 95.0,
-        probabilities: { high: 0.95, medium: 0.05, low: 0.0 },
-        method: 'deterministic_baseline_rules',
-        rationale: 'Overdue or imminent deadline within 4 hours.',
-        model_version: 'baseline-v1.0'
-      };
-    } else if (hours <= 24 || importance >= 4) {
-      return {
-        predicted_priority: 'medium',
-        priority_score: 60.0,
-        probabilities: { high: 0.2, medium: 0.7, low: 0.1 },
-        method: 'deterministic_baseline_rules',
-        rationale: 'Moderate deadline proximity (due within 24h).',
-        model_version: 'baseline-v1.0'
-      };
+    // 1. Domain Category multiplier (academic & project deadlines carry higher cognitive weight)
+    const catMultiplier: Record<string, number> = {
+      academic: 1.05,
+      project: 1.00,
+      administrative: 0.95,
+      personal: 0.90
+    };
+    const catWeight = catMultiplier[category] ?? 1.0;
+
+    // 2. Exponential urgency decay based on deadline proximity
+    let urgencyScore = 0;
+    if (isOverdue || hours <= 0) {
+      urgencyScore = 100;
+    } else {
+      urgencyScore = Math.min(100, Math.max(0, 100 * Math.exp(-hours / 48)));
     }
+
+    // 3. User importance mapping (1-5 scale -> 20-100)
+    const importanceScore = Math.min(100, Math.max(20, (importance / 5) * 100));
+
+    // 4. Time pressure ratio (estimated duration vs available calendar free time)
+    const freeTimeRatio = estimatedMinutes / Math.max(15, availableFreeMinutes);
+    const timePressureScore = Math.min(100, Math.max(10, freeTimeRatio * 50));
+
+    // 5. Workload saturation score
+    const pendingPressureScore = Math.min(100, workloadPending * 8);
+
+    // 6. Multi-factor continuous composite score (0-100)
+    let rawScore = (
+      urgencyScore * 0.45 +
+      importanceScore * 0.35 +
+      timePressureScore * 0.15 +
+      pendingPressureScore * 0.05
+    ) * catWeight;
+
+    // Baseline heuristic bounds aligning with Random Forest decision boundaries:
+    if (isOverdue || hours <= 0) {
+      rawScore = Math.max(95.0, rawScore);
+    } else if (hours <= 6) {
+      rawScore = Math.max(88.0, rawScore);
+    } else if (importance >= 5 && hours <= 24) {
+      rawScore = Math.max(82.0, rawScore);
+    } else if (hours <= 18 && importance >= 4) {
+      rawScore = Math.max(78.0, rawScore);
+    } else if (hours <= 24 && availableFreeMinutes < estimatedMinutes) {
+      rawScore = Math.max(76.0, rawScore);
+    } else if (hours <= 48 && importance >= 3) {
+      rawScore = Math.max(45.0, rawScore);
+    } else if (hours > 72 && importance <= 2) {
+      rawScore = Math.min(38.0, rawScore);
+    }
+
+    const priorityScore = Math.round(Math.min(99.5, Math.max(5.0, rawScore)) * 10) / 10;
+
+    // Determine predicted label
+    let predictedPriority: 'high' | 'medium' | 'low';
+    if (priorityScore >= 70.0) {
+      predictedPriority = 'high';
+    } else if (priorityScore >= 40.0) {
+      predictedPriority = 'medium';
+    } else {
+      predictedPriority = 'low';
+    }
+
+    // Calibrated probability distribution
+    let probHigh = 0.05;
+    let probMed = 0.25;
+    let probLow = 0.70;
+
+    if (priorityScore >= 70.0) {
+      const normalized = (priorityScore - 70.0) / 30.0;
+      probHigh = 0.65 + normalized * 0.30;
+      probMed = (1.0 - probHigh) * 0.75;
+      probLow = Math.max(0.01, 1.0 - probHigh - probMed);
+    } else if (priorityScore >= 40.0) {
+      const distFromCenter = 1.0 - Math.abs(priorityScore - 55.0) / 20.0;
+      probMed = 0.55 + distFromCenter * 0.25;
+      const remainder = 1.0 - probMed;
+      if (priorityScore >= 55.0) {
+        probHigh = remainder * 0.70;
+        probLow = remainder * 0.30;
+      } else {
+        probHigh = remainder * 0.30;
+        probLow = remainder * 0.70;
+      }
+    } else {
+      const normalized = (40.0 - priorityScore) / 35.0;
+      probLow = 0.60 + normalized * 0.35;
+      probMed = (1.0 - probLow) * 0.75;
+      probHigh = Math.max(0.01, 1.0 - probLow - probMed);
+    }
+
+    const probabilities = {
+      high: Math.round(probHigh * 1000) / 1000,
+      medium: Math.round(probMed * 1000) / 1000,
+      low: Math.round(probLow * 1000) / 1000
+    };
+
+    // Human-readable diagnostic rationale
+    let rationale = '';
+    if (isOverdue || hours <= 0) {
+      rationale = `Task is overdue by ${Math.abs(Math.round(hours))}h. Prioritized as High to avoid deadline failure.`;
+    } else if (hours <= 6) {
+      rationale = `Imminent deadline (${hours.toFixed(1)}h remaining) with user importance ${importance}/5. Prioritized as High.`;
+    } else if (availableFreeMinutes < estimatedMinutes && hours <= 24) {
+      rationale = `Time deficit detected (${availableFreeMinutes}m free time vs ${estimatedMinutes}m needed) with ${hours.toFixed(1)}h until deadline.`;
+    } else if (priorityScore >= 70) {
+      rationale = `High priority score (${priorityScore}/100) driven by ${hours.toFixed(1)}h deadline proximity and level ${importance} importance.`;
+    } else if (priorityScore >= 40) {
+      rationale = `Moderate priority score (${priorityScore}/100) with ${hours.toFixed(1)}h deadline buffer and ${estimatedMinutes}m estimated duration.`;
+    } else {
+      rationale = `Low priority score (${priorityScore}/100) due to generous deadline buffer (${hours.toFixed(1)}h) and standard importance.`;
+    }
+
     return {
-      predicted_priority: 'low',
-      priority_score: 25.0,
-      probabilities: { high: 0.05, medium: 0.25, low: 0.7 },
-      method: 'deterministic_baseline_rules',
-      rationale: 'Generous time buffer (>24h).',
-      model_version: 'baseline-v1.0'
+      predicted_priority: predictedPriority,
+      priority_score: priorityScore,
+      probabilities,
+      method: 'heuristic_multivariate_engine',
+      rationale,
+      model_version: 'rf-heuristic-v2.0'
     };
   }
 }

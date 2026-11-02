@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api.ts';
 import { Task, CalendarEvent, DailyPlan, Reminder } from '../../types/index.ts';
+import { FormattedMessage } from '../../components/FormattedMessage.tsx';
 
 interface DashboardProps {
   onNavigate: (view: string) => void;
@@ -20,9 +21,10 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
   const [reminders, setReminders] = useState<Reminder[]>([]);
   const [loading, setLoading] = useState(true);
   const [prompt, setPrompt] = useState('');
-  const [modelSelected, setModelSelected] = useState('Random Forest (ML)');
+  const [modelSelected, setModelSelected] = useState('Gemini 2.0 Flash');
   const [prompting, setPrompting] = useState(false);
   const [aiResponseText, setAiResponseText] = useState<string | null>(null);
+  const [chatHistory, setChatHistory] = useState<Array<{ role: 'user' | 'model'; text: string }>>([]);
 
   useEffect(() => {
     loadDashboardData();
@@ -54,11 +56,35 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
     e.preventDefault();
     if (!prompt.trim() || prompting) return;
 
+    const currentPrompt = prompt.trim();
     setPrompting(true);
     setAiResponseText(null);
     try {
-      const res = await api.chatAssistant(prompt);
+      const res = await api.chatAssistant(
+        currentPrompt,
+        { type: 'global' },
+        modelSelected,
+        chatHistory
+      );
       setAiResponseText(res.answer);
+
+      // Maintain sliding context window of 5 prompts
+      setChatHistory(prev => {
+        const updated = [...prev, { role: 'user' as const, text: currentPrompt }, { role: 'model' as const, text: res.answer }];
+        let userCount = 0;
+        let startIdx = 0;
+        for (let i = updated.length - 1; i >= 0; i--) {
+          if (updated[i].role === 'user') {
+            userCount++;
+            if (userCount === 5) {
+              startIdx = i;
+              break;
+            }
+          }
+        }
+        return updated.slice(startIdx);
+      });
+
       if (res.proposals && res.proposals.length > 0) {
         // Refresh tasks
         const tRes = await api.getTasks();
@@ -263,8 +289,8 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
                     onChange={e => setModelSelected(e.target.value)}
                     className="appearance-none pl-2.5 pr-6 py-1 rounded-full bg-slate-100 dark:bg-charcoal-800 text-[11px] font-semibold text-slate-800 dark:text-charcoal-200 border border-slate-200/80 dark:border-charcoal-700 focus:outline-none cursor-pointer"
                   >
+                    <option value="Gemini 2.0 Flash">✦ Gemini 2.0 Flash</option>
                     <option value="Random Forest (ML)">✦ Random Forest (ML)</option>
-                    <option value="GPT-4o (Reasoning)">✦ GPT-4o (Reasoning)</option>
                     <option value="Extractive NLP">✦ Extractive NLP</option>
                   </select>
                   <ChevronDown className="w-3 h-3 text-slate-500 dark:text-charcoal-400 absolute right-2 top-2 pointer-events-none" />
@@ -289,9 +315,24 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
                 <span className="flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5" /> Response from {modelSelected}
                 </span>
-                <button onClick={() => setAiResponseText(null)} className="text-slate-400 hover:text-slate-600">Dismiss</button>
+                <div className="flex items-center gap-2">
+                  {chatHistory.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setChatHistory([]);
+                        api.clearAssistantContext().catch(() => {});
+                      }}
+                      className="text-[9px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-charcoal-800 text-slate-500 hover:text-slate-700 dark:hover:text-charcoal-300 font-semibold transition"
+                      title="Reset 5-prompt context window"
+                    >
+                      Reset Context ({Math.min(Math.ceil(chatHistory.length / 2), 5)}/5)
+                    </button>
+                  )}
+                  <button onClick={() => setAiResponseText(null)} className="text-slate-400 hover:text-slate-600">Dismiss</button>
+                </div>
               </div>
-              <p className="leading-relaxed whitespace-pre-wrap">{aiResponseText}</p>
+              <FormattedMessage content={aiResponseText} />
             </div>
           )}
         </div>

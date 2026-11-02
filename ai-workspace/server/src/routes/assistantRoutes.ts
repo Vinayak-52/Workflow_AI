@@ -9,16 +9,39 @@ import { db } from '../database/store.js';
 import { authMiddleware, AuthenticatedRequest } from '../middleware/auth.js';
 import { MLClient } from '../services/mlClient.js';
 import { PlannerService } from '../services/plannerService.js';
+import { chatWithGemini, clearUserHistory, getUserHistory } from '../services/geminiService.js';
 
 const router = Router();
 router.use(authMiddleware);
 
+// Clear conversation context window
+router.post('/context/clear', (req: AuthenticatedRequest, res: Response) => {
+  const userId = req.user!.id;
+  clearUserHistory(userId);
+  return res.json({ success: true, message: 'Context window reset to 0 prompts.' });
+});
+
+// Get current conversation context length
+router.get('/context/status', (req: AuthenticatedRequest, res: Response) => {
+  const userId = req.user!.id;
+  const history = getUserHistory(userId);
+  const promptCount = history.filter(m => m.role === 'user').length;
+  return res.json({ promptCount, maxPrompts: 5 });
+});
+
 router.post('/chat', async (req: AuthenticatedRequest, res: Response, next) => {
   try {
     const userId = req.user!.id;
-    const { message = '', context = { type: 'global', id: null } } = req.body;
+    const {
+      message = '',
+      context = { type: 'global', id: null },
+      history,
+      clearHistory = false
+    } = req.body;
 
-    const lower = message.toLowerCase();
+    const model = req.body.model || context?.model || 'Gemini 2.0 Flash';
+    const isGemini = String(model).toLowerCase().includes('gemini');
+
     const tasks = db.getTasksByUserId(userId);
     const notes = db.getNotesByUserId(userId);
     const events = db.getCalendarEventsByUserId(userId);
@@ -29,7 +52,38 @@ router.post('/chat', async (req: AuthenticatedRequest, res: Response, next) => {
     const warnings: string[] = [];
     let answer = '';
 
-    // Handle Contextual Request based on context type or message intent
+    // ── Dedicated Optimized Gemini 2.0 Flash Flow ────────────────────
+    // Fast-path execution with 5-prompt context window & zero canned greeting
+    if (isGemini) {
+      try {
+        const geminiRes = await chatWithGemini(message, {
+          userId,
+          customHistory: Array.isArray(history) ? history : undefined,
+          clearHistory: Boolean(clearHistory)
+        });
+
+        answer = geminiRes.answer;
+        sources.push({
+          type: 'ai_model',
+          id: geminiRes.model,
+          label: `Gemini (${geminiRes.tokensUsed ?? '?'} tokens | Context: ${geminiRes.historyLength}/5 prompts)`
+        });
+      } catch (geminiErr: any) {
+        console.error('[AssistantChat] Gemini error:', geminiErr.message);
+        answer = `Unable to generate Gemini response: ${geminiErr.message}. Please check your network connection and GEMINI_API_KEY.`;
+      }
+
+      return res.json({
+        answer,
+        sources,
+        proposals,
+        warnings
+      });
+    }
+
+    // ── Non-Gemini Flow (Rule-based & Fallback with Default Phrase) ───
+    const lower = message.toLowerCase();
+
     if (lower.includes('plan') || lower.includes('schedule') || lower.includes('today')) {
       const todayStr = new Date().toISOString().split('T')[0];
       const plan = PlannerService.generateDailyPlan(userId, todayStr);
@@ -84,7 +138,7 @@ router.post('/chat', async (req: AuthenticatedRequest, res: Response, next) => {
         sources.push({ type: 'task', id: t.id, label: t.title });
       }
     } else {
-      // General workspace synthesis
+      // General workspace synthesis (Default phrase preserved for non-Gemini models)
       const activeCount = tasks.filter(t => t.status !== 'done').length;
       answer = `Hello ${req.user!.displayName}! You have ${activeCount} active tasks, ${events.length} calendar commitments, ${notes.length} notes, and ${docs.length} uploaded documents in your workspace. How can I assist you with planning or summarizing your work?`;
     }

@@ -89,5 +89,44 @@
     "estimated_duration_min": 120,
     "duration_error_ratio": 1.0,
     "category": "personal"
+  },
+  {
+    "task_id": "TASK-TEST-99",
+    "timestamp": "2026-11-03T00:42:22.860673",
+    "predicted_priority": "medium",
+    "user_priority": "high",
+    "is_override": true,
+    "completed_on_time": true,
+    "hours_to_deadline": 8.0,
+    "actual_duration_min": 75,
+    "estimated_duration_min": 60,
+    "duration_error_ratio": 1.25,
+    "category": "project"
+  },
+  {
+    "task_id": "task-95209965",
+    "timestamp": "2026-11-03T02:39:02.981216",
+    "predicted_priority": "medium",
+    "user_priority": "medium",
+    "is_override": false,
+    "completed_on_time": true,
+    "hours_to_deadline": 21.332506666666667,
+    "actual_duration_min": 15,
+    "estimated_duration_min": 15,
+    "duration_error_ratio": 1.0,
+    "category": "project"
+  },
+  {
+    "task_id": "task-95209965",
+    "timestamp": "2026-11-03T02:39:04.854209",
+    "predicted_priority": "medium",
+    "user_priority": "medium",
+    "is_override": false,
+    "completed_on_time": true,
+    "hours_to_deadline": 21.331986666666666,
+    "actual_duration_min": 15,
+    "estimated_duration_min": 15,
+    "duration_error_ratio": 1.0,
+    "category": "project"
   }
 ]

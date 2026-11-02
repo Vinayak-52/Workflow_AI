@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {
   Plus, Search, Filter, Trash2, Edit3, CheckCircle2, Clock, AlertTriangle,
-  Sparkles, RefreshCw, X, Check
+  Sparkles, RefreshCw, X, Check, Calendar
 } from 'lucide-react';
 import { api } from '../../services/api.ts';
 import { Task, TaskPriority, TaskCategory, TaskStatus } from '../../types/index.ts';
 
-export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => void }> = ({
-  isCreateOpen,
+export const TasksView: React.FC<{
+  isCreateOpen?: boolean;
+  onCloseCreate?: () => void;
+}> = ({
+  isCreateOpen = false,
   onCloseCreate
 }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -18,6 +21,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
   // Create / Edit modal states
+  const [internalCreateOpen, setInternalCreateOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -27,9 +31,19 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
   const [estimatedMinutes, setEstimatedMinutes] = useState(60);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [repredictingId, setRepredictingId] = useState<string | null>(null);
+
+  const showModal = isCreateOpen || internalCreateOpen || Boolean(editingTask);
+
+  const getDefaultDateTime = () => {
+    const tomorrow = new Date(Date.now() + 24 * 3600 * 1000);
+    tomorrow.setHours(17, 0, 0, 0);
+    const pad = (n: number) => String(n).padStart(2, '0');
+    return `${tomorrow.getFullYear()}-${pad(tomorrow.getMonth() + 1)}-${pad(tomorrow.getDate())}T17:00`;
+  };
 
   const getMinDateTime = () => {
-    const now = new Date();
+    const now = new Date(Date.now() - 2 * 60 * 1000); // 2-min grace buffer
     const pad = (n: number) => String(n).padStart(2, '0');
     return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
   };
@@ -50,12 +64,32 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
     }
   };
 
+  const handleCloseModal = () => {
+    setEditingTask(null);
+    setInternalCreateOpen(false);
+    if (onCloseCreate) {
+      onCloseCreate();
+    }
+    resetForm();
+  };
+
+  const resetForm = () => {
+    setFormError(null);
+    setTitle('');
+    setDescription('');
+    setCategory('project');
+    setUserPriority('medium');
+    setDueAt(getDefaultDateTime());
+    setEstimatedMinutes(60);
+  };
+
   const handleCreateTask = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
     if (!title.trim() || submitting) return;
 
-    if (dueAt && new Date(dueAt).getTime() < Date.now()) {
+    // Grace buffer of 2 minutes so picking current time doesn't falsely fail
+    if (dueAt && new Date(dueAt).getTime() < Date.now() - 2 * 60 * 1000) {
       setFormError('Task deadline cannot be in the past. Please select a future date and time.');
       return;
     }
@@ -63,16 +97,15 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
     setSubmitting(true);
     try {
       const res = await api.createTask({
-        title,
-        description,
+        title: title.trim(),
+        description: description.trim(),
         category,
         userPriority,
-        dueAt: dueAt || new Date(Date.now() + 24 * 3600 * 1000).toISOString(),
+        dueAt: dueAt ? new Date(dueAt).toISOString() : new Date(Date.now() + 24 * 3600 * 1000).toISOString(),
         estimatedMinutes
       });
       setTasks(prev => [res.task, ...prev]);
-      resetForm();
-      onCloseCreate();
+      handleCloseModal();
     } catch (err: any) {
       setFormError(`Error creating task: ${err.message}`);
     } finally {
@@ -85,7 +118,11 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
     setFormError(null);
     if (!editingTask || submitting) return;
 
-    if (editingTask.status !== 'done' && dueAt && new Date(dueAt).getTime() < Date.now()) {
+    // Only validate past deadline if user explicitly CHANGED the deadline on an active task
+    const isDeadlineModified = Boolean(
+      dueAt && (!editingTask.dueAt || new Date(dueAt).getTime() !== new Date(editingTask.dueAt).getTime())
+    );
+    if (editingTask.status !== 'done' && isDeadlineModified && new Date(dueAt).getTime() < Date.now() - 2 * 60 * 1000) {
       setFormError('Task deadline cannot be in the past. Please select a future date and time.');
       return;
     }
@@ -93,16 +130,15 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
     setSubmitting(true);
     try {
       const res = await api.updateTask(editingTask.id, {
-        title,
-        description,
+        title: title.trim(),
+        description: description.trim(),
         category,
         userPriority,
-        dueAt: dueAt || editingTask.dueAt,
+        dueAt: dueAt ? new Date(dueAt).toISOString() : editingTask.dueAt,
         estimatedMinutes
       });
       setTasks(prev => prev.map(t => (t.id === editingTask.id ? res.task : t)));
-      setEditingTask(null);
-      resetForm();
+      handleCloseModal();
     } catch (err: any) {
       setFormError(`Error updating task: ${err.message}`);
     } finally {
@@ -132,11 +168,13 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
 
   const handleRepredict = async (id: string) => {
     try {
+      setRepredictingId(id);
       const res = await api.repredictPriority(id);
       setTasks(prev => prev.map(t => (t.id === id ? res.task : t)));
-      alert(`Updated priority score: ${res.task.priorityScore} (${res.task.predictedPriority.toUpperCase()})\n\n${res.mlRationale}`);
-    } catch (e: any) {
-      alert(`Error re-predicting priority: ${e.message}`);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setRepredictingId(null);
     }
   };
 
@@ -144,21 +182,29 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
     setFormError(null);
     setEditingTask(task);
     setTitle(task.title);
-    setDescription(task.description);
+    setDescription(task.description || '');
     setCategory(task.category);
     setUserPriority(task.userPriority);
-    setDueAt(task.dueAt ? task.dueAt.slice(0, 16) : '');
+    setDueAt(task.dueAt ? task.dueAt.slice(0, 16) : getDefaultDateTime());
     setEstimatedMinutes(task.estimatedMinutes);
   };
 
-  const resetForm = () => {
+  const setDeadlinePreset = (preset: 'today' | 'tomorrow' | 'week') => {
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const d = new Date();
+    if (preset === 'today') {
+      d.setHours(23, 59, 0, 0);
+      setDueAt(`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T23:59`);
+    } else if (preset === 'tomorrow') {
+      d.setDate(d.getDate() + 1);
+      d.setHours(17, 0, 0, 0);
+      setDueAt(`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T17:00`);
+    } else if (preset === 'week') {
+      d.setDate(d.getDate() + 7);
+      d.setHours(17, 0, 0, 0);
+      setDueAt(`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T17:00`);
+    }
     setFormError(null);
-    setTitle('');
-    setDescription('');
-    setCategory('project');
-    setUserPriority('medium');
-    setDueAt('');
-    setEstimatedMinutes(60);
   };
 
   const filteredTasks = tasks.filter(t => {
@@ -167,7 +213,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
     if (categoryFilter !== 'all' && t.category !== categoryFilter) return false;
     if (search.trim()) {
       const q = search.toLowerCase();
-      return t.title.toLowerCase().includes(q) || t.description.toLowerCase().includes(q);
+      return t.title.toLowerCase().includes(q) || (t.description && t.description.toLowerCase().includes(q));
     }
     return true;
   });
@@ -189,11 +235,13 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
         </div>
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => {
               resetForm();
-              onCloseCreate();
+              setEditingTask(null);
+              setInternalCreateOpen(true);
             }}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shadow-lg shadow-brand-500/20 transition"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shadow-lg shadow-brand-500/20 transition cursor-pointer"
           >
             <Plus className="w-4 h-4" /> Add Task
           </button>
@@ -218,7 +266,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
           <select
             value={statusFilter}
             onChange={e => setStatusFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 focus:border-brand-500"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 focus:border-brand-500 cursor-pointer"
           >
             <option value="all">All Status</option>
             <option value="todo">To Do</option>
@@ -230,7 +278,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
           <select
             value={priorityFilter}
             onChange={e => setPriorityFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 focus:border-brand-500"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 focus:border-brand-500 cursor-pointer"
           >
             <option value="all">All Priorities</option>
             <option value="high">High Priority</option>
@@ -242,7 +290,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
           <select
             value={categoryFilter}
             onChange={e => setCategoryFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 focus:border-brand-500"
+            className="px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 focus:border-brand-500 cursor-pointer"
           >
             <option value="all">All Categories</option>
             <option value="academic">Academic</option>
@@ -254,7 +302,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
           <button
             onClick={loadTasks}
             title="Refresh"
-            className="p-1.5 rounded-lg bg-slate-100 dark:bg-charcoal-800 hover:bg-slate-200 dark:hover:bg-charcoal-700 text-slate-600 dark:text-charcoal-400"
+            className="p-1.5 rounded-lg bg-slate-100 dark:bg-charcoal-800 hover:bg-slate-200 dark:hover:bg-charcoal-700 text-slate-600 dark:text-charcoal-400 transition"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           </button>
@@ -268,19 +316,33 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
             Loading tasks and priority models...
           </div>
         ) : filteredTasks.length === 0 ? (
-          <div className="p-12 text-center rounded-xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 text-xs text-slate-500 dark:text-charcoal-500 space-y-2 shadow-sm">
+          <div className="p-12 text-center rounded-xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 text-xs text-slate-500 dark:text-charcoal-500 space-y-3 shadow-sm">
             <p>No tasks match your current filter criteria.</p>
-            <button
-              onClick={() => {
-                setStatusFilter('all');
-                setPriorityFilter('all');
-                setCategoryFilter('all');
-                setSearch('');
-              }}
-              className="text-brand-500 dark:text-brand-400 hover:underline font-medium"
-            >
-              Clear filters
-            </button>
+            <div className="flex items-center justify-center gap-3">
+              <button
+                onClick={() => {
+                  setStatusFilter('all');
+                  setPriorityFilter('all');
+                  setCategoryFilter('all');
+                  setSearch('');
+                }}
+                className="text-brand-500 dark:text-brand-400 hover:underline font-medium"
+              >
+                Clear filters
+              </button>
+              <span>•</span>
+              <button
+                type="button"
+                onClick={() => {
+                  resetForm();
+                  setEditingTask(null);
+                  setInternalCreateOpen(true);
+                }}
+                className="text-blue-600 dark:text-brand-400 hover:underline font-medium flex items-center gap-1"
+              >
+                <Plus className="w-3.5 h-3.5" /> Create a new task
+              </button>
+            </div>
           </div>
         ) : (
           filteredTasks.map(task => (
@@ -289,14 +351,14 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
               className={`p-4 rounded-xl border transition ${
                 task.status === 'done'
                   ? 'bg-slate-50/60 dark:bg-charcoal-950/40 border-slate-200/60 dark:border-charcoal-900 opacity-60'
-                  : 'bg-white dark:bg-charcoal-900 border-slate-200/80 dark:border-charcoal-800 hover:border-slate-300 dark:hover:border-charcoal-700 shadow-sm'
+                  : 'bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 hover:border-slate-300 dark:hover:border-charcoal-700 shadow-sm'
               }`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-start gap-3">
                   <button
                     onClick={() => handleToggleStatus(task)}
-                    className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center border transition ${
+                    className={`mt-0.5 w-5 h-5 rounded-md flex items-center justify-center border transition cursor-pointer ${
                       task.status === 'done'
                         ? 'bg-emerald-500 border-emerald-500 text-white dark:text-charcoal-950'
                         : 'border-slate-300 dark:border-charcoal-700 bg-slate-50 dark:bg-charcoal-800 hover:border-brand-500'
@@ -381,19 +443,22 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                   {/* Action buttons */}
                   <button
                     onClick={() => handleRepredict(task.id)}
+                    disabled={repredictingId === task.id}
                     title="Re-run Random Forest priority prediction"
-                    className="p-1.5 rounded-lg text-slate-400 dark:text-charcoal-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-charcoal-800 transition"
+                    className="p-1.5 rounded-lg text-slate-400 dark:text-charcoal-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-charcoal-800 transition disabled:opacity-50"
                   >
-                    <RefreshCw className="w-3.5 h-3.5" />
+                    <RefreshCw className={`w-3.5 h-3.5 ${repredictingId === task.id ? 'animate-spin text-brand-500' : ''}`} />
                   </button>
                   <button
                     onClick={() => openEdit(task)}
+                    title="Edit task"
                     className="p-1.5 rounded-lg text-slate-400 dark:text-charcoal-400 hover:text-slate-700 dark:hover:text-charcoal-200 hover:bg-slate-100 dark:hover:bg-charcoal-800 transition"
                   >
                     <Edit3 className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => handleDelete(task.id)}
+                    title="Delete task"
                     className="p-1.5 rounded-lg text-slate-400 dark:text-charcoal-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-slate-100 dark:hover:bg-charcoal-800 transition"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -406,7 +471,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
       </div>
 
       {/* Create / Edit Modal */}
-      {(isCreateOpen || editingTask) && (
+      {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 dark:bg-charcoal-950/80 backdrop-blur-sm animate-in fade-in duration-150">
           <div className="w-full max-w-lg bg-white dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-800 rounded-2xl shadow-2xl p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 dark:border-charcoal-800 pb-3">
@@ -415,11 +480,9 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                 {editingTask ? 'Edit Workspace Task' : 'Create Task (ML Prioritized)'}
               </h2>
               <button
-                onClick={() => {
-                  setEditingTask(null);
-                  onCloseCreate();
-                }}
-                className="text-slate-400 hover:text-slate-600 dark:text-charcoal-400 dark:hover:text-charcoal-200"
+                type="button"
+                onClick={handleCloseModal}
+                className="text-slate-400 hover:text-slate-600 dark:text-charcoal-400 dark:hover:text-charcoal-200 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -455,7 +518,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                   <select
                     value={category}
                     onChange={e => setCategory(e.target.value as TaskCategory)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500 cursor-pointer"
                   >
                     <option value="academic">Academic</option>
                     <option value="project">Project</option>
@@ -469,7 +532,7 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                   <select
                     value={userPriority}
                     onChange={e => setUserPriority(e.target.value as TaskPriority)}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500 cursor-pointer"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -489,15 +552,18 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="block text-slate-600 dark:text-charcoal-400 font-medium">Due Date &amp; Time</label>
-                    <span className="text-[10px] text-brand-600 dark:text-brand-400 font-medium">Future only</span>
+                    <span className="text-[10px] text-brand-600 dark:text-brand-400 font-medium">Future</span>
                   </div>
                   <input
                     type="datetime-local"
-                    min={getMinDateTime()}
+                    min={editingTask ? undefined : getMinDateTime()}
                     value={dueAt}
                     onChange={e => {
                       setDueAt(e.target.value);
-                      if (e.target.value && new Date(e.target.value).getTime() < Date.now()) {
+                      const isModified = editingTask
+                        ? Boolean(e.target.value && editingTask.dueAt && new Date(e.target.value).getTime() !== new Date(editingTask.dueAt).getTime())
+                        : true;
+                      if (isModified && e.target.value && new Date(e.target.value).getTime() < Date.now() - 2 * 60 * 1000) {
                         setFormError('Task deadline cannot be in the past. Please select a future date and time.');
                       } else {
                         setFormError(null);
@@ -507,6 +573,30 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
                       formError ? 'border-red-500 focus:border-red-500' : 'border-slate-200 dark:border-charcoal-700 focus:border-brand-500'
                     } text-slate-900 dark:text-charcoal-200`}
                   />
+                  {/* Quick Preset Buttons */}
+                  <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setDeadlinePreset('today')}
+                      className="text-[10px] px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-slate-600 dark:text-charcoal-300 font-medium transition cursor-pointer"
+                    >
+                      Today EOD
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setDeadlinePreset('tomorrow')}
+                      className="text-[10px] px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-slate-600 dark:text-charcoal-300 font-medium transition cursor-pointer"
+                    >
+                      Tomorrow 5 PM
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setDeadlinePreset('week')}
+                      className="text-[10px] px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-slate-600 dark:text-charcoal-300 font-medium transition cursor-pointer"
+                    >
+                      Next Week
+                    </button>
+                  </div>
                 </div>
 
                 <div>
@@ -533,18 +623,15 @@ export const TasksView: React.FC<{ isCreateOpen: boolean; onCloseCreate: () => v
               <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-charcoal-800">
                 <button
                   type="button"
-                  onClick={() => {
-                    setEditingTask(null);
-                    onCloseCreate();
-                  }}
-                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-slate-700 dark:text-charcoal-300 font-medium transition"
+                  onClick={handleCloseModal}
+                  className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-slate-700 dark:text-charcoal-300 font-medium transition cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-md shadow-brand-500/20 transition"
+                  className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-md shadow-brand-500/20 transition cursor-pointer"
                 >
                   {submitting ? 'Evaluating...' : editingTask ? 'Save Changes' : 'Create & Predict Priority'}
                 </button>
