@@ -152,7 +152,7 @@ export const AppShell: React.FC<AppShellProps> = ({
                 </div>
                 <div className="truncate">
                   <p className="font-semibold text-slate-800 dark:text-charcoal-200 truncate">{displayName}</p>
-                  <p className="text-[10px] text-slate-400 dark:text-charcoal-500 truncate">{currentUser?.email || 'vinayak@hitk.edu.in'}</p>
+                  <p className="text-[10px] text-slate-400 dark:text-charcoal-500 truncate">@{currentUser?.username || 'vinayak'}</p>
                 </div>
               </div>
               {onSignOut && (

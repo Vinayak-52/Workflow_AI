@@ -16,6 +16,7 @@ export interface UserPreferences {
 
 export interface User {
   id: string;
+  username?: string;
   email: string;
   displayName: string;
   passwordHash: string;

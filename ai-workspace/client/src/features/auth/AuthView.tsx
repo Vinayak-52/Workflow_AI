@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Lock, Mail, User as UserIcon, ArrowRight, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Sparkles, Lock, User as UserIcon, ArrowRight, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
 import { api } from '../../services/api.ts';
 import { User } from '../../types/index.ts';
 
@@ -9,8 +9,8 @@ interface AuthViewProps {
 
 export const AuthView: React.FC<AuthViewProps> = ({ onSuccess }) => {
   const [mode, setMode] = useState<'login' | 'register'>('login');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('vinayak');
+  const [password, setPassword] = useState('password123');
   const [displayName, setDisplayName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,10 +22,10 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess }) => {
 
     try {
       if (mode === 'login') {
-        const res = await api.login(email, password);
+        const res = await api.login(username, password);
         onSuccess(res.user);
       } else {
-        const res = await api.register(email, password, displayName || email.split('@')[0]);
+        const res = await api.register(username, password, displayName || username);
         onSuccess(res.user);
       }
     } catch (err: any) {
@@ -39,7 +39,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess }) => {
     setError(null);
     setLoading(true);
     try {
-      const res = await api.login('vinayak@hitk.edu.in', 'password123');
+      const res = await api.login('vinayak', 'password123');
       onSuccess(res.user);
     } catch (err: any) {
       setError(err.message || 'Failed to authenticate demo user.');
@@ -123,15 +123,15 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess }) => {
             )}
 
             <div>
-              <label className="block text-slate-600 dark:text-charcoal-400 font-medium mb-1.5">Email Address</label>
+              <label className="block text-slate-600 dark:text-charcoal-400 font-medium mb-1.5">Username</label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 dark:text-charcoal-500 absolute left-3 top-2.5" />
+                <UserIcon className="w-4 h-4 text-slate-400 dark:text-charcoal-500 absolute left-3 top-2.5" />
                 <input
-                  type="email"
+                  type="text"
                   required
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="student@hitk.edu.in"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  placeholder="e.g., vinayak"
                   className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-slate-50 dark:bg-charcoal-950 border border-slate-200 dark:border-charcoal-700/80 text-slate-900 dark:text-charcoal-100 placeholder-slate-400 dark:placeholder-charcoal-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 />
               </div>
@@ -192,7 +192,7 @@ export const AuthView: React.FC<AuthViewProps> = ({ onSuccess }) => {
             <span>One-Click Academic Demo Sign In</span>
           </button>
           <p className="text-[10px] text-slate-400 dark:text-charcoal-500 text-center">
-            Preloads Vinayak Chandra profile with seeded academic tasks, schedule &amp; models.
+            Preloads @vinayak profile with seeded academic tasks, schedule &amp; models.
           </p>
         </div>
 

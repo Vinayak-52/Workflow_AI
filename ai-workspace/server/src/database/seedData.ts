@@ -15,6 +15,7 @@ export async function seedDemoData() {
     const passwordHash = await bcrypt.hash('password123', 10);
     const demoUser: User = {
       id: userId,
+      username: 'vinayak',
       email: 'vinayak@hitk.edu.in',
       displayName: 'Vinayak Chandra (HITK CSBS)',
       passwordHash,

@@ -17,19 +17,22 @@ const router = Router();
 // Register
 router.post('/register', async (req, res, next) => {
   try {
-    const { email, password, displayName } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'Email and password are required' } });
+    const { username, email, password, displayName } = req.body;
+    const identifier = (username || email || '').trim();
+    if (!identifier || !password) {
+      return res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'Username and password are required' } });
     }
-    const existing = db.getUserByEmail(email);
+    const userEmail = email || `${identifier}@hitk.edu.in`;
+    const existing = db.getUserByUsernameOrEmail(identifier);
     if (existing) {
-      return res.status(409).json({ error: { code: 'USER_EXISTS', message: 'A user with this email already exists' } });
+      return res.status(409).json({ error: { code: 'USER_EXISTS', message: 'A user with this username already exists' } });
     }
     const passwordHash = await bcrypt.hash(password, 10);
     const newUser = {
       id: `usr-${uuidv4().slice(0, 8)}`,
-      email,
-      displayName: displayName || email.split('@')[0],
+      username: username || identifier,
+      email: userEmail,
+      displayName: displayName || username || identifier,
       passwordHash,
       timezone: 'Asia/Kolkata',
       preferences: {
@@ -43,9 +46,9 @@ router.post('/register', async (req, res, next) => {
     };
     db.saveUser(newUser);
 
-    const token = jwt.sign({ id: newUser.id, email: newUser.email }, CONFIG.JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ id: newUser.id, username: newUser.username, email: newUser.email }, CONFIG.JWT_SECRET, { expiresIn: '7d' });
     return res.status(201).json({
-      user: { id: newUser.id, email: newUser.email, displayName: newUser.displayName, preferences: newUser.preferences },
+      user: { id: newUser.id, username: newUser.username, email: newUser.email, displayName: newUser.displayName, preferences: newUser.preferences },
       token
     });
   } catch (err) {
@@ -56,22 +59,23 @@ router.post('/register', async (req, res, next) => {
 // Login
 router.post('/login', async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'Email and password required' } });
+    const { username, email, password } = req.body;
+    const identifier = (username || email || '').trim();
+    if (!identifier || !password) {
+      return res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'Username and password required' } });
     }
-    const user = db.getUserByEmail(email);
+    const user = db.getUserByUsernameOrEmail(identifier);
     if (!user) {
-      return res.status(401).json({ error: { code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' } });
+      return res.status(401).json({ error: { code: 'INVALID_CREDENTIALS', message: 'Invalid username or password' } });
     }
     const match = await bcrypt.compare(password, user.passwordHash);
     if (!match) {
-      return res.status(401).json({ error: { code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' } });
+      return res.status(401).json({ error: { code: 'INVALID_CREDENTIALS', message: 'Invalid username or password' } });
     }
 
-    const token = jwt.sign({ id: user.id, email: user.email }, CONFIG.JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ id: user.id, username: user.username || user.email }, CONFIG.JWT_SECRET, { expiresIn: '7d' });
     return res.json({
-      user: { id: user.id, email: user.email, displayName: user.displayName, preferences: user.preferences },
+      user: { id: user.id, username: user.username || 'vinayak', email: user.email, displayName: user.displayName, preferences: user.preferences },
       token
     });
   } catch (err) {
@@ -85,6 +89,7 @@ router.get('/me', authMiddleware, (req: AuthenticatedRequest, res: Response) => 
   if (!user) return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'User not found' } });
   return res.json({
     id: user.id,
+    username: user.username || 'vinayak',
     email: user.email,
     displayName: user.displayName,
     timezone: user.timezone,

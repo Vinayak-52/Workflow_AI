@@ -78,6 +78,15 @@ class DatabaseStore {
     return Object.values(this.data.users).find(u => u.email.toLowerCase() === email.toLowerCase());
   }
 
+  getUserByUsernameOrEmail(identifier: string): User | undefined {
+    const idLower = identifier.toLowerCase().trim();
+    return Object.values(this.data.users).find(
+      u => (u.username && u.username.toLowerCase() === idLower) ||
+           (u.email && u.email.toLowerCase() === idLower) ||
+           (idLower === 'vinayak' && (u.username === 'vinayak' || u.email.toLowerCase().includes('vinayak')))
+    );
+  }
+
   saveUser(user: User): User {
     this.data.users[user.id] = user;
     this.save();

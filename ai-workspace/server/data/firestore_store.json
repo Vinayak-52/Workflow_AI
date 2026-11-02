@@ -2,6 +2,7 @@
   "users": {
     "user-hitk-vinayak-001": {
       "id": "user-hitk-vinayak-001",
+      "username": "vinayak",
       "email": "vinayak@hitk.edu.in",
       "displayName": "Vinayak Chandra (HITK CSBS)",
       "passwordHash": "$2a$10$/pKBpJpYLc75XPJprv1Ab.Mt91RETzXyf7aDf76XoVnY6TD/rblvK",

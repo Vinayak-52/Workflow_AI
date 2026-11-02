@@ -56,19 +56,19 @@ class ApiService {
   }
 
   // Auth
-  async login(email: string, password: string): Promise<{ user: User; token: string }> {
+  async login(username: string, password: string): Promise<{ user: User; token: string }> {
     const data = await this.request<{ user: User; token: string }>('/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ username, password })
     });
     this.setToken(data.token);
     return data;
   }
 
-  async register(email: string, password: string, displayName: string): Promise<{ user: User; token: string }> {
+  async register(username: string, password: string, displayName: string): Promise<{ user: User; token: string }> {
     const data = await this.request<{ user: User; token: string }>('/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ email, password, displayName })
+      body: JSON.stringify({ username, password, displayName })
     });
     this.setToken(data.token);
     return data;
