@@ -32,6 +32,7 @@ export const AppShell: React.FC<AppShellProps> = ({
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const navItems = [
     { id: 'dashboard', label: 'Workspace', icon: LayoutDashboard },
@@ -48,6 +49,7 @@ export const AppShell: React.FC<AppShellProps> = ({
       case 'dashboard':
         return (
           <DashboardView
+            key={refreshKey}
             onNavigate={setCurrentView}
             onOpenCreateTask={() => setIsCreateTaskOpen(true)}
           />
@@ -55,23 +57,25 @@ export const AppShell: React.FC<AppShellProps> = ({
       case 'tasks':
         return (
           <TasksView
+            key={refreshKey}
             isCreateOpen={isCreateTaskOpen}
             onCloseCreate={() => setIsCreateTaskOpen(false)}
           />
         );
       case 'notes':
-        return <NotesView onTaskCreated={() => setCurrentView('tasks')} />;
+        return <NotesView key={refreshKey} onTaskCreated={() => { setRefreshKey(k => k + 1); setCurrentView('tasks'); }} />;
       case 'calendar':
-        return <CalendarView />;
+        return <CalendarView key={refreshKey} />;
       case 'documents':
-        return <DocumentsView onTaskCreated={() => setCurrentView('tasks')} />;
+        return <DocumentsView key={refreshKey} onTaskCreated={() => { setRefreshKey(k => k + 1); setCurrentView('tasks'); }} />;
       case 'reminders':
-        return <RemindersView />;
+        return <RemindersView key={refreshKey} />;
       case 'settings':
-        return <SettingsView />;
+        return <SettingsView key={refreshKey} />;
       default:
         return (
           <DashboardView
+            key={refreshKey}
             onNavigate={setCurrentView}
             onOpenCreateTask={() => setIsCreateTaskOpen(true)}
           />
@@ -266,9 +270,7 @@ export const AppShell: React.FC<AppShellProps> = ({
           label: currentView.toUpperCase()
         }}
         onTaskCreated={() => {
-          if (currentView === 'tasks') {
-            // refresh
-          }
+          setRefreshKey(prev => prev + 1);
         }}
       />
     </div>

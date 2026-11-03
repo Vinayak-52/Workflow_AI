@@ -1,13 +1,12 @@
 /**
- * Optimized Gemini AI Service
+ * Optimized Gemini AI Service with Live Workspace Context & Grounding
  *
  * Performance Optimizations:
  * 1. Direct REST API execution — bypasses heavy SDK wrapper & telemetry overhead (~20x faster)
- * 2. Instant fast-path model routing to low-latency models (gemini-3.5-flash-lite / gemini-3.8-flash)
+ * 2. Instant fast-path model routing to low-latency models (gemini-3.5-flash-lite / gemini-3.5-flash / gemini-3.8-flash)
  * 3. 5-Prompt sliding context window for multi-turn brainstorming and follow-up prompts
- * 4. Context pruning to prevent token bloat and keep latency minimal
- * 5. In-memory response caching for duplicate/rapid repeat queries
- * 6. Strict token budget (maxOutputTokens: 500) for fast generation decoding
+ * 4. Injected live workspace data (Tasks, Deadlines, Priorities, Calendar events)
+ * 5. Strict token budget and response formatting
  */
 
 import { CONFIG } from '../config/env.js';
@@ -24,6 +23,26 @@ export interface GeminiChatResponse {
   historyLength: number;
 }
 
+export interface WorkspaceTaskSummary {
+  id: string;
+  title: string;
+  category: string;
+  priority: string;
+  priorityScore?: number;
+  status: string;
+  dueAt?: string;
+  estimatedMinutes?: number;
+}
+
+export interface WorkspaceContextData {
+  userName?: string;
+  tasks?: WorkspaceTaskSummary[];
+  completedTasksCount?: number;
+  events?: Array<{ title: string; startAt: string; endAt: string; location?: string }>;
+  notes?: Array<{ id: string; title: string }>;
+  docs?: Array<{ id: string; fileName: string }>;
+}
+
 // ── Per-User In-Memory Context Window (Last 5 Prompts) ───────────
 const userConversations = new Map<string, ChatMessage[]>();
 
@@ -35,10 +54,10 @@ interface CacheEntry {
   timestamp: number;
 }
 const responseCache = new Map<string, CacheEntry>();
-const CACHE_TTL_MS = 60 * 1000;
+const CACHE_TTL_MS = 30 * 1000;
 
 // Fast low-latency candidate models
-const FAST_MODELS = ['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-2.5-flash'];
+const FAST_MODELS = ['gemini-3.5-flash-lite', 'gemini-3.5-flash', 'gemini-3.8-flash'];
 let _cachedFastModel: string = FAST_MODELS[0];
 
 // ── Prompt Sanitization ───────────────────────────────────────────
@@ -78,15 +97,14 @@ export function getUserHistory(userId: string): ChatMessage[] {
   return userConversations.get(userId) || [];
 }
 
-// ── System Prompt (Engineered for Speed & Brevity) ────────────────
-const SYSTEM_PROMPT = `You are a fast, concise AI assistant for the "AI Workspace" academic application.
+// ── Base System Prompt ────────────────────────────────────────────
+const BASE_SYSTEM_PROMPT = `You are the intelligent AI Workspace Assistant for an academic & project productivity application.
 Rules:
-1. Keep answers direct, punchy, and under 500 tokens.
-2. Use short paragraphs or bullet points — never long introductory filler.
-3. If asked about planning, tasks, notes, or brainstorming, provide immediate, practical advice.
-4. Maintain conversational context across follow-up queries.
-5. NEVER start with canned statistics greetings like "Hello [User]! You have 0 active tasks...".
-6. Format in clean plain text with bold emphasis only.`;
+1. Ground all answers in the user's actual workspace tasks, schedule, and notes provided below.
+2. If asked about tasks, priorities, or what to do first, list the REAL active tasks and highlight the highest scored / high-priority items.
+3. NEVER hallucinate that the user has 0 tasks when active tasks are listed in the workspace data below.
+4. Keep answers structured, practical, concise, and format in clean Markdown with bold bullet points.
+5. If the user asks to create or suggest a task, clearly specify the title, suggested priority (HIGH/MEDIUM/LOW), and deadline.`;
 
 // ── Core Optimized Chat Function ──────────────────────────────────
 export async function chatWithGemini(
@@ -95,6 +113,7 @@ export async function chatWithGemini(
     userId?: string;
     customHistory?: ChatMessage[];
     clearHistory?: boolean;
+    workspaceContext?: WorkspaceContextData;
   } = {}
 ): Promise<GeminiChatResponse> {
   const rawKey = CONFIG.GEMINI_API_KEY || process.env.GEMINI_API_KEY || '';
@@ -108,7 +127,7 @@ export async function chatWithGemini(
   if (!sanitized) {
     return {
       answer: 'Please enter a valid question or prompt.',
-      model: 'Gemini 2.0 Flash',
+      model: 'Gemini 3.5 Flash',
       tokensUsed: 0,
       historyLength: 0
     };
@@ -128,7 +147,8 @@ export async function chatWithGemini(
   }
 
   // Check in-memory cache for repeated prompt + history state
-  const cacheKey = `${sanitized}::${JSON.stringify(priorHistory)}`;
+  const taskIdsHash = (options.workspaceContext?.tasks || []).map(t => `${t.id}-${t.status}`).join(',');
+  const cacheKey = `${sanitized}::${taskIdsHash}::${JSON.stringify(priorHistory)}`;
   const cached = responseCache.get(cacheKey);
   if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
     return {
@@ -137,6 +157,43 @@ export async function chatWithGemini(
       tokensUsed: cached.tokensUsed,
       historyLength: priorHistory.filter(m => m.role === 'user').length + 1
     };
+  }
+
+  // Assemble dynamic system prompt with live workspace context
+  let systemPrompt = BASE_SYSTEM_PROMPT;
+  if (options.workspaceContext) {
+    const { userName = 'User', tasks = [], completedTasksCount = 0, events = [], notes = [], docs = [] } = options.workspaceContext;
+    const activeTasks = tasks.filter(t => t.status !== 'done');
+    const sortedActive = [...activeTasks].sort((a, b) => (b.priorityScore || 0) - (a.priorityScore || 0));
+
+    systemPrompt += `\n\n=== CURRENT LIVE WORKSPACE DATA FOR ${userName} ===\n`;
+    systemPrompt += `Active Tasks Count: ${sortedActive.length}\n`;
+    systemPrompt += `Completed Tasks Count: ${completedTasksCount}\n\n`;
+
+    if (sortedActive.length > 0) {
+      systemPrompt += `ACTIVE TASKS LIST (Ranked by ML Priority Score):\n`;
+      sortedActive.forEach((t, i) => {
+        const dueStr = t.dueAt ? new Date(t.dueAt).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' }) : 'No deadline';
+        systemPrompt += `${i + 1}. [${t.priority.toUpperCase()}] "${t.title}" | Score: ${t.priorityScore ?? 75} | Category: ${t.category} | Due: ${dueStr} | Status: ${t.status}\n`;
+      });
+      systemPrompt += `\n* Note: Highest priority item right now is "${sortedActive[0].title}" (Score: ${sortedActive[0].priorityScore ?? 90}).\n`;
+    } else {
+      systemPrompt += `Active Tasks: None currently in the database.\n`;
+    }
+
+    if (events.length > 0) {
+      systemPrompt += `\nUPCOMING CALENDAR EVENTS:\n`;
+      events.forEach((e, i) => {
+        systemPrompt += `- "${e.title}" (${e.startAt} to ${e.endAt})${e.location ? ` @ ${e.location}` : ''}\n`;
+      });
+    }
+
+    if (notes.length > 0) {
+      systemPrompt += `\nUSER NOTES: ${notes.map(n => `"${n.title}"`).join(', ')}\n`;
+    }
+    if (docs.length > 0) {
+      systemPrompt += `UPLOADED DOCUMENTS: ${docs.map(d => `"${d.fileName}"`).join(', ')}\n`;
+    }
   }
 
   // Assemble multi-turn contents
@@ -157,12 +214,12 @@ export async function chatWithGemini(
 
   const payload = {
     system_instruction: {
-      parts: [{ text: SYSTEM_PROMPT }]
+      parts: [{ text: systemPrompt }]
     },
     contents,
     generationConfig: {
-      maxOutputTokens: 500,
-      temperature: 0.6,
+      maxOutputTokens: 800,
+      temperature: 0.5,
       topP: 0.9
     }
   };
@@ -186,8 +243,7 @@ export async function chatWithGemini(
         const errStatus = response.status;
         const errMsg = errorData?.error?.message || `HTTP ${errStatus}`;
 
-        // If model not found or deprecated, try next fast model
-        if (errStatus === 404 || errMsg.includes('no longer available') || errMsg.includes('not found')) {
+        if (errStatus === 404 || errMsg.includes('no longer available') || errMsg.includes('not found') || errStatus === 503) {
           lastError = new Error(errMsg);
           continue;
         }
@@ -201,7 +257,7 @@ export async function chatWithGemini(
 
       const tokensUsed = data?.usageMetadata?.totalTokenCount ?? null;
 
-      // Cache the working model for subsequent sub-second calls
+      // Cache the working model for subsequent calls
       _cachedFastModel = modelName;
 
       // Update user conversation history (sliding window of 5 prompts)
@@ -213,7 +269,7 @@ export async function chatWithGemini(
       // Store in memory cache
       responseCache.set(cacheKey, {
         answer,
-        model: 'Gemini 2.0 Flash',
+        model: modelName,
         tokensUsed,
         timestamp: Date.now()
       });
@@ -222,13 +278,13 @@ export async function chatWithGemini(
 
       return {
         answer,
-        model: 'Gemini 2.0 Flash',
+        model: modelName,
         tokensUsed,
         historyLength: Math.min(userPromptsInContext, 5)
       };
     } catch (err: any) {
       lastError = err;
-      if (err.message && (err.message.includes('404') || err.message.includes('not found'))) {
+      if (err.message && (err.message.includes('404') || err.message.includes('not found') || err.message.includes('503'))) {
         continue;
       }
       break;
