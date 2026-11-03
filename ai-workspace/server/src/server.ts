@@ -1,13 +1,15 @@
 /**
  * Server Entry Point
- * Member 2: Ankit Kumar Kunwar (2360031)
+ * Member 2: Ankit Kumar Kunwar (2360031) - AI Workspace Backend
  */
 
 import { createApp } from './app.js';
 import { CONFIG } from './config/env.js';
+import { db } from './database/store.js';
 import { seedDemoData } from './database/seedData.js';
 
 async function bootstrap() {
+  await db.init();
   await seedDemoData();
 
   const app = createApp();

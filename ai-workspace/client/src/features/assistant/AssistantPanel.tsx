@@ -16,7 +16,7 @@ export const AssistantPanel: React.FC<AssistantPanelProps> = ({
   activeContext,
   onTaskCreated
 }) => {
-  const [activeTab, setActiveTab] = useState<'chat' | 'recommendations'>('recommendations');
+  const [activeTab, setActiveTab] = useState<'chat' | 'recommendations'>('chat');
   const [messages, setMessages] = useState<Array<{ sender: 'user' | 'assistant'; text: string; sources?: any[]; proposals?: any[]; warnings?: string[] }>>([
     {
       sender: 'assistant',

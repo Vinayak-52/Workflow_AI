@@ -182,37 +182,6 @@ Location: HITK CSBS Department
       } as Note);
     }
 
-    // Seed Calendar Events with consistent ISO string timestamps
-    const todayStr = now.toISOString().split('T')[0];
-    const eventsToSeed: CalendarEvent[] = [
-      {
-        id: 'cal-001',
-        userId,
-        title: 'CBS3293: Cloud & Distributed Systems Lecture',
-        startAt: new Date(`${todayStr}T10:00:00+05:30`).toISOString(),
-        endAt: new Date(`${todayStr}T11:30:00+05:30`).toISOString(),
-        isAllDay: false,
-        calendarName: 'HITK Academic Schedule',
-        location: 'Room 304, Main Building',
-        isReadOnly: true
-      },
-      {
-        id: 'cal-002',
-        userId,
-        title: 'Project Review with Prof. Sajal Mitra',
-        startAt: new Date(`${todayStr}T14:30:00+05:30`).toISOString(),
-        endAt: new Date(`${todayStr}T15:30:00+05:30`).toISOString(),
-        isAllDay: false,
-        calendarName: 'HITK Faculty Meetings',
-        location: 'Faculty Cabin 12',
-        isReadOnly: true
-      }
-    ];
-
-    for (const e of eventsToSeed) {
-      db.saveCalendarEvent(e);
-    }
-
-    console.log('[Seed] Successfully seeded initial demo data for Vinayak Chandra!');
+    console.log('[Seed] Successfully seeded initial demo tasks and notes for Vinayak Chandra!');
   }
 }

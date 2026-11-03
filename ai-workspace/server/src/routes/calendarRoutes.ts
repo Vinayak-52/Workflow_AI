@@ -5,8 +5,10 @@
  */
 
 import { Router, Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 import { db } from '../database/store.js';
 import { authMiddleware, AuthenticatedRequest } from '../middleware/auth.js';
+import { CalendarEvent } from '../models/types.js';
 
 const router = Router();
 router.use(authMiddleware);
@@ -31,10 +33,133 @@ router.get('/events', (req: AuthenticatedRequest, res: Response) => {
 
   return res.json({
     events,
-    count: events.length,
-    readOnly: true,
-    notice: 'Google Calendar integration is strictly read-only in this version.'
+    count: events.length
   });
+});
+
+// Create Calendar Event
+router.post('/events', (req: AuthenticatedRequest, res: Response, next) => {
+  try {
+    const userId = req.user!.id;
+    const {
+      title,
+      startAt,
+      endAt,
+      isAllDay = false,
+      calendarName = 'Personal',
+      location = '',
+      description = '',
+      color = '#3b82f6'
+    } = req.body;
+
+    if (!title || !title.trim()) {
+      return res.status(400).json({ error: 'Event title is required.' });
+    }
+
+    const start = startAt ? new Date(startAt).toISOString() : new Date().toISOString();
+    const end = endAt ? new Date(endAt).toISOString() : new Date(Date.now() + 60 * 60 * 1000).toISOString();
+
+    const newEvent: CalendarEvent = {
+      id: `evt-${uuidv4().slice(0, 8)}`,
+      userId,
+      title: title.trim(),
+      startAt: start,
+      endAt: end,
+      isAllDay: Boolean(isAllDay),
+      calendarName: calendarName || 'Personal',
+      location: location || '',
+      description: description || '',
+      color: color || '#3b82f6',
+      isReadOnly: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    const saved = db.saveCalendarEvent(newEvent);
+
+    db.logActivity({
+      id: `act-${uuidv4().slice(0, 8)}`,
+      userId,
+      action: 'created',
+      entityType: 'calendar_event',
+      entityId: saved.id,
+      metadata: { title: saved.title, startAt: saved.startAt },
+      createdAt: new Date().toISOString()
+    });
+
+    return res.status(201).json({ event: saved });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Update Calendar Event
+router.patch('/events/:id', (req: AuthenticatedRequest, res: Response, next) => {
+  try {
+    const userId = req.user!.id;
+    const { id } = req.params;
+    const existing = db.getCalendarEventById(id, userId);
+
+    if (!existing) {
+      return res.status(404).json({ error: 'Event not found.' });
+    }
+
+    const {
+      title,
+      startAt,
+      endAt,
+      isAllDay,
+      calendarName,
+      location,
+      description,
+      color
+    } = req.body;
+
+    const updated: CalendarEvent = {
+      ...existing,
+      title: title !== undefined ? title.trim() : existing.title,
+      startAt: startAt !== undefined ? new Date(startAt).toISOString() : existing.startAt,
+      endAt: endAt !== undefined ? new Date(endAt).toISOString() : existing.endAt,
+      isAllDay: isAllDay !== undefined ? Boolean(isAllDay) : existing.isAllDay,
+      calendarName: calendarName !== undefined ? calendarName : existing.calendarName,
+      location: location !== undefined ? location : existing.location,
+      description: description !== undefined ? description : existing.description,
+      color: color !== undefined ? color : existing.color,
+      updatedAt: new Date().toISOString()
+    };
+
+    const saved = db.saveCalendarEvent(updated);
+    return res.json({ event: saved });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Delete Calendar Event
+router.delete('/events/:id', (req: AuthenticatedRequest, res: Response, next) => {
+  try {
+    const userId = req.user!.id;
+    const { id } = req.params;
+    const success = db.deleteCalendarEvent(id, userId);
+
+    if (!success) {
+      return res.status(404).json({ error: 'Event not found or already deleted.' });
+    }
+
+    db.logActivity({
+      id: `act-${uuidv4().slice(0, 8)}`,
+      userId,
+      action: 'deleted',
+      entityType: 'calendar_event',
+      entityId: id,
+      metadata: {},
+      createdAt: new Date().toISOString()
+    });
+
+    return res.json({ success: true, message: 'Event deleted successfully.' });
+  } catch (err) {
+    next(err);
+  }
 });
 
 // Calculate Free/Busy Intervals

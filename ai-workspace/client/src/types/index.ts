@@ -75,13 +75,18 @@ export interface DocumentRecord {
 
 export interface CalendarEvent {
   id: string;
+  userId?: string;
   title: string;
   startAt: string;
   endAt: string;
   isAllDay: boolean;
   calendarName: string;
   location?: string;
+  description?: string;
+  color?: string;
   isReadOnly: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface PlanBlock {

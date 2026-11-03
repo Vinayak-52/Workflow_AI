@@ -191,6 +191,26 @@ class ApiService {
     return this.request<{ events: CalendarEvent[] }>('/calendar/events');
   }
 
+  async createCalendarEvent(eventData: Partial<CalendarEvent>): Promise<{ event: CalendarEvent }> {
+    return this.request<{ event: CalendarEvent }>('/calendar/events', {
+      method: 'POST',
+      body: JSON.stringify(eventData)
+    });
+  }
+
+  async updateCalendarEvent(id: string, updates: Partial<CalendarEvent>): Promise<{ event: CalendarEvent }> {
+    return this.request<{ event: CalendarEvent }>(`/calendar/events/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(updates)
+    });
+  }
+
+  async deleteCalendarEvent(id: string): Promise<{ success: boolean }> {
+    return this.request<{ success: boolean }>(`/calendar/events/${id}`, {
+      method: 'DELETE'
+    });
+  }
+
   async getFreeBusy(date?: string): Promise<any> {
     return this.request(`/calendar/freebusy${date ? `?date=${date}` : ''}`);
   }

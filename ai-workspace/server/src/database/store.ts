@@ -41,6 +41,7 @@ function getFirestoreInstance(): Firestore | null {
         });
       }
       firestoreInstance = getFirestore();
+      firestoreInstance.settings({ ignoreUndefinedProperties: true });
       console.log(`[Firebase] Connected to Firestore project: ${CONFIG.FIREBASE_PROJECT_ID}`);
       return firestoreInstance;
     } catch (e: any) {
@@ -64,14 +65,103 @@ interface DatabaseSchema {
 class DatabaseStore {
   private filePath: string;
   private data: DatabaseSchema;
+  private isInitialized: boolean = false;
 
   constructor() {
-    const dataDir = path.resolve(process.cwd(), 'data');
+    const candidateDirs = [
+      path.resolve(process.cwd(), 'data'),
+      path.resolve(process.cwd(), '../data'),
+      path.resolve(process.cwd(), '../../data')
+    ];
+    let dataDir = candidateDirs.find(d => fs.existsSync(d)) || candidateDirs[0];
     if (!fs.existsSync(dataDir)) {
       fs.mkdirSync(dataDir, { recursive: true });
     }
     this.filePath = path.join(dataDir, 'firestore_store.json');
     this.data = this.load();
+  }
+
+  async init(): Promise<void> {
+    if (this.isInitialized) return;
+    this.isInitialized = true;
+
+    const fsDb = getFirestoreInstance();
+    if (!fsDb) {
+      console.log('[Firebase] Running in offline local JSON store mode.');
+      return;
+    }
+
+    try {
+      console.log(`[Firebase] Initializing two-way sync with Firestore (${CONFIG.FIREBASE_PROJECT_ID})...`);
+
+      const collections: (keyof Omit<DatabaseSchema, 'activityLogs'>)[] = [
+        'users',
+        'tasks',
+        'notes',
+        'reminders',
+        'documents',
+        'calendarEvents',
+        'dailyPlans'
+      ];
+
+      let pulledCount = 0;
+      for (const colName of collections) {
+        try {
+          const snapshot = await fsDb.collection(colName).get();
+          if (!snapshot.empty) {
+            snapshot.forEach(docSnap => {
+              const itemData = docSnap.data();
+              if (itemData) {
+                (this.data[colName] as any)[docSnap.id] = itemData;
+                pulledCount++;
+              }
+            });
+          } else {
+            // Firestore collection is currently empty: populate from local store
+            const localItems = Object.values(this.data[colName] || {});
+            for (const item of localItems as any[]) {
+              if (item && item.id) {
+                await fsDb.collection(colName).doc(item.id).set(item, { merge: true }).catch(() => {});
+              }
+            }
+          }
+        } catch (colErr: any) {
+          console.warn(`[Firebase] Warning syncing collection '${colName}':`, colErr.message);
+        }
+      }
+
+      this.save();
+      console.log(`[Firebase] Firestore sync complete: Loaded ${pulledCount} documents from Firestore.`);
+
+      // Realtime listener for incoming changes from Firestore
+      for (const colName of collections) {
+        fsDb.collection(colName).onSnapshot(
+          snapshot => {
+            let hasChanges = false;
+            snapshot.docChanges().forEach(change => {
+              if (change.type === 'added' || change.type === 'modified') {
+                const docData = change.doc.data();
+                if (docData) {
+                  (this.data[colName] as any)[change.doc.id] = docData;
+                  hasChanges = true;
+                }
+              } else if (change.type === 'removed') {
+                delete (this.data[colName] as any)[change.doc.id];
+                hasChanges = true;
+              }
+            });
+            if (hasChanges) {
+              this.save();
+            }
+          },
+          err => {
+            console.warn(`[Firebase] Listener warning for '${colName}':`, err.message);
+          }
+        );
+      }
+    } catch (err: any) {
+      console.warn('[Firebase] Firestore initialization failed, falling back to local store:', err.message);
+    }
   }
 
   private load(): DatabaseSchema {
@@ -260,6 +350,11 @@ class DatabaseStore {
     return Object.values(this.data.calendarEvents).filter(e => e.userId === userId);
   }
 
+  getCalendarEventById(id: string, userId: string): CalendarEvent | undefined {
+    const ev = this.data.calendarEvents[id];
+    return ev && ev.userId === userId ? ev : undefined;
+  }
+
   saveCalendarEvent(event: CalendarEvent): CalendarEvent {
     this.data.calendarEvents[event.id] = event;
     this.save();
@@ -268,6 +363,18 @@ class DatabaseStore {
       fsDb.collection('calendarEvents').doc(event.id).set(event, { merge: true }).catch((err: any) => console.warn('[Firebase] Sync event error:', err.message));
     }
     return event;
+  }
+
+  deleteCalendarEvent(id: string, userId: string): boolean {
+    const ev = this.getCalendarEventById(id, userId);
+    if (!ev) return false;
+    delete this.data.calendarEvents[id];
+    this.save();
+    const fsDb = getFirestoreInstance();
+    if (fsDb) {
+      fsDb.collection('calendarEvents').doc(id).delete().catch(() => {});
+    }
+    return true;
   }
 
   // Daily Plan operations

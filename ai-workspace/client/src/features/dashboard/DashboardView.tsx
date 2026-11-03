@@ -439,10 +439,7 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
               </h3>
             </div>
 
-            <div className="pt-2 flex items-center justify-between">
-              <span className="text-base font-bold text-blue-600 dark:text-blue-400 font-sans">
-                +12%
-              </span>
+            <div className="pt-2 flex items-center justify-end">
               {/* Smooth Blue Sparkline Waveform */}
               <svg className="w-20 h-5" viewBox="0 0 100 30" fill="none">
                 <path
@@ -718,8 +715,8 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
               <h3 className="text-sm font-bold text-slate-900 dark:text-charcoal-100">
                 Today's Schedule
               </h3>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20 flex items-center gap-1">
-                <Lock className="w-2.5 h-2.5" /> Read-Only
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold border border-blue-500/20 flex items-center gap-1">
+                <Calendar className="w-2.5 h-2.5" /> Events
               </span>
             </div>
             <button

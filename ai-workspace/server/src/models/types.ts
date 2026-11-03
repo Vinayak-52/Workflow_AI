@@ -99,7 +99,11 @@ export interface CalendarEvent {
   isAllDay: boolean;
   calendarName: string;
   location?: string;
+  description?: string;
+  color?: string;
   isReadOnly: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface PlanBlock {
@@ -130,7 +134,7 @@ export interface ActivityLog {
   id: string;
   userId: string;
   action: string;
-  entityType: 'task' | 'note' | 'document' | 'reminder' | 'plan' | 'auth';
+  entityType: 'task' | 'note' | 'document' | 'reminder' | 'plan' | 'auth' | 'calendar_event';
   entityId: string;
   metadata?: Record<string, any>;
   createdAt: string;
