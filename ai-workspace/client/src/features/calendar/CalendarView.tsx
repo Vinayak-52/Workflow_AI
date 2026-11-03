@@ -2,10 +2,68 @@ import React, { useState, useEffect, useMemo } from 'react';
 import {
   ChevronLeft, ChevronRight, Plus, Search, Calendar as CalendarIcon,
   Clock, MapPin, Tag, Check, X, Trash2, Sun, Cloud, CloudRain,
-  CheckSquare, Sparkles
+  CheckSquare, Sparkles, Users, UploadCloud, GraduationCap, Presentation, BookOpen, AlertCircle
 } from 'lucide-react';
 import { api } from '../../services/api.ts';
-import { CalendarEvent } from '../../types/index.ts';
+import { CalendarEvent, CalendarEventType } from '../../types/index.ts';
+
+export const EVENT_TYPE_CONFIG: Record<CalendarEventType, {
+  label: string;
+  shortLabel: string;
+  icon: React.ComponentType<{ className?: string }>;
+  defaultColor: string;
+  badgeClass: string;
+}> = {
+  meeting: {
+    label: 'Meeting',
+    shortLabel: 'MEET',
+    icon: Users,
+    defaultColor: '#007aff',
+    badgeClass: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'
+  },
+  submission: {
+    label: 'Submission',
+    shortLabel: 'SUBMISSION',
+    icon: UploadCloud,
+    defaultColor: '#f97316',
+    badgeClass: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
+  },
+  test: {
+    label: 'Test',
+    shortLabel: 'TEST',
+    icon: CheckSquare,
+    defaultColor: '#a855f7',
+    badgeClass: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20'
+  },
+  exam: {
+    label: 'Exam',
+    shortLabel: 'EXAM',
+    icon: GraduationCap,
+    defaultColor: '#eb4d3d',
+    badgeClass: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20'
+  },
+  presentation: {
+    label: 'Presentation',
+    shortLabel: 'PRESENTATION',
+    icon: Presentation,
+    defaultColor: '#22c55e',
+    badgeClass: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+  },
+  class: {
+    label: 'Class / Lecture',
+    shortLabel: 'CLASS',
+    icon: BookOpen,
+    defaultColor: '#06b6d4',
+    badgeClass: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border-cyan-500/20'
+  },
+  other: {
+    label: 'General Event',
+    shortLabel: 'EVENT',
+    icon: CalendarIcon,
+    defaultColor: '#64748b',
+    badgeClass: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-500/20'
+  }
+};
 
 type ViewMode = 'Day' | 'Week' | 'Month' | 'Year';
 
@@ -32,6 +90,7 @@ export const CalendarView: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('Month');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCalendarFilter, setSelectedCalendarFilter] = useState<string>('all');
+  const [selectedEventTypeFilter, setSelectedEventTypeFilter] = useState<string>('all');
   const [showCalendarFilterDropdown, setShowCalendarFilterDropdown] = useState(false);
 
   // Events & Loading State
@@ -48,8 +107,9 @@ export const CalendarView: React.FC = () => {
   const [formStartTime, setFormStartTime] = useState('09:00');
   const [formEndTime, setFormEndTime] = useState('10:00');
   const [formIsAllDay, setFormIsAllDay] = useState(false);
+  const [formEventType, setFormEventType] = useState<CalendarEventType>('meeting');
   const [formCategory, setFormCategory] = useState('Personal');
-  const [formColor, setFormColor] = useState('#22c55e');
+  const [formColor, setFormColor] = useState('#007aff');
   const [formLocation, setFormLocation] = useState('');
   const [formDescription, setFormDescription] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -86,6 +146,10 @@ export const CalendarView: React.FC = () => {
     return events.filter(e => {
       if (selectedCalendarFilter !== 'all' && e.calendarName !== selectedCalendarFilter) {
         return false;
+      }
+      if (selectedEventTypeFilter !== 'all') {
+        const evType = e.eventType || 'meeting';
+        if (evType !== selectedEventTypeFilter) return false;
       }
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
@@ -164,8 +228,9 @@ export const CalendarView: React.FC = () => {
     setFormStartTime('09:00');
     setFormEndTime('10:00');
     setFormIsAllDay(false);
+    setFormEventType('meeting');
     setFormCategory('Personal');
-    setFormColor('#22c55e');
+    setFormColor('#007aff');
     setFormLocation('');
     setFormDescription('');
     setIsAddModalOpen(true);
@@ -192,6 +257,7 @@ export const CalendarView: React.FC = () => {
         endAt,
         isAllDay: formIsAllDay,
         calendarName: formCategory,
+        eventType: formEventType,
         color: formColor,
         location: formLocation.trim(),
         description: formDescription.trim()
@@ -510,8 +576,17 @@ export const CalendarView: React.FC = () => {
                           <div className="text-[10px] text-gray-400 font-mono">
                             {formatEventTime(ev)}
                           </div>
-                          <div className="text-xs font-medium text-gray-100 group-hover:text-blue-300 truncate">
-                            {ev.title}
+                          <div className="text-xs font-medium text-gray-100 group-hover:text-blue-300 truncate flex items-center gap-1.5">
+                            {ev.eventType && ev.eventType !== 'other' && (
+                              <span
+                                className={`text-[8px] font-bold px-1 rounded uppercase tracking-tighter shrink-0 border ${
+                                  EVENT_TYPE_CONFIG[ev.eventType]?.badgeClass || 'bg-slate-800 text-slate-300'
+                                }`}
+                              >
+                                {EVENT_TYPE_CONFIG[ev.eventType]?.shortLabel || ev.eventType}
+                              </span>
+                            )}
+                            <span className="truncate">{ev.title}</span>
                           </div>
                           {ev.location && (
                             <div className="text-[10px] text-gray-500 truncate flex items-center gap-1">
@@ -673,6 +748,42 @@ export const CalendarView: React.FC = () => {
           </div>
         </header>
 
+        {/* Event Type Filter Sub-Bar */}
+        <div className="px-5 py-2.5 border-b border-slate-200/80 dark:border-charcoal-800 flex items-center gap-1.5 overflow-x-auto scrollbar-none bg-white/70 dark:bg-charcoal-900/70 backdrop-blur-xs text-xs">
+          <span className="text-[11px] font-semibold text-slate-400 dark:text-charcoal-500 uppercase tracking-wider mr-1 shrink-0">
+            Event Types:
+          </span>
+          <button
+            onClick={() => setSelectedEventTypeFilter('all')}
+            className={`px-2.5 py-1 rounded-lg text-xs font-medium transition cursor-pointer shrink-0 ${
+              selectedEventTypeFilter === 'all'
+                ? 'bg-slate-900 text-white dark:bg-charcoal-100 dark:text-charcoal-900 font-semibold shadow-xs'
+                : 'bg-slate-100 dark:bg-charcoal-800 text-slate-600 dark:text-charcoal-400 hover:bg-slate-200/70 dark:hover:bg-charcoal-700'
+            }`}
+          >
+            All Types
+          </button>
+          {(Object.keys(EVENT_TYPE_CONFIG) as CalendarEventType[]).map(typeKey => {
+            const cfg = EVENT_TYPE_CONFIG[typeKey];
+            const Icon = cfg.icon;
+            const isSelected = selectedEventTypeFilter === typeKey;
+            return (
+              <button
+                key={typeKey}
+                onClick={() => setSelectedEventTypeFilter(isSelected ? 'all' : typeKey)}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition cursor-pointer shrink-0 border ${
+                  isSelected
+                    ? `${cfg.badgeClass} ring-1 ring-current font-bold shadow-xs`
+                    : 'border-slate-200/80 dark:border-charcoal-800 bg-slate-50 dark:bg-charcoal-800 text-slate-600 dark:text-charcoal-400 hover:bg-slate-100 dark:hover:bg-charcoal-750'
+                }`}
+              >
+                <Icon className="w-3.5 h-3.5 shrink-0" />
+                <span>{cfg.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* Calendar View Area */}
         <div className="flex-1 flex flex-col overflow-auto bg-slate-50/30 dark:bg-charcoal-950">
           {/* =================================================================== */}
@@ -756,13 +867,22 @@ export const CalendarView: React.FC = () => {
                                 <div
                                   key={ev.id}
                                   onClick={() => setSelectedEvent(ev)}
-                                  className="flex items-center space-x-1 text-[11px] text-slate-700 dark:text-charcoal-200 hover:text-blue-600 dark:hover:text-blue-400 truncate px-1 py-0.5 rounded hover:bg-slate-100 dark:hover:bg-charcoal-800 transition"
+                                  className="flex items-center gap-1 text-[11px] text-slate-700 dark:text-charcoal-200 hover:text-blue-600 dark:hover:text-blue-400 truncate px-1 py-0.5 rounded hover:bg-slate-100 dark:hover:bg-charcoal-800 transition"
                                 >
                                   <span
                                     className="w-1.5 h-1.5 rounded-full shrink-0"
                                     style={{ backgroundColor: ev.color || '#007aff' }}
                                   />
-                                  <span className="truncate">{ev.title}</span>
+                                  {ev.eventType && ev.eventType !== 'other' && (
+                                    <span
+                                      className={`text-[8px] font-bold px-1 rounded uppercase tracking-tighter shrink-0 border ${
+                                        EVENT_TYPE_CONFIG[ev.eventType]?.badgeClass || 'bg-slate-100 text-slate-600'
+                                      }`}
+                                    >
+                                      {EVENT_TYPE_CONFIG[ev.eventType]?.shortLabel || ev.eventType}
+                                    </span>
+                                  )}
+                                  <span className="truncate font-medium">{ev.title}</span>
                                 </div>
                               );
                             })}
@@ -838,15 +958,26 @@ export const CalendarView: React.FC = () => {
                                 e.stopPropagation();
                                 setSelectedEvent(ev);
                               }}
-                              className="p-2 rounded-lg text-xs font-semibold flex items-center justify-between"
+                              className="p-2 rounded-lg text-xs font-semibold flex items-center justify-between transition hover:shadow-xs"
                               style={{
                                 backgroundColor: `${ev.color || '#007aff'}20`,
                                 color: ev.color || '#007aff',
                                 borderLeft: `4px solid ${ev.color || '#007aff'}`
                               }}
                             >
-                              <span>{ev.title}</span>
-                              <span className="text-[10px] font-mono">{formatEventTime(ev)}</span>
+                              <div className="flex items-center gap-2 truncate">
+                                {ev.eventType && ev.eventType !== 'other' && (
+                                  <span
+                                    className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider border shrink-0 ${
+                                      EVENT_TYPE_CONFIG[ev.eventType]?.badgeClass || 'bg-slate-100 text-slate-700'
+                                    }`}
+                                  >
+                                    {EVENT_TYPE_CONFIG[ev.eventType]?.label || ev.eventType}
+                                  </span>
+                                )}
+                                <span className="truncate">{ev.title}</span>
+                              </div>
+                              <span className="text-[10px] font-mono shrink-0 ml-2">{formatEventTime(ev)}</span>
                             </div>
                           ))
                         )}
@@ -896,13 +1027,18 @@ export const CalendarView: React.FC = () => {
                                 e.stopPropagation();
                                 setSelectedEvent(ev);
                               }}
-                              className="p-1 rounded text-[10px] font-medium truncate"
+                              className="p-1.5 rounded-lg text-[10px] font-medium truncate flex items-center gap-1"
                               style={{
                                 backgroundColor: `${ev.color || '#007aff'}25`,
                                 color: ev.color || '#007aff'
                               }}
                             >
-                              {ev.title}
+                              {ev.eventType && ev.eventType !== 'other' && (
+                                <span className="text-[7px] font-bold px-1 rounded uppercase tracking-tighter shrink-0 border border-current opacity-80">
+                                  {EVENT_TYPE_CONFIG[ev.eventType]?.shortLabel || ev.eventType}
+                                </span>
+                              )}
+                              <span className="truncate font-semibold">{ev.title}</span>
                             </div>
                           ))}
                         </div>
@@ -988,11 +1124,49 @@ export const CalendarView: React.FC = () => {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Final project meeting"
+                  placeholder="e.g. Seminar 3 Presentation / Machine Learning Quiz"
                   value={formTitle}
                   onChange={e => setFormTitle(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-charcoal-700 bg-white dark:bg-charcoal-800 text-slate-800 dark:text-charcoal-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+              </div>
+
+              {/* Event Type Selector */}
+              <div>
+                <label className="block font-semibold text-slate-700 dark:text-charcoal-300 mb-1.5">
+                  Event Type
+                </label>
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-1.5">
+                  {(Object.keys(EVENT_TYPE_CONFIG) as CalendarEventType[]).map(typeKey => {
+                    const cfg = EVENT_TYPE_CONFIG[typeKey];
+                    const Icon = cfg.icon;
+                    const isSelected = formEventType === typeKey;
+
+                    return (
+                      <button
+                        key={typeKey}
+                        type="button"
+                        onClick={() => {
+                          setFormEventType(typeKey);
+                          setFormColor(cfg.defaultColor);
+                          if (['exam', 'test', 'submission', 'class'].includes(typeKey)) {
+                            setFormCategory('Academic');
+                          } else if (typeKey === 'presentation') {
+                            setFormCategory('Project');
+                          }
+                        }}
+                        className={`flex items-center gap-1.5 p-2 rounded-xl border text-xs font-medium transition cursor-pointer ${
+                          isSelected
+                            ? 'bg-blue-50 dark:bg-brand-500/15 border-blue-500 dark:border-brand-500 text-blue-600 dark:text-brand-400 shadow-xs'
+                            : 'bg-slate-50 dark:bg-charcoal-800 border-slate-200 dark:border-charcoal-700 text-slate-700 dark:text-charcoal-300 hover:bg-slate-100 dark:hover:bg-charcoal-750'
+                        }`}
+                      >
+                        <Icon className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate">{cfg.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Date & All Day */}
@@ -1159,6 +1333,20 @@ export const CalendarView: React.FC = () => {
             </div>
 
             <div className="p-4 space-y-3 text-xs">
+              {selectedEvent.eventType && (
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ${
+                      EVENT_TYPE_CONFIG[selectedEvent.eventType]?.badgeClass || 'bg-slate-100 text-slate-600'
+                    }`}
+                  >
+                    {EVENT_TYPE_CONFIG[selectedEvent.eventType]?.label || selectedEvent.eventType}
+                  </span>
+                  <span className="text-[10px] text-slate-400 dark:text-charcoal-500 font-medium">
+                    Calendar: {selectedEvent.calendarName}
+                  </span>
+                </div>
+              )}
               <div className="flex items-center gap-2 text-slate-600 dark:text-charcoal-300">
                 <Clock className="w-4 h-4 text-slate-400" />
                 <span>

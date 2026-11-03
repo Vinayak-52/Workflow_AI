@@ -90,7 +90,10 @@ export interface DocumentRecord {
   createdAt: string;
 }
 
+export type CalendarEventType = 'meeting' | 'submission' | 'test' | 'exam' | 'presentation' | 'class' | 'other';
+
 export interface CalendarEvent {
+  eventType?: CalendarEventType;
   id: string;
   userId: string;
   title: string;

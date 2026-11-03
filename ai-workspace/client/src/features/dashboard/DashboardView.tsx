@@ -117,9 +117,24 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
     .slice(0, 3);
 
   const now = new Date();
-  const upcomingEvents = events.filter(e => new Date(e.endAt) >= now);
-  const nextEvent = upcomingEvents[0] || events[0] || null;
-  const nextPlanBlock = plan?.blocks?.find(b => new Date(b.endAt) >= now) || plan?.blocks?.[0] || null;
+  const isSameDay = (d1: Date, d2: Date) => {
+    return d1.getFullYear() === d2.getFullYear() &&
+           d1.getMonth() === d2.getMonth() &&
+           d1.getDate() === d2.getDate();
+  };
+
+  // Strictly filter events that fall on TODAY
+  const todayEvents = events.filter(e => isSameDay(new Date(e.startAt), now));
+  const todayUpcomingEvents = todayEvents.filter(e => new Date(e.endAt) >= now);
+  const nextEventToday = todayUpcomingEvents[0] || todayEvents[0] || null;
+
+  // Upcoming future events (for upcoming visibility when today has no meetings)
+  const upcomingEvents = events.filter(e => new Date(e.startAt) > now);
+  const nextUpcomingEvent = upcomingEvents[0] || null;
+
+  const nextPlanBlock = plan?.blocks?.find(b => new Date(b.endAt) >= now && isSameDay(new Date(b.startAt), now)) ||
+                        plan?.blocks?.find(b => isSameDay(new Date(b.startAt), now)) ||
+                        null;
 
   return (
     <div className="space-y-4">
@@ -570,10 +585,10 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
           </div>
           <div className="truncate">
             <span className="text-lg font-bold text-slate-900 dark:text-charcoal-100 block leading-tight font-sans">
-              {events.length}
+              {todayEvents.length}
             </span>
             <span className="text-[11px] font-medium text-slate-500 dark:text-charcoal-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition truncate block">
-              Meetings Today
+              {todayEvents.length === 1 ? 'Event Today' : 'Events Today'}
             </span>
           </div>
         </button>
@@ -728,23 +743,23 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
           </div>
 
           {/* Next Up Highlight Card */}
-          {nextEvent ? (
+          {nextEventToday ? (
             <div className="p-4 rounded-2xl bg-blue-50/60 dark:bg-brand-950/20 border border-blue-200/80 dark:border-brand-500/30 space-y-2">
               <div className="flex items-center justify-between text-[11px]">
                 <span className="font-mono font-semibold text-blue-700 dark:text-brand-300 flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-brand-400" />
-                  {new Date(nextEvent.startAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} -{' '}
-                  {new Date(nextEvent.endAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  {new Date(nextEventToday.startAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} -{' '}
+                  {new Date(nextEventToday.endAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
                 <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-brand-500/20 text-blue-700 dark:text-brand-300">
                   Next Up
                 </span>
               </div>
               <h4 className="text-xs font-bold text-slate-900 dark:text-charcoal-100">
-                {nextEvent.title}
+                {nextEventToday.title}
               </h4>
               <p className="text-[11px] text-slate-500 dark:text-charcoal-400">
-                {nextEvent.calendarName} • {nextEvent.location || 'Google Meet (Virtual)'}
+                {nextEventToday.calendarName} • {nextEventToday.eventType ? nextEventToday.eventType.toUpperCase() : 'EVENT'} • {nextEventToday.location || 'Google Meet (Virtual)'}
               </p>
             </div>
           ) : nextPlanBlock ? (
@@ -766,10 +781,28 @@ export const DashboardView: React.FC<DashboardProps> = ({ onNavigate, onOpenCrea
                 {nextPlanBlock.reason}
               </p>
             </div>
+          ) : nextUpcomingEvent ? (
+            <div className="p-4 rounded-2xl bg-slate-50 dark:bg-charcoal-950/40 border border-slate-200/60 dark:border-charcoal-800 space-y-2">
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="text-slate-500 dark:text-charcoal-400 font-medium flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> No events scheduled today
+                </span>
+                <span className="text-[9px] uppercase font-bold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-charcoal-800 text-slate-600 dark:text-charcoal-300">
+                  Upcoming: {new Date(nextUpcomingEvent.startAt).toLocaleDateString([], { month: 'short', day: 'numeric' })}
+                </span>
+              </div>
+              <h4 className="text-xs font-bold text-slate-800 dark:text-charcoal-200">
+                {nextUpcomingEvent.title}
+              </h4>
+              <p className="text-[11px] text-slate-500 dark:text-charcoal-400">
+                {nextUpcomingEvent.calendarName} • {new Date(nextUpcomingEvent.startAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </p>
+            </div>
           ) : (
             <div className="p-6 text-center rounded-2xl bg-slate-50 dark:bg-charcoal-950/40 border border-slate-200/60 dark:border-charcoal-800 text-xs text-slate-500 dark:text-charcoal-500 space-y-1">
-              <p className="font-medium text-slate-700 dark:text-charcoal-300">No scheduled events right now</p>
-              <p className="text-[11px]">Your calendar is clear for free deep work blocks.</p>
+              <Calendar className="w-6 h-6 mx-auto text-slate-400 dark:text-charcoal-600 mb-1" />
+              <p className="font-medium text-slate-700 dark:text-charcoal-300">No events scheduled today</p>
+              <p className="text-[11px]">Your schedule is clear for deep work.</p>
             </div>
           )}
 

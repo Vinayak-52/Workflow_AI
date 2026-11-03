@@ -1,212 +1,212 @@
 {
   "users": {
     "user-hitk-vinayak-001": {
-      "id": "user-hitk-vinayak-001",
-      "timezone": "Asia/Kolkata",
       "email": "vinayak@hitk.edu.in",
-      "updatedAt": "2026-11-02T08:16:54.934Z",
-      "createdAt": "2026-11-02T08:16:54.933Z",
-      "displayName": "Vinayak Chandra (HITK CSBS)",
       "passwordHash": "$2a$10$/pKBpJpYLc75XPJprv1Ab.Mt91RETzXyf7aDf76XoVnY6TD/rblvK",
+      "updatedAt": "2026-11-02T08:16:54.934Z",
+      "displayName": "Vinayak Chandra (HITK CSBS)",
       "username": "vinayak",
+      "timezone": "Asia/Kolkata",
+      "createdAt": "2026-11-02T08:16:54.933Z",
       "preferences": {
+        "breakDurationMinutes": 15,
         "timezone": "Asia/Kolkata",
         "workingHours": {
-          "end": "18:00",
-          "start": "09:00"
+          "start": "09:00",
+          "end": "18:00"
         },
-        "theme": "dark",
-        "breakDurationMinutes": 15
-      }
+        "theme": "dark"
+      },
+      "id": "user-hitk-vinayak-001"
     },
     "usr-521d76d8": {
-      "passwordHash": "$2a$10$Cabct1qf9OP8NdDsg7ai.O4bYhoXE7MerM./JIOAnxUOYbe7H8EFm",
+      "updatedAt": "2026-11-03T02:02:53.947Z",
+      "displayName": "Shivam Kumar",
+      "username": "rog",
+      "id": "usr-521d76d8",
+      "createdAt": "2026-11-03T02:02:53.947Z",
+      "timezone": "Asia/Kolkata",
       "preferences": {
-        "timezone": "Asia/Kolkata",
         "workingHours": {
-          "end": "18:00",
-          "start": "09:00"
+          "start": "09:00",
+          "end": "18:00"
         },
         "theme": "dark",
+        "timezone": "Asia/Kolkata",
         "breakDurationMinutes": 15
       },
-      "email": "rog@hitk.edu.in",
-      "updatedAt": "2026-11-03T02:02:53.947Z",
-      "createdAt": "2026-11-03T02:02:53.947Z",
-      "displayName": "Shivam Kumar",
-      "timezone": "Asia/Kolkata",
-      "id": "usr-521d76d8",
-      "username": "rog"
+      "passwordHash": "$2a$10$Cabct1qf9OP8NdDsg7ai.O4bYhoXE7MerM./JIOAnxUOYbe7H8EFm",
+      "email": "rog@hitk.edu.in"
     }
   },
   "tasks": {
     "task-001": {
-      "dependencyCount": 1,
-      "category": "academic",
-      "createdAt": "2026-11-02T08:16:54.934Z",
-      "sourceType": "manual",
-      "title": "Prepare Seminar 3 Slides for Prof. Sajal Mitra",
+      "isOverdue": false,
       "userPriority": "high",
-      "userId": "user-hitk-vinayak-001",
-      "id": "task-001",
       "description": "Complete the slide deck covering Problem Statement, Feasibility Analysis, and 3-Layer Architecture.",
-      "updatedAt": "2026-11-02T13:07:14.930Z",
+      "dependencyCount": 1,
+      "createdAt": "2026-11-02T08:16:54.934Z",
+      "userId": "user-hitk-vinayak-001",
+      "category": "academic",
       "status": "todo",
-      "priorityScore": 93.3,
-      "estimatedMinutes": 90,
-      "predictedPriority": "high",
-      "completedAt": "2026-11-02T09:04:26.512Z",
       "dueAt": "2026-11-02T12:16:54.934Z",
-      "isOverdue": false
+      "estimatedMinutes": 90,
+      "completedAt": "2026-11-02T09:04:26.512Z",
+      "id": "task-001",
+      "sourceType": "manual",
+      "priorityScore": 93.3,
+      "updatedAt": "2026-11-02T13:07:14.930Z",
+      "predictedPriority": "high",
+      "title": "Prepare Seminar 3 Slides for Prof. Sajal Mitra"
     },
     "task-002": {
-      "completedAt": "2026-11-02T09:04:27.742Z",
-      "estimatedMinutes": 60,
-      "priorityScore": 90.7,
-      "id": "task-002",
-      "category": "project",
-      "createdAt": "2026-11-02T08:16:54.934Z",
-      "description": "Run train_model.py, verify test accuracy > 85%, and generate classification report for Member 1.",
-      "dependencyCount": 0,
-      "status": "todo",
-      "sourceType": "ai",
       "dueAt": "2026-11-02T16:16:54.934Z",
-      "sourceReference": "Generated from AI Assistant planning recommendation",
-      "userId": "user-hitk-vinayak-001",
-      "updatedAt": "2026-11-02T13:07:22.381Z",
       "predictedPriority": "high",
+      "isOverdue": false,
       "userPriority": "high",
+      "estimatedMinutes": 60,
+      "sourceReference": "Generated from AI Assistant planning recommendation",
+      "id": "task-002",
+      "createdAt": "2026-11-02T08:16:54.934Z",
+      "dependencyCount": 0,
+      "sourceType": "ai",
       "title": "Evaluate Random Forest Model with ROUGE & Confusion Matrix",
-      "isOverdue": false
+      "completedAt": "2026-11-02T09:04:27.742Z",
+      "status": "todo",
+      "userId": "user-hitk-vinayak-001",
+      "category": "project",
+      "priorityScore": 90.7,
+      "updatedAt": "2026-11-02T13:07:22.381Z",
+      "description": "Run train_model.py, verify test accuracy > 85%, and generate classification report for Member 1."
     },
     "task-003": {
-      "title": "Submit HITK Library Due Books & Clearance Form",
+      "dueAt": "2026-11-03T12:16:54.934Z",
+      "status": "todo",
+      "category": "administrative",
       "createdAt": "2026-11-02T08:16:54.935Z",
       "userId": "user-hitk-vinayak-001",
-      "description": "Return Pattern Recognition by Bishop and collect signed clearance receipt.",
       "userPriority": "medium",
-      "predictedPriority": "medium",
-      "status": "todo",
-      "dueAt": "2026-11-03T12:16:54.934Z",
-      "sourceType": "manual",
-      "dependencyCount": 0,
-      "isOverdue": false,
       "id": "task-003",
-      "category": "administrative",
-      "priorityScore": 54,
+      "dependencyCount": 0,
       "estimatedMinutes": 45,
-      "updatedAt": "2026-11-02T08:16:54.935Z"
+      "isOverdue": false,
+      "description": "Return Pattern Recognition by Bishop and collect signed clearance receipt.",
+      "title": "Submit HITK Library Due Books & Clearance Form",
+      "priorityScore": 54,
+      "updatedAt": "2026-11-02T08:16:54.935Z",
+      "sourceType": "manual",
+      "predictedPriority": "medium"
     },
     "task-004": {
-      "userPriority": "medium",
       "updatedAt": "2026-11-02T08:16:54.935Z",
-      "completedAt": "2026-11-01T20:16:54.934Z",
-      "title": "Literature Review on NLP Transformers (Awasthi et al., 2021)",
-      "sourceType": "note",
-      "priorityScore": 61,
-      "isOverdue": false,
       "description": "Summarize extractive vs abstractive techniques for Seminar 3 report section 2.4.",
       "dueAt": "2026-11-01T08:16:54.934Z",
-      "predictedPriority": "medium",
-      "estimatedMinutes": 120,
-      "id": "task-004",
+      "priorityScore": 61,
+      "completedAt": "2026-11-01T20:16:54.934Z",
       "userId": "user-hitk-vinayak-001",
-      "category": "academic",
       "status": "done",
+      "sourceType": "note",
+      "predictedPriority": "medium",
+      "userPriority": "medium",
+      "id": "task-004",
       "dependencyCount": 0,
-      "createdAt": "2026-11-02T08:16:54.935Z"
+      "createdAt": "2026-11-02T08:16:54.935Z",
+      "title": "Literature Review on NLP Transformers (Awasthi et al., 2021)",
+      "estimatedMinutes": 120,
+      "isOverdue": false,
+      "category": "academic"
     },
     "task-005": {
       "dependencyCount": 2,
-      "category": "project",
-      "createdAt": "2026-11-02T08:16:54.935Z",
-      "sourceType": "manual",
-      "userPriority": "low",
-      "userId": "user-hitk-vinayak-001",
       "title": "Setup Docker Container & Cloud Deployment Script",
-      "id": "task-005",
-      "status": "todo",
       "updatedAt": "2026-11-02T08:16:54.935Z",
-      "description": "Write Dockerfile and docker-compose orchestration for Express backend and Python ML service.",
+      "userPriority": "low",
+      "id": "task-005",
       "priorityScore": 51.5,
       "estimatedMinutes": 90,
-      "predictedPriority": "medium",
-      "isOverdue": false,
-      "dueAt": "2026-11-05T08:16:54.934Z"
-    },
-    "task-15963452": {
-      "priorityScore": 64.8,
-      "category": "academic",
-      "createdAt": "2026-11-02T08:17:06.327Z",
-      "sourceType": "manual",
-      "dueAt": "2026-11-03T08:17:06.327Z",
-      "predictedPriority": "medium",
-      "estimatedMinutes": 90,
-      "description": "Verified by Yash Raj",
-      "updatedAt": "2026-11-02T08:17:06.407Z",
-      "status": "todo",
-      "dependencyCount": 0,
-      "id": "task-15963452",
-      "userPriority": "medium",
-      "isOverdue": false,
-      "title": "E2E Integration Test Task",
-      "userId": "user-hitk-vinayak-001"
-    },
-    "task-48ad6a41": {
-      "sourceType": "manual",
-      "userId": "user-hitk-vinayak-001",
-      "status": "todo",
-      "id": "task-48ad6a41",
-      "dependencyCount": 0,
-      "priorityScore": 65.4,
-      "createdAt": "2026-11-02T08:18:12.615Z",
-      "predictedPriority": "medium",
-      "updatedAt": "2026-11-02T08:18:12.665Z",
-      "title": "E2E Integration Test Task",
-      "userPriority": "medium",
-      "isOverdue": false,
-      "category": "academic",
-      "dueAt": "2026-11-03T08:18:12.615Z",
-      "estimatedMinutes": 90,
-      "description": "Verified by Yash Raj"
-    },
-    "task-97173f25": {
-      "description": "Documentation and testing of the project",
-      "userPriority": "medium",
-      "dueAt": "2026-11-03T13:04:00.000Z",
-      "estimatedMinutes": 60,
-      "createdAt": "2026-11-02T13:04:24.906Z",
-      "sourceType": "manual",
-      "priorityScore": 56.8,
-      "id": "task-97173f25",
+      "createdAt": "2026-11-02T08:16:54.935Z",
       "category": "project",
-      "title": "Project report",
-      "status": "todo",
-      "dependencyCount": 0,
-      "userId": "user-hitk-vinayak-001",
+      "dueAt": "2026-11-05T08:16:54.934Z",
       "predictedPriority": "medium",
-      "updatedAt": "2026-11-02T13:04:24.906Z",
+      "userId": "user-hitk-vinayak-001",
+      "status": "todo",
+      "sourceType": "manual",
+      "description": "Write Dockerfile and docker-compose orchestration for Express backend and Python ML service.",
       "isOverdue": false
     },
-    "test-firebase-task-live": {
+    "task-15963452": {
+      "createdAt": "2026-11-02T08:17:06.327Z",
+      "predictedPriority": "medium",
+      "userId": "user-hitk-vinayak-001",
       "status": "todo",
-      "createdAt": "2026-11-02T15:00:53.343Z",
-      "actualDurationMinutes": 0,
-      "userId": "usr-vinayak",
-      "estimatedDurationMinutes": 30,
+      "dueAt": "2026-11-03T08:17:06.327Z",
+      "isOverdue": false,
+      "description": "Verified by Yash Raj",
+      "category": "academic",
+      "id": "task-15963452",
+      "updatedAt": "2026-11-02T08:17:06.407Z",
+      "dependencyCount": 0,
+      "userPriority": "medium",
+      "estimatedMinutes": 90,
+      "title": "E2E Integration Test Task",
+      "priorityScore": 64.8,
+      "sourceType": "manual"
+    },
+    "task-48ad6a41": {
+      "estimatedMinutes": 90,
+      "dependencyCount": 0,
+      "status": "todo",
+      "userId": "user-hitk-vinayak-001",
+      "id": "task-48ad6a41",
+      "updatedAt": "2026-11-02T08:18:12.665Z",
+      "category": "academic",
+      "title": "E2E Integration Test Task",
+      "isOverdue": false,
+      "priorityScore": 65.4,
+      "sourceType": "manual",
+      "predictedPriority": "medium",
+      "description": "Verified by Yash Raj",
+      "userPriority": "medium",
+      "createdAt": "2026-11-02T08:18:12.615Z",
+      "dueAt": "2026-11-03T08:18:12.615Z"
+    },
+    "task-97173f25": {
+      "isOverdue": false,
+      "userPriority": "medium",
+      "description": "Documentation and testing of the project",
+      "dependencyCount": 0,
       "category": "project",
-      "deadline": "2026-11-03T15:00:53.342Z",
-      "description": "Verified live Firestore cloud connection for Workflow AI",
-      "title": "Test Live Firebase Connection",
-      "priority": "high",
+      "userId": "user-hitk-vinayak-001",
+      "createdAt": "2026-11-02T13:04:24.906Z",
+      "status": "todo",
+      "estimatedMinutes": 60,
+      "dueAt": "2026-11-03T13:04:00.000Z",
+      "id": "task-97173f25",
+      "priorityScore": 56.8,
+      "sourceType": "manual",
+      "updatedAt": "2026-11-02T13:04:24.906Z",
+      "predictedPriority": "medium",
+      "title": "Project report"
+    },
+    "test-firebase-task-live": {
       "tags": [
         "firebase",
         "verification"
       ],
       "isOverdue": false,
       "id": "test-firebase-task-live",
+      "createdAt": "2026-11-02T15:00:53.343Z",
+      "description": "Verified live Firestore cloud connection for Workflow AI",
+      "priorityScore": 95,
+      "userId": "usr-vinayak",
+      "estimatedDurationMinutes": 30,
+      "deadline": "2026-11-03T15:00:53.342Z",
+      "status": "todo",
+      "priority": "high",
+      "category": "project",
       "updatedAt": "2026-11-02T15:00:53.343Z",
-      "priorityScore": 95
+      "title": "Test Live Firebase Connection",
+      "actualDurationMinutes": 0
     },
     "task-217aec3c": {
       "id": "task-217aec3c",
@@ -227,84 +227,86 @@
       "updatedAt": "2026-11-03T01:05:53.505Z"
     },
     "task-9cd27f31": {
-      "isOverdue": false,
+      "userPriority": "high",
+      "description": "Created via Slash Command: /create",
+      "priorityScore": 92,
       "id": "task-9cd27f31",
-      "dueAt": "2026-11-04T01:35:44.665Z",
+      "sourceType": "ai",
+      "title": "Presentation that is to be submiited on 5 nov, 19:00",
       "predictedPriority": "high",
       "updatedAt": "2026-11-03T01:35:44.665Z",
-      "title": "Presentation that is to be submiited on 5 nov, 19:00",
-      "sourceReference": "AI Assistant /create",
-      "estimatedMinutes": 60,
-      "sourceType": "ai",
-      "userPriority": "high",
-      "priorityScore": 92,
-      "category": "project",
-      "dependencyCount": 0,
-      "createdAt": "2026-11-03T01:35:44.665Z",
       "status": "todo",
+      "category": "project",
       "userId": "user-hitk-vinayak-001",
-      "description": "Created via Slash Command: /create"
+      "dependencyCount": 0,
+      "estimatedMinutes": 60,
+      "isOverdue": false,
+      "sourceReference": "AI Assistant /create",
+      "dueAt": "2026-11-04T01:35:44.665Z",
+      "createdAt": "2026-11-03T01:35:44.665Z"
     }
   },
   "notes": {
     "note-001": {
+      "createdAt": "2026-11-02T08:16:54.935Z",
       "content": "# Meeting Notes: Prof. Sajal Mitra Review\nDate: October 2026\nLocation: HITK CSBS Department\n\n### Key Decisions\n1. **Separation of Responsibilities**:\n   - Random Forest for task prioritization based on objective features.\n   - NLP engine for extractive summarization of user documents and notes.\n   - Deterministic planner for schedule slot allocation.\n2. **Read-Only Scope**:\n   - No external writing to Google Calendar or Gmail in the prototype.\n3. **Continuous Learning**:\n   - Record completion records to refine model prediction accuracy over time.\n",
+      "userId": "user-hitk-vinayak-001",
+      "updatedAt": "2026-11-02T08:16:54.935Z",
+      "id": "note-001",
+      "pinned": true,
       "tags": [
         "academic",
         "seminar",
         "hitk"
       ],
-      "createdAt": "2026-11-02T08:16:54.935Z",
-      "userId": "user-hitk-vinayak-001",
-      "title": "Seminar 3 Discussion Notes with Mentor",
-      "id": "note-001",
       "format": "markdown",
-      "updatedAt": "2026-11-02T08:16:54.935Z",
-      "pinned": true
+      "title": "Seminar 3 Discussion Notes with Mentor"
     },
     "note-002": {
-      "createdAt": "2026-11-02T08:16:54.936Z",
-      "title": "AI Workspace Architecture & Feature Ideas",
-      "id": "note-002",
-      "userId": "user-hitk-vinayak-001",
-      "updatedAt": "2026-11-02T08:16:54.936Z",
-      "content": "# Architecture Ideas & Milestones\n\n- Front-End: React.js with Tailwind CSS for clean dark workspace UX.\n- Back-End: Node.js Express REST API server with ownership validation.\n- AI Layer: Python 3.14 Random Forest ML service and NLP summarizer.\n- Cloud: Firestore NoSQL database schema with real-time sync.\n\n### Next Steps:\n- Add drag-and-drop document upload with instant summary breakdown.\n- Verify Postman test suite across all CRUD endpoints.\n",
-      "format": "markdown",
       "tags": [
         "project",
         "architecture"
       ],
-      "pinned": false
+      "pinned": false,
+      "format": "markdown",
+      "userId": "user-hitk-vinayak-001",
+      "title": "AI Workspace Architecture & Feature Ideas",
+      "createdAt": "2026-11-02T08:16:54.936Z",
+      "updatedAt": "2026-11-02T08:16:54.936Z",
+      "content": "# Architecture Ideas & Milestones\n\n- Front-End: React.js with Tailwind CSS for clean dark workspace UX.\n- Back-End: Node.js Express REST API server with ownership validation.\n- AI Layer: Python 3.14 Random Forest ML service and NLP summarizer.\n- Cloud: Firestore NoSQL database schema with real-time sync.\n\n### Next Steps:\n- Add drag-and-drop document upload with instant summary breakdown.\n- Verify Postman test suite across all CRUD endpoints.\n",
+      "id": "note-002"
     }
   },
   "reminders": {
     "rem-7458a384": {
+      "urgencyScore": 65,
+      "message": "Upcoming: 'Prepare Seminar 3 Slides for Prof. Sajal Mitra' is due in 4.0 hours. Reserve a focus block today.",
+      "taskId": "task-001",
+      "userId": "user-hitk-vinayak-001",
+      "level": "warning",
       "isDismissed": false,
+      "createdAt": "2026-11-02T08:17:06.451Z",
       "title": "Prepare Seminar 3 Slides for Prof. Sajal Mitra",
       "triggerAt": "2026-11-02T08:17:06.451Z",
-      "message": "Upcoming: 'Prepare Seminar 3 Slides for Prof. Sajal Mitra' is due in 4.0 hours. Reserve a focus block today.",
-      "id": "rem-7458a384",
-      "userId": "user-hitk-vinayak-001",
-      "level": "warning",
-      "urgencyScore": 65,
-      "taskId": "task-001",
-      "createdAt": "2026-11-02T08:17:06.451Z"
+      "id": "rem-7458a384"
     },
     "rem-16a6c8d4": {
-      "createdAt": "2026-11-02T08:17:06.452Z",
+      "isDismissed": false,
       "title": "Evaluate Random Forest Model with ROUGE & Confusion Matrix",
+      "triggerAt": "2026-11-02T08:17:06.452Z",
       "urgencyScore": 65,
+      "message": "Upcoming: 'Evaluate Random Forest Model with ROUGE & Confusion Matrix' is due in 8.0 hours. Reserve a focus block today.",
+      "userId": "user-hitk-vinayak-001",
       "id": "rem-16a6c8d4",
       "level": "warning",
-      "userId": "user-hitk-vinayak-001",
-      "isDismissed": false,
-      "triggerAt": "2026-11-02T08:17:06.452Z",
-      "message": "Upcoming: 'Evaluate Random Forest Model with ROUGE & Confusion Matrix' is due in 8.0 hours. Reserve a focus block today.",
+      "createdAt": "2026-11-02T08:17:06.452Z",
       "taskId": "task-002"
     }
   },
   "documents": {
     "doc-cc851904": {
+      "factualityScore": 1,
+      "extractedText": "Course Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 1 of 21 \n \n \n \n \nSTUDY MATERIALS \nOF \nCBS4142 \nCUSTOMER RELATIONSHIP \nMANAGEMENT \n \n \nMODULE 1 \nFundamentals of CRM \n \nTopics Covered - \n✓ Definition of CRM \n✓ Objectives of CRM \n✓ Evolution of CRM \n✓ Benefits of CRM \n✓ Components of CRM \n✓ Types of CRM – Operational, Analytical & Collaborative \n✓ Strategic Importance of CRM \n✓ CRM Vs Traditional Marketing \n✓ Drivers of CRM \n✓ Enablers of CRM\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 2 of 21 \n1. Definition \nCustomer Relationship Management (CRM) is an integrated business strategy, \nprocess & technology system for managing interactions with current as well \nas potential customers throughout the customer lifecycle. \nIt helps an organization –  \n✓ collect customer information \n✓ understand needs \n✓ deliver relevant value \n✓ build profitable long -term \nrelationships \nIt rests on 2 core functions - \n1. Store what you know about \neach customer \n2. Act on that knowledge to serve the right person, at the right moment, \nthrough the right channel. \n \nThus CRM is more than software. Effective CRM combines people, customer-\nfocused processes, data & technology. \nCRM = PEOPLE + CUSTOMER SATISFACTION + DATA + TECHNOLOGY \n \n2. Objectives of CRM \n• Identify, contact, attract & acquire new customers. \n• Understand customer  (needs, preferences, purchase history  & buying \nbehaviour). \n• Improve service quality through timely & personalized support. \n• Increase customer satisfaction, loyalty & retention. \n• Increase revenue through repeat purchase, cross-selling & up-selling. \n• Reduce customer churn by recognizing dissatisfaction or inactivity. \n• Support informed decision-making with customer data & analytics. \n \n3. Evolution of CRM \nCustomer Relationship Management (CRM) has evolved significantly since \nits origins in the 1980s. It began as simple contact management  - digital \nrolodexes storing basic customer details. The early 1990s introduced Sales\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 3 of 21 \nForce Automation, exemplified by Siebel Systems, which automated pipelines \n& forecasting. By the late 1990s, enterprise CRM suites from Oracle & SAP \nemerged, though their complexity limited adoption. The 2000s brought a \ncloud/SaaS revolution, led by Salesforce, making CRM affordable & \naccessible for most enterprises . The following  decades saw integration with \nmarketing automation, mobile -first design  & omnichannel customer \nexperience. Today, CRM has entered an AI -driven era, enabling predictive \nanalytics, personalization with    autonomous, agentic customer engagement \nsystems. The following chart displays the evolution categories for better \nunderstanding - \nEra Phase Key Characteristics Tools \n1980s Contact \nManagement \nDigital rolodexes , stored contact details & \nnotes, individual use, no integration , \ndepends on memory of agent. \nACT! \nEarly \n1990s \nSales Force \nAutomation \n(SFA) \nAutomated pipelines, forecasting, lead \ntracking, \"CRM\" as a term emerges \nSiebel \nSystems \n(1993) \nLate \n1990s \nEnterprise \nCRM Suites \nFull suites for sales, marketing, service; on -\npremise, costly, IT-heavy; weak adoption \nSiebel, \nOracle, \nSAP \n2000s Cloud / SaaS \nShift \nBrowser-based, subscription model , lower \ncost, faster deployment , opened CRM to \nSMBs \nSalesforce \n(1999) \n2000s–\n2010s \nMarketing \nIntegration \nMerged with marketing automation & \nservice tools, social CRM emerges \nHubSpot, \nMarketo \n2010s Mobile & \nCX Focus \nMobile-first design, 360° customer view, \nomnichannel engagement \n \nX \n2020s AI-Driven & \nPredictive \nCRM \nPredictive lead scoring, churn prediction, \ngenerative AI communications, privacy  - \npreserving practices (GDPR / CCPA) \nSalesforce \nEinstein, \nMicrosoft \nCopilot, \nHubSpot AI \nEmerging Agentic \nCRM \nAI agents autonomously execute workflows; \n1st party data strategies replace third -party \ncookies \n \nX\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 4 of 21 \n4. Strategic Role of CRM \nCRM is a software which has strategic capability in organizations to - \n• Centralize customer intelligence:  Maintain a single, unified view of each \ncustomer with their identity, buying behaviour, transactions, interactions  \netc. to make informed decisions. \n• Helps in the CLC: Systematically move customers through – \nidentify → segment → acquire → onboard → serve → retain → grow \n• Personalize at scale:  Use segmentation ( eg., RFM, CLV, personas) & \nanalytics to tailor offers, messages & service. \n• Optimize revenue levers:  Shorten sales cycles, improve conversion, \nincrease retention & unlock cross-sell/upsell opportunities. \n• Enable data -driven strategy:  Turn interaction data into insights for \nproduct development, pricing, channel mix  & customer experience \nimprovements. \nExample - A retail company uses a cloud -\nbased CRM system  to analyses & study  \nCLV, then high-value customers receive \nearly-access offers, while customers who \nhave stopped buying receive special offers \nto encourage them to return. \n5. Significance of CRM \n• Better customer knowledge: Organizations understand needs, preferences \n& purchasing behaviour. \n• Higher satisfaction & loyalty: Consistent & personalized interactions \nimprove the customer experience. \n• Improved retention: Proactive support & loyalty actions. \n• Greater sales & profitability: Sales teams manage leads better & identify \ncross-sell & up-sell opportunities. \n• Improved efficiency: Automation reduces repetitive work such as follow -\nups, campaign scheduling & ticket routing. \n• Data-driven decisions: CRM reports help evaluate campaign results, sales \nperformance, customer value & service quality. \n• Better interdepartmental coordination:  All relevant teams can work \nfrom shared customer information.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 5 of 21 \n6. Benefits of CRM \nCRM delivers value across all categories of business in the following aspects - \n \n6.1. Customer-Related Benefits \n• 360° customer view:  All customer data like purchases, interactions, \ncomplaints & p references are  stored in one place, so any employee can \nquickly understand the full history of a customer instead of asking them to \nrepeat information. \n• Personalized customer experience:  Offers, recommendations & \ncommunication can be tailored to individual preferences which makes \ncustomers feel understood & valued. \n• Improved customer satisfaction & loyalty: Consistent, relevant & timely \nservice builds trust over time, making customers less likely to switch to a \ncompetitor. \n• Faster resolution of queries & complaints:  Organized case tracking \nensures that no customer request is lost & that complaints are escalated & \nresolved within a defined time frame. \n \n6.2. Sales-Related Benefits \n• Better lead management:  Leads are captured, scored & followed up \nsystematically, resulting in higher conversion rates compared to manual \ntracking. \n• Cross-selling & Up-selling opportunities: Purchase history reveals which \nadditional products or higher -value versions a customer is likely to be \ninterested in. \n• More accurate Sales Forecasting: Pipeline data (deals in progress, their \nstage & probability of closing) allows managers to predict reliable revenue. \n• Shorter sales cycles: Automated reminders & follow -ups ensure that \nprospects are not forgotten, reducing the time it takes to close a deal. \n \n6.3. Marketing-Related Benefits \n• Targeted & Segmented Campaigns: Customers can be grouped by \nbehaviour, location, or preferences, so that campaigns reach the audience \nmost likely to respond. \n• Measurable Campaign ROI:  CRM systems can track which campaigns \nactually led to sales, helping marketers justify & improve spending.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 6 of 21 \n• Improved Segmentation using Analytics: Patterns in customer data \nreveal segments that may not be obvious from intuition alone, improving \nthe relevance of every message sent. \n \n6.4. Operational / Organizational Benefits \n• Reduced data silos: Centralized customer data means sales, marketing & \nservice teams are no longer working from separate, inconsistent records. \n• Better inter -departmental coordination:  a shared view of the customer \nhelps teams hand off work smoothly, eg. when a marketing lead becomes a \nsales opportunity. \n• Task automation: Routine work such as data entry, follow -up emails & \nreminders is automated, saving time & reducing human error. \n• Better resource allocation: Management can direct staff & budget toward \nthe customer segments & activities that generate the most value. \n \n6.5. Strategic Benefits \n• Competitive advantage: Deep customer insight is difficult for competitors \nto copy, especially once it is built up over years of interaction data. \n• Increased CLV:  Stronger long -term relationships  with customers \ngenerates more revenue over their lifetime with the company. \n• Data-driven strategic decisions: Leadership can base decisions on actual \ncustomer behaviour & trends rather than assumptions. \n• Stronger brand reputation:  Consistently positive experiences  through \nCRM, build a brand that customers are willing to recommend to others. \nBenefit Category Primary Beneficiary Typical Metric Improved \nCustomer-Related Customer • Customer satisfaction score \n• Repeat-visit rate \nSales-Related Sales team • Lead conversion rate \n• Sales cycle length \nMarketing-Related Marketing team • Campaign response rate \n• Marketing ROI \nOperational Whole organization • Time saved \n• Error reduction \nStrategic Leadership or whole business • CLV \n• Retention rate\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 7 of 21 \n6.6. Case Studies: Solutions Based on Benefits of CRM \nCase Study 1: \nAmazon is a global e -commerce company operating in a market with \nthousands of competing sellers & platforms, making customer retention \ncritical to its business model.  However, Amazon uses CRM -driven data \nanalytics to track each customer’s browsing history, search behaviour  & past \npurchases. This data powers personalized product recommendations \n(“customers who bought this also bought that”), tailored emails & a shopping \nexperience that adapts to the individual. \nBenefit - This primarily reflects the customer -related benefit of an improved, \npersonalized experience  & the strategic benefit of increased CLV, since \nsatisfied, engaged customers keep returning to the platform. \nTakeaway - Personalization at scale is only possible because customer data \nfrom many touchpoints is unified which is a core CRM capability. \n \nCase Study 2 \nStarbucks operates in a highly competitive café market where switching to \nanother coffee outlet involves very little effort for the customer.  Through the \nStarbucks Rewards Program, integrated with it's mobile app, Starbucks \ncollects purchase data to offer personalized rewards, order suggestions  & \ntargeted promotions based on each customer’s ordering habits. \nBenefit - This demonstrates the customer -related benefit of enhanced loyalty  \n& the marketing -related benefit of targeted, relevant promotions that \nencourage repeat visits. \nTakeaway - A loyalty program backed by CRM data turns occasional buyers \ninto habitual, engaged customers. \n \nCase Study 3 \nThe Taj Group operates numerous hotel properties across India & \ninternationally & guests often expect the same standard of personalized \nservice at every property they visit.  Taj Hotels maintains detailed guest \nprofiles like room preferences, dietary needs  & past stay history - that are \naccessible across its properties, allowing staff at any location to recognize & \ncater to a returning guest.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 8 of 21 \nBenefit - This shows the customer-related benefit of a consistent, personalized \nexperience across multiple locations, which is a distinctive challenge in the \nhospitality industry. \nTakeaway - Collaborative access to a single guest profile across branches is \nwhat enables this consistency. \n \nCase Study 4 \nRetail banks offer many products like savings accounts, loans, insurance, \ninvestments & customers rarely use all of them from a single provider unless \nthe bank proactively identifies relevant needs.  For eg. ICICI Bank uses CRM \nanalytics to study customer transaction patterns & life-stage indicators (such \nas a salary increase or a large withdrawal), allowing relationship managers to \nrecommend relevant financial products at the right time. \nBenefit - This illustrates the sales -related benefit of cross -selling & the \nstrategic benefit of increased customer profitability, since each retained \ncustomer generates revenue from multiple products. \nTakeaway - Analytical CRM capability by spotting patterns in transaction \ndata is what makes timely cross-selling possible. \n \nCase Study 5 \nFood-delivery platforms operate on thin margins & depend heavily on repeat \norders, making efficient marketing spend with smooth operations essential.  \nSwiggy, for eg. uses customer ordering data to personalize restaurant \nrecommendations, design targeted promotional offers for specific customer \nsegments & plan delivery operations efficiently based on demand patterns. \nBenefit - This demonstrates both the marketing -related benefit of targeted \ncampaigns & the operational benefit of centralized, actionable customer data \nfeeding into business decisions. \nTakeaway - The same underlying customer data can simultaneously improve \nmarketing relevance & day-to-day operational planning. \n \nObservation Across Case Studies \nA pattern is visible across all 5 case studies \n• CRM stores customers’ Data \n• Effective CRM turns customer data into action\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 9 of 21 \n• It helps to personalized recommendations, rewards, services, cross -selling \noffers & optimized delivery routes directly to customers \n \nCommon Challenges in Realizing These Benefits \nCRM benefits are not automatic  so organizations commonly face challenges \nlike – \n• Poor data quality like incomplete or duplicate customer records \n• Low adoption by employees who find the system inconvenient \n• High implementation & training costs \n• Difficulty integrating the CRM with existing systems \nA CRM system only delivers the benefits described above when these \nimplementation challenges are managed well. \n \n7. Components of CRM \nA complete CRM system is made up \nof several interconnected \ncomponents which allow an \norganization to capture customer \ncentric data relevant to the company, \nact on it & continuously improve the \ncustomer relationship. \n• Customer Data Management:  \nThe foundation of any CRM \nsystem is a  central database \nstoring contact details, purchase \nhistory, preferences  & every \nrecorded interaction. Without accurate, well -maintained data, every other \ncomponent becomes less effective. \n• Sales Force Automation (SFA): Tools that help sales teams manage leads, \ntrack opportunities through each stage of the pipeline, schedule follow -ups \n& generate sales forecasts, reducing dependence on manual spreadsheets. \n• Marketing Automation:  Tools for planning & running campaigns, \nsegmenting customers into meaningful groups  & automating email, SMS, \nor app-notification marketing based on customer behaviour.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 10 of 21 \n• Customer Service & Support:  Helpdesk and ticketing systems that log \ncustomer queries & complaints, assign them to the right team member  & \ntrack them until resolution, often with defined service-level timelines. \n• Analytics & Reporting:  Dashboards & predictive-analytics tools that \nconvert raw customer data into actionable insights, like identifying which \ncustomers are likely to churn or which products to recommend next. \n• Collaboration Tools: Shared calendars, notes  & communication features \nthat keep sales, marketing  & service teams aligned on the current status of \neach customer, avoiding duplicated or contradictory outreach. \n• Technology Infrastructure:  The underlying cloud platform, mobile \naccess, security controls  & integration capability that connect the CRM \nwith other business systems such as ERP (Enterprise Resource Planning) or \nbilling software. \n \n8. Types of CRM \n• Operational CRM  - Operational CRM automates & streamlines day -to-\nday, customer-facing business processes in sales, marketing  & service. It is \nthe “front office” side of CRM, focused mainly on execution. \nExample: \na. Salesforce Sales Cloud used for lead & opportunity tracking \nb. Zoho CRM used by Indian SMEs for daily sales & follow-up management \nc. Ticketing system of the cal l-centre of a bank that logs & routes customer \nservice requests \n \n• Analytical CRM - Analytical CRM focuses on collecting and  analyzing \ncustomer data (from operational CRM and other sources) to generate \ninsights that support decision -making – such as customer segmentation, \nchurn prediction, and campaign targeting. \nExample: \na. Amazon’s recommendation engine analyses browsing & purchase data to \npredict what a customer is likely to buy next \nb. A bank  analyzing transaction history to build credit -risk or cross -sell \nscores \nc. Use of dashboards to identify which customer segments are most likely to \nchurn or not return\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 11 of 21 \n• Collaborative CRM  - Collaborative CRM focuses on sharing customer \ninformation across departments, channels, and even external partners, so \nthat everyone interacting with the customer has consistent, up -to-date \ninformation. \nExamples: \na. A Telecom company share customer complaint history to all call-centre \nb. Retail stores & social media support team \nc. An airline sharing passenger data across its booking system, check -in \ncounters & in-flight service team \nAspects Operational CRM Analytical CRM Collaborative CRM \nPrimary \nFocus \nExecuting day-to-day \ncustomer facing \nprocesses \nAnalyzing data to \ngenerate insights \nSharing information \nacross teams /channels \nMain \nUsers \nSales, marketing & \nservice staff \nAnalysts & decision-\nmakers \nAll customer-facing \nteams & partners \nTypical \nOutput \nCompleted tasks (a \nlead followed up, a \nticket closed) \nReports, predictions \n& segments \nA consistent, shared \ncustomer record \nExample \nTool/Use \nSalesforce Sales \nCloud, Zoho CRM \nRecommendation \nengines, churn-\nprediction \ndashboards \nShared complaint \nhistory across channels \n \nClasswork: \nXYZ Retail Pvt. Ltd. Has installed a system that collects data from its billing \ncounters, it’s mobile app & it’s social media pages. The system does not \ndirectly interact with customers, instead, it studies the combined data to \nidentify purchase patterns & predict which products a customer is most \nlikely to buy next. The marketing team then uses these predictions to design \ntargeted campaigns. \nQuestion: Identify the type of CRM. Justify your answer.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 12 of 21 \n8.1. Relationship Between the 3 types if CRM \n \n9. Strategic Importance of CRM in Business \nCRM is a customer centric business strategy software tool  of organizational \ndecision-making. It’s strategic importance stems from several factors – \n• It is significantly cheaper to retain an existing customer than to acquire a \nnew one, so a strong CRM strategy directly protects revenue \n• Customer data is   treated as a strategic asset that informs product design, \npricing & service decisions at the highest levels of the organization \n• In markets where competing products are mostly similar, the customer  \nrelationship quality becomes the most important  parameter for \ndifferentiation\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 13 of 21 \n• CRM supports broader long-term goals like brand loyalty, customer-centric \ninnovation & alignment with digital transformation initiatives across the \norganization. \n \n9.1. Global Examples \nAmazon (USA): Amazon treats customer data as a core strategic asset, using \nit to drive personalized recommendations, pricing & marketing. This \ncustomer-centric strategy is widely regarded as central to its ability to \ncompete across many product categories simultaneously. \n \nApple (USA):  Apple builds long -term customer relationships through an \nintegrated ecosystem of devices & services, supported by AppleCare & in-\nstore Genius Bar assistance. This relationship -driven strategy encourages \nrepeat purchases & strong brand loyalty rather than one-off transactions. \n \nMarriott International (USA):  Marriott uses its Marriott Bonvoy loyalty \nprogram, backed by CRM systems, to retain guests across it ’s large global \nportfolio of hotel brands, personalizing offers based on each guest’s stay \nhistory & preferences. \n \nCoca-Cola (USA/Global):  Coca-Cola uses CRM & loyalty initiatives to \nengage consumers directly, gather feedback & tailor marketing campaigns to \ndifferent regional markets, supporting it ’s strategy of maintaining relevance \nacross highly diverse customer bases. \n \n9.2. Indian Examples \nTata Motors:  Tata Motors uses CRM systems to coordinate after -sales \nservice & maintenance reminders across it ’s dealer network, strengthening \nlong-term customer relationships in a sector where trust in service quality \nstrongly influences repeat purchase. \n \nICICI Bank:  ICICI Bank uses CRM analytics to understand customer life -\nstage needs & cross -sell appropriate banking, insurance & investment \nproducts, making customer retention & share -of-wallet a strategic priority in \nretail banking. \n \nReliance Jio: Reliance Jio uses CRM and customer data analytics to manage \nlarge-scale customer acquisition & retention strategies, which has been\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 14 of 21 \nstrategically important in a highly price -sensitive & competitive Indian \ntelecom market. \n \nFlipkart: Flipkart uses CRM -driven personalization to recommend products, \nmanage customer support & design targeted offers for millions of e-commerce \ncustomers, treating customer experience as a key differentiator against \ndomestic & global competitors. \n \nTaj Group (Indian Hotels Company Ltd.):  The Taj Group uses its Taj \nInnerCircle loyalty program, supported by CRM systems, to differentiate itself \nstrategically in the Indian hospitality sector through consistently personalized \nguest experiences across properties. \n \n9.3. Why This Matters Strategically? \nTwo points are worth emphasizing for a business systems student. \n• CRM is tied directly to a specific strategic goal or objectives – \nDifferentiation (Apple) \nRetention in a price-sensitive market (Reliance Jio) \nCross-selling to increase share-of-wallet (ICICI Bank) \nConsistent brand experience across locations (Marriott, Taj Group) \n• The scale at which these companies operate , millions of customers across \nmultiple channels, makes a technology-supported CRM strategy a necessity \nrather than a choice & it is to be noted that relationship management at this \nscale would not be possible through manual effort alone. \n \n10. CRM vs Traditional Marketing \nCustomer Relationship Management (CRM) & Traditional Marketing differ \nfundamentally in orientation, data use & measurement. While CRM is \ncustomer-centric, data-driven & relationship-focused, Traditional Marketing is \nproduct-centric, broadcast-oriented & campaign-focused. \n• CRM treats the customer as the central unit of strategy. It integrates sales, \nmarketing & service data into a single system of record &  , a system of \nintelligence. It uses behavio ural & transactional data to trigger relevant \ncommunications like welcome series, cart -abandonment reminders, \nreplenishment alerts, loyalty rewards, across the customer lifecycle.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 15 of 21 \n• Traditional Marketing emerged in an era of mass media, where firms \ncompeted primarily on product features, price & brand visibility. It’s logic \nis linear – create a compelling message, buy media space with the hope that \nthe right people (target audience) will see it at the right time.  Traditional \nMarketing ex cels at building awareness & shaping brand perceptions at \nscale, especially for new products or markets  but it s truggles with \nprecision, real-time optimization & post-campaign relationship building. \n• Strategically, the 2 approaches are complementary.  Traditional marketing \nis powerful for top -of-funnel awareness & brand building, while CRM \nexcels at mid  & bottom-funnel conversion, retention  & advocacy. Modern \norganizations blend both: using mass channels to acquire attention & CRM \nsystems to convert, nurture & retain those customers over time.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 16 of 21 \nDimension CRM Marketing Traditional Marketing \nOrientation Customer & relationship-driven Product & campaign-\ndriven  \nTargeting Individual or micro-segment \ntargeting using behavioural, \ntransactional & interaction data \nMass or segment-level \ntargeting via channels \nlike TV, print, radio, \nbillboards, & direct mail \nCommunication 1-to-1 or few, interactive & \nongoing across email, SMS, app, \nweb & service touchpoints \n1-to-many, largely 1-\nway, limited feedback \nloops \nData Use Centralized customer records Minimal individual-\nlevel data, relies on \ndemographics & market \nresearch. \nPersonalization Dynamic content, triggered \nmessages & tailored offers based \non real-time signals \nGeneric creative \nmessage to large \naudiences \nAutomation Workflow automation for lead \nnurturing, retention campaigns & \nlifecycle messaging \nManual campaign \nplanning & execution, \nlimited automation \nMeasurement Clear attribution & ROI via \nconversion tracking, cohort \nanalysis & CLV \nHarder to attribute sales, \nrelies on reach, \nfrequency & surveys \nCost Structure Ongoing platform & data costs, \noften higher ROI due to precision \ntargeting \nHigh upfront media \nspend, variable \nefficiency \nStrengths Strong for retention, cross-sell/up-\nsell & measurable performance \nmarketing \nStrong for brand \nawareness & reaching \nnew audiences quickly \nLimitations Requires data quality, governance \n& integration, less effective alone \nfor top-of-funnel awareness \nWastage due to broad \nreach, weaker \npersonalization & \nfollow-up\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 17 of 21 \nCase Study: Dual-Perspective Analysis \n \nCase 1 \nA large retail bank in India launches a new credit card with travel rewards. It \nuses both traditional marketing (TV, print, outdoor) & CRM marketing \n(email, SMS, in -app messages, call -centre outreach) to drive acquisitions & \nactivations. \nTraditional Marketing Perspective CRM Marketing Perspective \nObjectives: Build broad awareness of \nthe new card, communicate key \nbenefits (reward points, lounge \naccess) & create a sense of prestige \naround the brand. \nTactics: \n• 30 -second TV spots during prime -\ntime news & sports. \n• Full-page ads in leading newspapers \n& business magazines. \n• Hoardings & transit ads in metro \ncities. \n \n \n \n \n \n \nStrengths: \n• Rapidly reaches millions  of existing \n& potential customers. \n• Reinforces premium brand image, \nObjectives: Convert existing \ncustomers & warm leads into \ncardholders, activate new cardholders, \n& encourage early spend to improve \nlifetime value. \nTactics: \n• Use the bank's CRM to segment \ncustomers by income, existing \nproduct holdings, transaction patterns, \n& credit score. \n• Send personalized messages with \npre-approved limits, fee waivers  \noffers. \n• Trigger in -app messages when \ncustomers view 'rewards' or 'cards' \nsections. \n• Run activation campaigns like bonus \npoints with first purchase & \nautomated reminders as the deadline \napproaches. \n \nStrengths: \n• Targets only eligible  customers, \nimproving approval rates & reducing \nacquisition cost. \n• Clear attribution  since each\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 18 of 21 \nsupporting long-term equity. \n \n \n \nLimitations: \n• Many exposures go to people who \nalready have cards or are not eligible. \n• Difficult to know which ad led to an \napplication, attribution relies on self -\nreports & aggregate application \nspikes. \n \nOutcome: The campaign generates a \nnoticeable uplift in website traffic & \nbranch inquiries, but conversion from \nawareness to application is modest & \nuneven across regions. \napplication & activation is linked to a \nspecific message & segment, enabling \nprecise ROI calculation. \n• Supports ongoing relationship \nmanagement based on usage data. \n \nLimitations: \n• Cannot reach non -customers or \nthose outside the CRM database. \n• Requires clean data, consent \nmanagement & integration across \ncore banking, CRM  & marketing \nautomation systems. \n \nOutcome: CRM-driven campaigns \ndeliver higher application -to-approval \nratios, faster activation & greater first-\nyear spend per customer compared to \nbroadly targeted efforts. The bank \nuses these insights to shift more \nbudget toward CRM -based retention \n& lifecycle programs while \nmaintaining a baseline of traditional \nmedia for brand & acquisition. \n \n10.1. Integrating CRM & TRADITIONAL MARKETING  Approaches \nIn practice, the most effective strategies combine a bit of  both traditional \nmarketing & CRM marketing for an unified growth system:  \n• Traditional channels are used to create at scale awareness & shape brand \nperception by capturing interest via digital forms, branch sign -ups, call-centre \ninteractions while feeding customer data into the CRM  software. \n• CRM is then used to nurture leads, personalize offers  & manage the post -\nacquisition journey, continuously optimizing based on behavioural data.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 19 of 21 \nThis integrated model aligns with the broader shift in marketing from \n'advertising to audiences' toward 'managing relationships with individuals,' \nwhere CRM   functions as the operational backbone of modern marketing. \n11. Key Drivers of CRM \nCustomer relationship management (CRM) is driven by the need to \nunderstand cu stomers, improve their experience, increase retention  & \ncoordinate sales, marketing & service activities. The major drivers are: \n• Increasing customer expectations  - Customers expect fast responses, \npersonalized communication, consistent service  & seamless interactions \nacross channels. CRM systems help organizations record and use customer \ninformation to meet these expectations. \n• Demand for personalized marketing  - Businesses use CRM data to \nsegment customers, identify preferences, tailor offers, and deliver targeted \ncampaigns. Personalization is a major factor behind CRM adoption. \n• Improved customer retention & loyalty - CRM helps organizations \nmonitor customer satisfaction, identify potential churn, manage complaints, \n& develop loyalty programmes. Retaining existing customers is often more \ncost-effective than acquiring new ones. \n• Centralization of customer data  - CRM integrates information from \nsales, marketing, customer service, websites, social media  & other \ntouchpoints into a unified customer record. This supports a more complete \nor “360-degree” view of the customer. \n• Sales-force automation  - CRM automates lead tracking, follow -up \nreminders, opportunity management, pipeline monitoring  & sales \nforecasting. This reduces administrative work & improves sales \nproductivity. \n• Growth of digital & omnichannel commerce  - The expansion of e -\ncommerce, mobile applications, social media, email  & online customer \nservice has increased the number of customer interaction points. CRM \nallows organizations to coordinate these interactions across channels. \n• Use of artificial intelligence & analytics - AI-enabled CRM systems can \ngenerate customer insights, predict purchasing behaviour, recommend next \nactions, automate responses  & identify potential churn. The integration of\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 20 of 21 \nAI & demand for real -time insights are important contemporary growth \ndrivers. \n• Cloud computing & remote work  - Cloud-based CRM offers scalable \naccess, lower infrastructure requirements, easier updates  & support for \ngeographically distributed teams. These advantages have accelerated \nadoption among both large organizations & small to medium-sized \nenterprises. \n• Need for operational efficiency & automation - Organizations adopt \nCRM to automate repetitive marketing, sales  & service processes, reduce \nerrors, improve communication & lower operating costs. \n• Need for data -driven decision -making - CRM analytics provide \ninformation about customer behaviour, campaign performance, sales \nconversion, service quality & revenue trends. Managers can therefore make \ndecisions based on evidence rather than intuition. \n• Integration with other business systems  - CRM platforms integrate with \nenterprise resource planning, marketing automation, customer -data \nplatforms, communication tools, payment systems  & business intelligence \nsoftware to improve information flow across the organization. \n \n11.1. Internal drivers of successful CRM implementation \nSuccessful CRM depends on technology & the followings: \no Senior-management support. \no Employee training & participation. \no User-friendly workflows. \no High-quality & accurate customer data. \no Integration with existing systems. \no Clear performance objectives. \no Incentives that encourage consistent usage. \no Strong privacy, security & data-governance practices. \n \nNote: CRM adoption commonly fails when the system does not fit \nemployees’ workflows, creates excessive manual data entry or does not \nprovide clear benefits to users.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 21 of 21 \n7. Enablers of Customer Relationship Management (CRM) \nEnabler Main contribution \nPeople Skills, participation, training & adoption \nProcesses Standardized & customer-focused workflows \nTechnology Integration, automation, accessibility & scalability \nData Reliable information for coordination & decisions \nStrategy Alignment between CRM activities & business goals \nCulture Collaboration, customer orientation & willingness to change \nGovernance Privacy, security, accountability & performance control \n \nTherefore, CRM is enabled not by software alone but by the alignment of \npeople, processes, technology, data & organizational strategy. A sophisticated \nCRM platform will produce limited benefits if employees do not adopt it, \ndepartments do not share information or the underlying customer data is \nunreliable. \nKey Terms for SAQ \nCRM: A strategy, process & technology approach for managing customer interactions & building long-\nterm relationships. \nCustomer lifecycle: The stages through which a customer progresses: identify, segment, acquire, \nonboard, serve, retain & grow. \nTouchpoint: Any interaction point between a customer & organization, such as a website, store, call \ncentre, email or social media. \nSegmentation: Dividing customers into groups with similar needs, characteristics or behaviours. \nCLV: Customer Lifetime Value  - total  revenue or profit from a customer over the entire relationship  \nwith the company. \nSales Force Automation (SFA): Automation of sales activities such as lead management, opportunity \ntracking & forecasting. \nMarketing automation: Use of technology to plan, deliver & measure campaigns & nurture leads. \nService automation: Tools for cases, tickets, knowledge bases, chat support  & customer issue \nresolution. \n360-degree customer view: A unified customer profile containing identity,  transactions, preferences & \ninteraction history across channels. \nCross-selling: Offering related or complementary products to an existing customer. \nUp-selling: Encouraging a customer to buy a upgraded version. \nChurn: Loss of customers. \nAI-enabled CRM: CRM that uses AI for prediction, personalization, recommendations, chatbots  & \nautomation.",
       "keyTakeaways": [
         "Module 1 - Fundamentals Of Customer Relationship Management STUDY MATERIALS OF CBS4142 CUSTOMER RELATIONSHIP MANAGEMENT MODULE 1 Fundamentals of CRM Topics Covered - ✓ Definition of CRM ✓ Objectives of CRM ✓ Evolution of CRM ✓ Benefits of CRM ✓ Components of CRM ✓ Types of CRM – Operational, Analytical & Collaborative ✓ Strategic Importance of CRM ✓ CRM Vs Traditional Marketing ✓ Drivers of CRM ✓ Enablers of CRM",
         "Module 1 - Fundamentals Of Customer Relationship Management",
@@ -314,19 +316,26 @@
         "CRM vs Traditional Marketing Customer Relationship Management (CRM) & Traditional Marketing differ fundamentally in orientation, data use & measurement.",
         "Centralization of customer data - CRM integrates information from sales, marketing, customer service, websites, social media & other touchpoints into a unified customer record."
       ],
+      "createdAt": "2026-11-02T14:08:02.665Z",
+      "summary": "Module 1 - Fundamentals Of Customer Relationship Management STUDY MATERIALS OF CBS4142 CUSTOMER RELATIONSHIP MANAGEMENT MODULE 1 Fundamentals of CRM Topics Covered - ✓ Definition of CRM ✓ Objectives of CRM ✓ Evolution of CRM ✓ Benefits of CRM ✓ Components of CRM ✓ Types of CRM – Operational, Analytical & Collaborative ✓ Strategic Importance of CRM ✓ CRM Vs Traditional Marketing ✓ Drivers of CRM ✓ Enablers of CRM Module 1 - Fundamentals Of Customer Relationship Management Definition Customer Relationship Management (CRM) is an integrated business strategy, process & technology system for managing interactions with current as well as potential customers throughout the customer lifecycle. Evolution of CRM Customer Relationship Management (CRM) has evolved significantly since its origins in the 1980s. Components of CRM A complete CRM system is made up of several interconnected components which allow an organization to capture customer centric data relevant to the company, act on it & continuously improve the customer relationship. CRM vs Traditional Marketing Customer Relationship Management (CRM) & Traditional Marketing differ fundamentally in orientation, data use & measurement. Centralization of customer data - CRM integrates information from sales, marketing, customer service, websites, social media & other touchpoints into a unified customer record.",
+      "sizeBytes": 1130015,
       "mimeType": "application/pdf",
       "userId": "user-hitk-vinayak-001",
       "id": "doc-cc851904",
-      "extractedText": "Course Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 1 of 21 \n \n \n \n \nSTUDY MATERIALS \nOF \nCBS4142 \nCUSTOMER RELATIONSHIP \nMANAGEMENT \n \n \nMODULE 1 \nFundamentals of CRM \n \nTopics Covered - \n✓ Definition of CRM \n✓ Objectives of CRM \n✓ Evolution of CRM \n✓ Benefits of CRM \n✓ Components of CRM \n✓ Types of CRM – Operational, Analytical & Collaborative \n✓ Strategic Importance of CRM \n✓ CRM Vs Traditional Marketing \n✓ Drivers of CRM \n✓ Enablers of CRM\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 2 of 21 \n1. Definition \nCustomer Relationship Management (CRM) is an integrated business strategy, \nprocess & technology system for managing interactions with current as well \nas potential customers throughout the customer lifecycle. \nIt helps an organization –  \n✓ collect customer information \n✓ understand needs \n✓ deliver relevant value \n✓ build profitable long -term \nrelationships \nIt rests on 2 core functions - \n1. Store what you know about \neach customer \n2. Act on that knowledge to serve the right person, at the right moment, \nthrough the right channel. \n \nThus CRM is more than software. Effective CRM combines people, customer-\nfocused processes, data & technology. \nCRM = PEOPLE + CUSTOMER SATISFACTION + DATA + TECHNOLOGY \n \n2. Objectives of CRM \n• Identify, contact, attract & acquire new customers. \n• Understand customer  (needs, preferences, purchase history  & buying \nbehaviour). \n• Improve service quality through timely & personalized support. \n• Increase customer satisfaction, loyalty & retention. \n• Increase revenue through repeat purchase, cross-selling & up-selling. \n• Reduce customer churn by recognizing dissatisfaction or inactivity. \n• Support informed decision-making with customer data & analytics. \n \n3. Evolution of CRM \nCustomer Relationship Management (CRM) has evolved significantly since \nits origins in the 1980s. It began as simple contact management  - digital \nrolodexes storing basic customer details. The early 1990s introduced Sales\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 3 of 21 \nForce Automation, exemplified by Siebel Systems, which automated pipelines \n& forecasting. By the late 1990s, enterprise CRM suites from Oracle & SAP \nemerged, though their complexity limited adoption. The 2000s brought a \ncloud/SaaS revolution, led by Salesforce, making CRM affordable & \naccessible for most enterprises . The following  decades saw integration with \nmarketing automation, mobile -first design  & omnichannel customer \nexperience. Today, CRM has entered an AI -driven era, enabling predictive \nanalytics, personalization with    autonomous, agentic customer engagement \nsystems. The following chart displays the evolution categories for better \nunderstanding - \nEra Phase Key Characteristics Tools \n1980s Contact \nManagement \nDigital rolodexes , stored contact details & \nnotes, individual use, no integration , \ndepends on memory of agent. \nACT! \nEarly \n1990s \nSales Force \nAutomation \n(SFA) \nAutomated pipelines, forecasting, lead \ntracking, \"CRM\" as a term emerges \nSiebel \nSystems \n(1993) \nLate \n1990s \nEnterprise \nCRM Suites \nFull suites for sales, marketing, service; on -\npremise, costly, IT-heavy; weak adoption \nSiebel, \nOracle, \nSAP \n2000s Cloud / SaaS \nShift \nBrowser-based, subscription model , lower \ncost, faster deployment , opened CRM to \nSMBs \nSalesforce \n(1999) \n2000s–\n2010s \nMarketing \nIntegration \nMerged with marketing automation & \nservice tools, social CRM emerges \nHubSpot, \nMarketo \n2010s Mobile & \nCX Focus \nMobile-first design, 360° customer view, \nomnichannel engagement \n \nX \n2020s AI-Driven & \nPredictive \nCRM \nPredictive lead scoring, churn prediction, \ngenerative AI communications, privacy  - \npreserving practices (GDPR / CCPA) \nSalesforce \nEinstein, \nMicrosoft \nCopilot, \nHubSpot AI \nEmerging Agentic \nCRM \nAI agents autonomously execute workflows; \n1st party data strategies replace third -party \ncookies \n \nX\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 4 of 21 \n4. Strategic Role of CRM \nCRM is a software which has strategic capability in organizations to - \n• Centralize customer intelligence:  Maintain a single, unified view of each \ncustomer with their identity, buying behaviour, transactions, interactions  \netc. to make informed decisions. \n• Helps in the CLC: Systematically move customers through – \nidentify → segment → acquire → onboard → serve → retain → grow \n• Personalize at scale:  Use segmentation ( eg., RFM, CLV, personas) & \nanalytics to tailor offers, messages & service. \n• Optimize revenue levers:  Shorten sales cycles, improve conversion, \nincrease retention & unlock cross-sell/upsell opportunities. \n• Enable data -driven strategy:  Turn interaction data into insights for \nproduct development, pricing, channel mix  & customer experience \nimprovements. \nExample - A retail company uses a cloud -\nbased CRM system  to analyses & study  \nCLV, then high-value customers receive \nearly-access offers, while customers who \nhave stopped buying receive special offers \nto encourage them to return. \n5. Significance of CRM \n• Better customer knowledge: Organizations understand needs, preferences \n& purchasing behaviour. \n• Higher satisfaction & loyalty: Consistent & personalized interactions \nimprove the customer experience. \n• Improved retention: Proactive support & loyalty actions. \n• Greater sales & profitability: Sales teams manage leads better & identify \ncross-sell & up-sell opportunities. \n• Improved efficiency: Automation reduces repetitive work such as follow -\nups, campaign scheduling & ticket routing. \n• Data-driven decisions: CRM reports help evaluate campaign results, sales \nperformance, customer value & service quality. \n• Better interdepartmental coordination:  All relevant teams can work \nfrom shared customer information.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 5 of 21 \n6. Benefits of CRM \nCRM delivers value across all categories of business in the following aspects - \n \n6.1. Customer-Related Benefits \n• 360° customer view:  All customer data like purchases, interactions, \ncomplaints & p references are  stored in one place, so any employee can \nquickly understand the full history of a customer instead of asking them to \nrepeat information. \n• Personalized customer experience:  Offers, recommendations & \ncommunication can be tailored to individual preferences which makes \ncustomers feel understood & valued. \n• Improved customer satisfaction & loyalty: Consistent, relevant & timely \nservice builds trust over time, making customers less likely to switch to a \ncompetitor. \n• Faster resolution of queries & complaints:  Organized case tracking \nensures that no customer request is lost & that complaints are escalated & \nresolved within a defined time frame. \n \n6.2. Sales-Related Benefits \n• Better lead management:  Leads are captured, scored & followed up \nsystematically, resulting in higher conversion rates compared to manual \ntracking. \n• Cross-selling & Up-selling opportunities: Purchase history reveals which \nadditional products or higher -value versions a customer is likely to be \ninterested in. \n• More accurate Sales Forecasting: Pipeline data (deals in progress, their \nstage & probability of closing) allows managers to predict reliable revenue. \n• Shorter sales cycles: Automated reminders & follow -ups ensure that \nprospects are not forgotten, reducing the time it takes to close a deal. \n \n6.3. Marketing-Related Benefits \n• Targeted & Segmented Campaigns: Customers can be grouped by \nbehaviour, location, or preferences, so that campaigns reach the audience \nmost likely to respond. \n• Measurable Campaign ROI:  CRM systems can track which campaigns \nactually led to sales, helping marketers justify & improve spending.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 6 of 21 \n• Improved Segmentation using Analytics: Patterns in customer data \nreveal segments that may not be obvious from intuition alone, improving \nthe relevance of every message sent. \n \n6.4. Operational / Organizational Benefits \n• Reduced data silos: Centralized customer data means sales, marketing & \nservice teams are no longer working from separate, inconsistent records. \n• Better inter -departmental coordination:  a shared view of the customer \nhelps teams hand off work smoothly, eg. when a marketing lead becomes a \nsales opportunity. \n• Task automation: Routine work such as data entry, follow -up emails & \nreminders is automated, saving time & reducing human error. \n• Better resource allocation: Management can direct staff & budget toward \nthe customer segments & activities that generate the most value. \n \n6.5. Strategic Benefits \n• Competitive advantage: Deep customer insight is difficult for competitors \nto copy, especially once it is built up over years of interaction data. \n• Increased CLV:  Stronger long -term relationships  with customers \ngenerates more revenue over their lifetime with the company. \n• Data-driven strategic decisions: Leadership can base decisions on actual \ncustomer behaviour & trends rather than assumptions. \n• Stronger brand reputation:  Consistently positive experiences  through \nCRM, build a brand that customers are willing to recommend to others. \nBenefit Category Primary Beneficiary Typical Metric Improved \nCustomer-Related Customer • Customer satisfaction score \n• Repeat-visit rate \nSales-Related Sales team • Lead conversion rate \n• Sales cycle length \nMarketing-Related Marketing team • Campaign response rate \n• Marketing ROI \nOperational Whole organization • Time saved \n• Error reduction \nStrategic Leadership or whole business • CLV \n• Retention rate\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 7 of 21 \n6.6. Case Studies: Solutions Based on Benefits of CRM \nCase Study 1: \nAmazon is a global e -commerce company operating in a market with \nthousands of competing sellers & platforms, making customer retention \ncritical to its business model.  However, Amazon uses CRM -driven data \nanalytics to track each customer’s browsing history, search behaviour  & past \npurchases. This data powers personalized product recommendations \n(“customers who bought this also bought that”), tailored emails & a shopping \nexperience that adapts to the individual. \nBenefit - This primarily reflects the customer -related benefit of an improved, \npersonalized experience  & the strategic benefit of increased CLV, since \nsatisfied, engaged customers keep returning to the platform. \nTakeaway - Personalization at scale is only possible because customer data \nfrom many touchpoints is unified which is a core CRM capability. \n \nCase Study 2 \nStarbucks operates in a highly competitive café market where switching to \nanother coffee outlet involves very little effort for the customer.  Through the \nStarbucks Rewards Program, integrated with it's mobile app, Starbucks \ncollects purchase data to offer personalized rewards, order suggestions  & \ntargeted promotions based on each customer’s ordering habits. \nBenefit - This demonstrates the customer -related benefit of enhanced loyalty  \n& the marketing -related benefit of targeted, relevant promotions that \nencourage repeat visits. \nTakeaway - A loyalty program backed by CRM data turns occasional buyers \ninto habitual, engaged customers. \n \nCase Study 3 \nThe Taj Group operates numerous hotel properties across India & \ninternationally & guests often expect the same standard of personalized \nservice at every property they visit.  Taj Hotels maintains detailed guest \nprofiles like room preferences, dietary needs  & past stay history - that are \naccessible across its properties, allowing staff at any location to recognize & \ncater to a returning guest.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 8 of 21 \nBenefit - This shows the customer-related benefit of a consistent, personalized \nexperience across multiple locations, which is a distinctive challenge in the \nhospitality industry. \nTakeaway - Collaborative access to a single guest profile across branches is \nwhat enables this consistency. \n \nCase Study 4 \nRetail banks offer many products like savings accounts, loans, insurance, \ninvestments & customers rarely use all of them from a single provider unless \nthe bank proactively identifies relevant needs.  For eg. ICICI Bank uses CRM \nanalytics to study customer transaction patterns & life-stage indicators (such \nas a salary increase or a large withdrawal), allowing relationship managers to \nrecommend relevant financial products at the right time. \nBenefit - This illustrates the sales -related benefit of cross -selling & the \nstrategic benefit of increased customer profitability, since each retained \ncustomer generates revenue from multiple products. \nTakeaway - Analytical CRM capability by spotting patterns in transaction \ndata is what makes timely cross-selling possible. \n \nCase Study 5 \nFood-delivery platforms operate on thin margins & depend heavily on repeat \norders, making efficient marketing spend with smooth operations essential.  \nSwiggy, for eg. uses customer ordering data to personalize restaurant \nrecommendations, design targeted promotional offers for specific customer \nsegments & plan delivery operations efficiently based on demand patterns. \nBenefit - This demonstrates both the marketing -related benefit of targeted \ncampaigns & the operational benefit of centralized, actionable customer data \nfeeding into business decisions. \nTakeaway - The same underlying customer data can simultaneously improve \nmarketing relevance & day-to-day operational planning. \n \nObservation Across Case Studies \nA pattern is visible across all 5 case studies \n• CRM stores customers’ Data \n• Effective CRM turns customer data into action\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 9 of 21 \n• It helps to personalized recommendations, rewards, services, cross -selling \noffers & optimized delivery routes directly to customers \n \nCommon Challenges in Realizing These Benefits \nCRM benefits are not automatic  so organizations commonly face challenges \nlike – \n• Poor data quality like incomplete or duplicate customer records \n• Low adoption by employees who find the system inconvenient \n• High implementation & training costs \n• Difficulty integrating the CRM with existing systems \nA CRM system only delivers the benefits described above when these \nimplementation challenges are managed well. \n \n7. Components of CRM \nA complete CRM system is made up \nof several interconnected \ncomponents which allow an \norganization to capture customer \ncentric data relevant to the company, \nact on it & continuously improve the \ncustomer relationship. \n• Customer Data Management:  \nThe foundation of any CRM \nsystem is a  central database \nstoring contact details, purchase \nhistory, preferences  & every \nrecorded interaction. Without accurate, well -maintained data, every other \ncomponent becomes less effective. \n• Sales Force Automation (SFA): Tools that help sales teams manage leads, \ntrack opportunities through each stage of the pipeline, schedule follow -ups \n& generate sales forecasts, reducing dependence on manual spreadsheets. \n• Marketing Automation:  Tools for planning & running campaigns, \nsegmenting customers into meaningful groups  & automating email, SMS, \nor app-notification marketing based on customer behaviour.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 10 of 21 \n• Customer Service & Support:  Helpdesk and ticketing systems that log \ncustomer queries & complaints, assign them to the right team member  & \ntrack them until resolution, often with defined service-level timelines. \n• Analytics & Reporting:  Dashboards & predictive-analytics tools that \nconvert raw customer data into actionable insights, like identifying which \ncustomers are likely to churn or which products to recommend next. \n• Collaboration Tools: Shared calendars, notes  & communication features \nthat keep sales, marketing  & service teams aligned on the current status of \neach customer, avoiding duplicated or contradictory outreach. \n• Technology Infrastructure:  The underlying cloud platform, mobile \naccess, security controls  & integration capability that connect the CRM \nwith other business systems such as ERP (Enterprise Resource Planning) or \nbilling software. \n \n8. Types of CRM \n• Operational CRM  - Operational CRM automates & streamlines day -to-\nday, customer-facing business processes in sales, marketing  & service. It is \nthe “front office” side of CRM, focused mainly on execution. \nExample: \na. Salesforce Sales Cloud used for lead & opportunity tracking \nb. Zoho CRM used by Indian SMEs for daily sales & follow-up management \nc. Ticketing system of the cal l-centre of a bank that logs & routes customer \nservice requests \n \n• Analytical CRM - Analytical CRM focuses on collecting and  analyzing \ncustomer data (from operational CRM and other sources) to generate \ninsights that support decision -making – such as customer segmentation, \nchurn prediction, and campaign targeting. \nExample: \na. Amazon’s recommendation engine analyses browsing & purchase data to \npredict what a customer is likely to buy next \nb. A bank  analyzing transaction history to build credit -risk or cross -sell \nscores \nc. Use of dashboards to identify which customer segments are most likely to \nchurn or not return\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 11 of 21 \n• Collaborative CRM  - Collaborative CRM focuses on sharing customer \ninformation across departments, channels, and even external partners, so \nthat everyone interacting with the customer has consistent, up -to-date \ninformation. \nExamples: \na. A Telecom company share customer complaint history to all call-centre \nb. Retail stores & social media support team \nc. An airline sharing passenger data across its booking system, check -in \ncounters & in-flight service team \nAspects Operational CRM Analytical CRM Collaborative CRM \nPrimary \nFocus \nExecuting day-to-day \ncustomer facing \nprocesses \nAnalyzing data to \ngenerate insights \nSharing information \nacross teams /channels \nMain \nUsers \nSales, marketing & \nservice staff \nAnalysts & decision-\nmakers \nAll customer-facing \nteams & partners \nTypical \nOutput \nCompleted tasks (a \nlead followed up, a \nticket closed) \nReports, predictions \n& segments \nA consistent, shared \ncustomer record \nExample \nTool/Use \nSalesforce Sales \nCloud, Zoho CRM \nRecommendation \nengines, churn-\nprediction \ndashboards \nShared complaint \nhistory across channels \n \nClasswork: \nXYZ Retail Pvt. Ltd. Has installed a system that collects data from its billing \ncounters, it’s mobile app & it’s social media pages. The system does not \ndirectly interact with customers, instead, it studies the combined data to \nidentify purchase patterns & predict which products a customer is most \nlikely to buy next. The marketing team then uses these predictions to design \ntargeted campaigns. \nQuestion: Identify the type of CRM. Justify your answer.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 12 of 21 \n8.1. Relationship Between the 3 types if CRM \n \n9. Strategic Importance of CRM in Business \nCRM is a customer centric business strategy software tool  of organizational \ndecision-making. It’s strategic importance stems from several factors – \n• It is significantly cheaper to retain an existing customer than to acquire a \nnew one, so a strong CRM strategy directly protects revenue \n• Customer data is   treated as a strategic asset that informs product design, \npricing & service decisions at the highest levels of the organization \n• In markets where competing products are mostly similar, the customer  \nrelationship quality becomes the most important  parameter for \ndifferentiation\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 13 of 21 \n• CRM supports broader long-term goals like brand loyalty, customer-centric \ninnovation & alignment with digital transformation initiatives across the \norganization. \n \n9.1. Global Examples \nAmazon (USA): Amazon treats customer data as a core strategic asset, using \nit to drive personalized recommendations, pricing & marketing. This \ncustomer-centric strategy is widely regarded as central to its ability to \ncompete across many product categories simultaneously. \n \nApple (USA):  Apple builds long -term customer relationships through an \nintegrated ecosystem of devices & services, supported by AppleCare & in-\nstore Genius Bar assistance. This relationship -driven strategy encourages \nrepeat purchases & strong brand loyalty rather than one-off transactions. \n \nMarriott International (USA):  Marriott uses its Marriott Bonvoy loyalty \nprogram, backed by CRM systems, to retain guests across it ’s large global \nportfolio of hotel brands, personalizing offers based on each guest’s stay \nhistory & preferences. \n \nCoca-Cola (USA/Global):  Coca-Cola uses CRM & loyalty initiatives to \nengage consumers directly, gather feedback & tailor marketing campaigns to \ndifferent regional markets, supporting it ’s strategy of maintaining relevance \nacross highly diverse customer bases. \n \n9.2. Indian Examples \nTata Motors:  Tata Motors uses CRM systems to coordinate after -sales \nservice & maintenance reminders across it ’s dealer network, strengthening \nlong-term customer relationships in a sector where trust in service quality \nstrongly influences repeat purchase. \n \nICICI Bank:  ICICI Bank uses CRM analytics to understand customer life -\nstage needs & cross -sell appropriate banking, insurance & investment \nproducts, making customer retention & share -of-wallet a strategic priority in \nretail banking. \n \nReliance Jio: Reliance Jio uses CRM and customer data analytics to manage \nlarge-scale customer acquisition & retention strategies, which has been\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 14 of 21 \nstrategically important in a highly price -sensitive & competitive Indian \ntelecom market. \n \nFlipkart: Flipkart uses CRM -driven personalization to recommend products, \nmanage customer support & design targeted offers for millions of e-commerce \ncustomers, treating customer experience as a key differentiator against \ndomestic & global competitors. \n \nTaj Group (Indian Hotels Company Ltd.):  The Taj Group uses its Taj \nInnerCircle loyalty program, supported by CRM systems, to differentiate itself \nstrategically in the Indian hospitality sector through consistently personalized \nguest experiences across properties. \n \n9.3. Why This Matters Strategically? \nTwo points are worth emphasizing for a business systems student. \n• CRM is tied directly to a specific strategic goal or objectives – \nDifferentiation (Apple) \nRetention in a price-sensitive market (Reliance Jio) \nCross-selling to increase share-of-wallet (ICICI Bank) \nConsistent brand experience across locations (Marriott, Taj Group) \n• The scale at which these companies operate , millions of customers across \nmultiple channels, makes a technology-supported CRM strategy a necessity \nrather than a choice & it is to be noted that relationship management at this \nscale would not be possible through manual effort alone. \n \n10. CRM vs Traditional Marketing \nCustomer Relationship Management (CRM) & Traditional Marketing differ \nfundamentally in orientation, data use & measurement. While CRM is \ncustomer-centric, data-driven & relationship-focused, Traditional Marketing is \nproduct-centric, broadcast-oriented & campaign-focused. \n• CRM treats the customer as the central unit of strategy. It integrates sales, \nmarketing & service data into a single system of record &  , a system of \nintelligence. It uses behavio ural & transactional data to trigger relevant \ncommunications like welcome series, cart -abandonment reminders, \nreplenishment alerts, loyalty rewards, across the customer lifecycle.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 15 of 21 \n• Traditional Marketing emerged in an era of mass media, where firms \ncompeted primarily on product features, price & brand visibility. It’s logic \nis linear – create a compelling message, buy media space with the hope that \nthe right people (target audience) will see it at the right time.  Traditional \nMarketing ex cels at building awareness & shaping brand perceptions at \nscale, especially for new products or markets  but it s truggles with \nprecision, real-time optimization & post-campaign relationship building. \n• Strategically, the 2 approaches are complementary.  Traditional marketing \nis powerful for top -of-funnel awareness & brand building, while CRM \nexcels at mid  & bottom-funnel conversion, retention  & advocacy. Modern \norganizations blend both: using mass channels to acquire attention & CRM \nsystems to convert, nurture & retain those customers over time.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 16 of 21 \nDimension CRM Marketing Traditional Marketing \nOrientation Customer & relationship-driven Product & campaign-\ndriven  \nTargeting Individual or micro-segment \ntargeting using behavioural, \ntransactional & interaction data \nMass or segment-level \ntargeting via channels \nlike TV, print, radio, \nbillboards, & direct mail \nCommunication 1-to-1 or few, interactive & \nongoing across email, SMS, app, \nweb & service touchpoints \n1-to-many, largely 1-\nway, limited feedback \nloops \nData Use Centralized customer records Minimal individual-\nlevel data, relies on \ndemographics & market \nresearch. \nPersonalization Dynamic content, triggered \nmessages & tailored offers based \non real-time signals \nGeneric creative \nmessage to large \naudiences \nAutomation Workflow automation for lead \nnurturing, retention campaigns & \nlifecycle messaging \nManual campaign \nplanning & execution, \nlimited automation \nMeasurement Clear attribution & ROI via \nconversion tracking, cohort \nanalysis & CLV \nHarder to attribute sales, \nrelies on reach, \nfrequency & surveys \nCost Structure Ongoing platform & data costs, \noften higher ROI due to precision \ntargeting \nHigh upfront media \nspend, variable \nefficiency \nStrengths Strong for retention, cross-sell/up-\nsell & measurable performance \nmarketing \nStrong for brand \nawareness & reaching \nnew audiences quickly \nLimitations Requires data quality, governance \n& integration, less effective alone \nfor top-of-funnel awareness \nWastage due to broad \nreach, weaker \npersonalization & \nfollow-up\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 17 of 21 \nCase Study: Dual-Perspective Analysis \n \nCase 1 \nA large retail bank in India launches a new credit card with travel rewards. It \nuses both traditional marketing (TV, print, outdoor) & CRM marketing \n(email, SMS, in -app messages, call -centre outreach) to drive acquisitions & \nactivations. \nTraditional Marketing Perspective CRM Marketing Perspective \nObjectives: Build broad awareness of \nthe new card, communicate key \nbenefits (reward points, lounge \naccess) & create a sense of prestige \naround the brand. \nTactics: \n• 30 -second TV spots during prime -\ntime news & sports. \n• Full-page ads in leading newspapers \n& business magazines. \n• Hoardings & transit ads in metro \ncities. \n \n \n \n \n \n \nStrengths: \n• Rapidly reaches millions  of existing \n& potential customers. \n• Reinforces premium brand image, \nObjectives: Convert existing \ncustomers & warm leads into \ncardholders, activate new cardholders, \n& encourage early spend to improve \nlifetime value. \nTactics: \n• Use the bank's CRM to segment \ncustomers by income, existing \nproduct holdings, transaction patterns, \n& credit score. \n• Send personalized messages with \npre-approved limits, fee waivers  \noffers. \n• Trigger in -app messages when \ncustomers view 'rewards' or 'cards' \nsections. \n• Run activation campaigns like bonus \npoints with first purchase & \nautomated reminders as the deadline \napproaches. \n \nStrengths: \n• Targets only eligible  customers, \nimproving approval rates & reducing \nacquisition cost. \n• Clear attribution  since each\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 18 of 21 \nsupporting long-term equity. \n \n \n \nLimitations: \n• Many exposures go to people who \nalready have cards or are not eligible. \n• Difficult to know which ad led to an \napplication, attribution relies on self -\nreports & aggregate application \nspikes. \n \nOutcome: The campaign generates a \nnoticeable uplift in website traffic & \nbranch inquiries, but conversion from \nawareness to application is modest & \nuneven across regions. \napplication & activation is linked to a \nspecific message & segment, enabling \nprecise ROI calculation. \n• Supports ongoing relationship \nmanagement based on usage data. \n \nLimitations: \n• Cannot reach non -customers or \nthose outside the CRM database. \n• Requires clean data, consent \nmanagement & integration across \ncore banking, CRM  & marketing \nautomation systems. \n \nOutcome: CRM-driven campaigns \ndeliver higher application -to-approval \nratios, faster activation & greater first-\nyear spend per customer compared to \nbroadly targeted efforts. The bank \nuses these insights to shift more \nbudget toward CRM -based retention \n& lifecycle programs while \nmaintaining a baseline of traditional \nmedia for brand & acquisition. \n \n10.1. Integrating CRM & TRADITIONAL MARKETING  Approaches \nIn practice, the most effective strategies combine a bit of  both traditional \nmarketing & CRM marketing for an unified growth system:  \n• Traditional channels are used to create at scale awareness & shape brand \nperception by capturing interest via digital forms, branch sign -ups, call-centre \ninteractions while feeding customer data into the CRM  software. \n• CRM is then used to nurture leads, personalize offers  & manage the post -\nacquisition journey, continuously optimizing based on behavioural data.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 19 of 21 \nThis integrated model aligns with the broader shift in marketing from \n'advertising to audiences' toward 'managing relationships with individuals,' \nwhere CRM   functions as the operational backbone of modern marketing. \n11. Key Drivers of CRM \nCustomer relationship management (CRM) is driven by the need to \nunderstand cu stomers, improve their experience, increase retention  & \ncoordinate sales, marketing & service activities. The major drivers are: \n• Increasing customer expectations  - Customers expect fast responses, \npersonalized communication, consistent service  & seamless interactions \nacross channels. CRM systems help organizations record and use customer \ninformation to meet these expectations. \n• Demand for personalized marketing  - Businesses use CRM data to \nsegment customers, identify preferences, tailor offers, and deliver targeted \ncampaigns. Personalization is a major factor behind CRM adoption. \n• Improved customer retention & loyalty - CRM helps organizations \nmonitor customer satisfaction, identify potential churn, manage complaints, \n& develop loyalty programmes. Retaining existing customers is often more \ncost-effective than acquiring new ones. \n• Centralization of customer data  - CRM integrates information from \nsales, marketing, customer service, websites, social media  & other \ntouchpoints into a unified customer record. This supports a more complete \nor “360-degree” view of the customer. \n• Sales-force automation  - CRM automates lead tracking, follow -up \nreminders, opportunity management, pipeline monitoring  & sales \nforecasting. This reduces administrative work & improves sales \nproductivity. \n• Growth of digital & omnichannel commerce  - The expansion of e -\ncommerce, mobile applications, social media, email  & online customer \nservice has increased the number of customer interaction points. CRM \nallows organizations to coordinate these interactions across channels. \n• Use of artificial intelligence & analytics - AI-enabled CRM systems can \ngenerate customer insights, predict purchasing behaviour, recommend next \nactions, automate responses  & identify potential churn. The integration of\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 20 of 21 \nAI & demand for real -time insights are important contemporary growth \ndrivers. \n• Cloud computing & remote work  - Cloud-based CRM offers scalable \naccess, lower infrastructure requirements, easier updates  & support for \ngeographically distributed teams. These advantages have accelerated \nadoption among both large organizations & small to medium-sized \nenterprises. \n• Need for operational efficiency & automation - Organizations adopt \nCRM to automate repetitive marketing, sales  & service processes, reduce \nerrors, improve communication & lower operating costs. \n• Need for data -driven decision -making - CRM analytics provide \ninformation about customer behaviour, campaign performance, sales \nconversion, service quality & revenue trends. Managers can therefore make \ndecisions based on evidence rather than intuition. \n• Integration with other business systems  - CRM platforms integrate with \nenterprise resource planning, marketing automation, customer -data \nplatforms, communication tools, payment systems  & business intelligence \nsoftware to improve information flow across the organization. \n \n11.1. Internal drivers of successful CRM implementation \nSuccessful CRM depends on technology & the followings: \no Senior-management support. \no Employee training & participation. \no User-friendly workflows. \no High-quality & accurate customer data. \no Integration with existing systems. \no Clear performance objectives. \no Incentives that encourage consistent usage. \no Strong privacy, security & data-governance practices. \n \nNote: CRM adoption commonly fails when the system does not fit \nemployees’ workflows, creates excessive manual data entry or does not \nprovide clear benefits to users.\n\nCourse Code: CBS4142                                              Module 1 -  Fundamentals Of Customer Relationship Management \n Page 21 of 21 \n7. Enablers of Customer Relationship Management (CRM) \nEnabler Main contribution \nPeople Skills, participation, training & adoption \nProcesses Standardized & customer-focused workflows \nTechnology Integration, automation, accessibility & scalability \nData Reliable information for coordination & decisions \nStrategy Alignment between CRM activities & business goals \nCulture Collaboration, customer orientation & willingness to change \nGovernance Privacy, security, accountability & performance control \n \nTherefore, CRM is enabled not by software alone but by the alignment of \npeople, processes, technology, data & organizational strategy. A sophisticated \nCRM platform will produce limited benefits if employees do not adopt it, \ndepartments do not share information or the underlying customer data is \nunreliable. \nKey Terms for SAQ \nCRM: A strategy, process & technology approach for managing customer interactions & building long-\nterm relationships. \nCustomer lifecycle: The stages through which a customer progresses: identify, segment, acquire, \nonboard, serve, retain & grow. \nTouchpoint: Any interaction point between a customer & organization, such as a website, store, call \ncentre, email or social media. \nSegmentation: Dividing customers into groups with similar needs, characteristics or behaviours. \nCLV: Customer Lifetime Value  - total  revenue or profit from a customer over the entire relationship  \nwith the company. \nSales Force Automation (SFA): Automation of sales activities such as lead management, opportunity \ntracking & forecasting. \nMarketing automation: Use of technology to plan, deliver & measure campaigns & nurture leads. \nService automation: Tools for cases, tickets, knowledge bases, chat support  & customer issue \nresolution. \n360-degree customer view: A unified customer profile containing identity,  transactions, preferences & \ninteraction history across channels. \nCross-selling: Offering related or complementary products to an existing customer. \nUp-selling: Encouraging a customer to buy a upgraded version. \nChurn: Loss of customers. \nAI-enabled CRM: CRM that uses AI for prediction, personalization, recommendations, chatbots  & \nautomation.",
       "filePath": "C:\\Users\\vinay\\Downloads\\Workflow_AI_Obsidian_Vault\\ai-workspace\\server\\uploads\\doc-1793628479160-5e7eb6.PDF",
-      "fileName": "CBS4142 MODULE 1 - FUNDAMENTALS OF CRM (1).PDF",
-      "summary": "Module 1 - Fundamentals Of Customer Relationship Management STUDY MATERIALS OF CBS4142 CUSTOMER RELATIONSHIP MANAGEMENT MODULE 1 Fundamentals of CRM Topics Covered - ✓ Definition of CRM ✓ Objectives of CRM ✓ Evolution of CRM ✓ Benefits of CRM ✓ Components of CRM ✓ Types of CRM – Operational, Analytical & Collaborative ✓ Strategic Importance of CRM ✓ CRM Vs Traditional Marketing ✓ Drivers of CRM ✓ Enablers of CRM Module 1 - Fundamentals Of Customer Relationship Management Definition Customer Relationship Management (CRM) is an integrated business strategy, process & technology system for managing interactions with current as well as potential customers throughout the customer lifecycle. Evolution of CRM Customer Relationship Management (CRM) has evolved significantly since its origins in the 1980s. Components of CRM A complete CRM system is made up of several interconnected components which allow an organization to capture customer centric data relevant to the company, act on it & continuously improve the customer relationship. CRM vs Traditional Marketing Customer Relationship Management (CRM) & Traditional Marketing differ fundamentally in orientation, data use & measurement. Centralization of customer data - CRM integrates information from sales, marketing, customer service, websites, social media & other touchpoints into a unified customer record.",
-      "createdAt": "2026-11-02T14:08:02.665Z",
-      "sizeBytes": 1130015,
-      "factualityScore": 1
+      "fileName": "CBS4142 MODULE 1 - FUNDAMENTALS OF CRM (1).PDF"
     },
     "doc-4def64c7": {
+      "factualityScore": 1,
+      "summary": "This academic assessment contains 23 evaluative questions spanning core course concepts, analytical definitions, and problem-solving methodologies. Key evaluated areas include: According to the '3 I's' framework, what transform; In the Six Thinking Hats method, which hat focuses; The three interconnected dimensions of sustainable.",
+      "extractedText": "noc21_mg63\n Mock Exam 1 | Course ID: noc21_mg63\nQ1. According to the '3 I's' framework, what transforms an 'invention' into an 'innovation'?\nA) A new Idea\nB) A novel Implementation\nC) A measurable Impact\nD) A curious mindset\nSource: 7dHahNW-RzQ | Difficulty: Easy\nQ2. What is the primary goal of a business incubator?\nA) To generate profit for the university\nB) To produce successful firms that are financially viable and free-standing\nC) To provide permanent office space for startups\nD) To exclusively fund high-risk technology ventures\nSource: 0atwylbVW2M | Difficulty: Easy\nQ3. In Goods-Dominant (G-D) Logic, where is value primarily created?\nA) By the customer during use\nB) By the firm during production and distribution\nC) Jointly by the firm and the customer\nD) In the broader society\nSource: a1NU1Aq5Fz0 | Difficulty: Easy\nQ4. In the Six Thinking Hats method, which hat focuses on objective facts, figures, and\ninformation?\nA) Red Hat\nB) Green Hat\nC) White Hat\nD) Black Hat\nSource: 4lAnvwUTt1s | Difficulty: Easy\nQ5. What is a key characteristic of Product Life Cycles (PLCs) in the current business\nenvironment?\nA) They are becoming longer\nB) They are rapidly shrinking\nC) They have stabilized at a 5-year duration\nD) They only apply to digital products\nSource: c9ZENOt1j_w | Difficulty: Easy\nQ6. What is the primary purpose of a trademark?\nA) To protect a new invention for 20 years\nB) To distinguish the goods or services of one enterprise from others\nC) To protect the expression of an artistic idea\nD) To keep a business formula secret\nSource: XWV84MPpeCU | Difficulty: Easy\nQ7. The three interconnected dimensions of sustainable development are often referred to\nas the 'Three Ps'. What do they represent?\n\nA) Product, Process, Promotion\nB) Profit, People, Planet\nC) Planning, Production, Performance\nD) Policy, Practice, Participation\nSource: _99enJyI3Pk | Difficulty: Easy\nQ8. Which of the following is NOT one of the three core responsibilities of an entrepreneur\nas defined in the lecture?\nA) Organizing a business\nB) Managing a business\nC) Taking risk\nD) Guaranteeing profit\nSource: zu7IjsAhn5A | Difficulty: Easy\nQ9. What is the primary function of divergent thinking in problem-solving?\nA) To narrow down options to find the single best solution\nB) To generate creative ideas by exploring many possible solutions\nC) To analyze a problem at a granular level\nD) To implement a chosen solution\nSource: 7ZahdDWi-0A | Difficulty: Easy\nQ10. Which of the following is the best example of product innovation?\nA) Implementing a new inventory management system like Kanban\nB) Launching a new smartwatch with novel features\nC) Creating a new advertising campaign for an old product\nD) Restructuring the organization's departments\nSource: teD4tvEYwFM | Difficulty: Easy\nQ11. The lecture describes 'reflexivity' as a crucial element in entrepreneurship. How is it\ndifferent from simply gathering feedback?\nA) It is about reflecting on financial reports\nB) It involves a profound self-awareness and understanding how one's own perspective influences\ninteractions\nC) It is the process of prototyping and testing ideas\nD) It refers to the legal reflection of a business's intent\nSource: -uHZaUEvbG8 | Difficulty: Medium\nQ12. In the 'Elephant and Rider' analogy, what does the rider represent and what challenge\ndoes it help overcome?\nA) The emotional side; it overcomes resistance to change\nB) The analytical side; it helps overcome prediction disability\nC) The societal pressure; it overcomes inertia\nD) The innovative idea; it overcomes lack of confidence\nSource: FUD-yIYM3FA | Difficulty: Medium\nQ13. How did Cirque du Soleil apply the 'Eliminate' component of the ERRC framework to\ncreate a blue ocean?\nA) By raising the uniqueness of the venue\nB) By creating a theme for each show\nC) By eliminating star performers and animal shows\nD) By reducing fun and humor\nSource: HeMdrlIOPp8 | Difficulty: Medium\n\nQ14. According to the lecture, what is the sole true outcome of any experiment in innovation\nmanagement?\nA) Success or failure\nB) A market-ready product\nC) Increased profit\nD) Learning\nSource: UyM9uVbJVhI | Difficulty: Medium\nQ15. The 'Challenge Book' methodology suggests three ways to identify problems. Which of\nthe following involves recognizing emerging trends in technology, demographics, or\nregulations?\nA) Feel the Pain\nB) See the Waste\nC) Sense the Wave\nD) Create the Buzz\nSource: kq5ODX77Qho | Difficulty: Medium\nQ16. What are the three key criteria an invention must satisfy to be patentable in India?\nA) Profitability, Marketability, and Popularity\nB) Novelty, Non-obviousness, and Usefulness\nC) Originality, Expression, and Fixation\nD) Secrecy, Commercial Value, and Complexity\nSource: p8ZQlDao7ME | Difficulty: Medium\nQ17. According to the S-curve of technological evolution, what is the strategic implication\nfor an organization when its current technology (Technology A) is nearing the saturation\nphase?\nA) To invest heavily in marketing Technology A to extend its life\nB) To stop all R&D to save costs\nC) To proactively invest in developing a new technology (Technology B) that will supersede it\nD) To acquire a competitor that uses the same technology\nSource: 4Vy4y7ot3HE | Difficulty: Medium\nQ18. Why does the lecture emphasize the importance of having *internal* role models within\nan organization for fostering innovation?\nA) Because external figures like Steve Jobs are not inspiring\nB) Because internal heroes make goals seem more tangible and attainable for colleagues\nC) Because internal role models are less expensive to promote\nD) Because only internal employees understand the company's innovation strategy\nSource: INMQIOGQPys | Difficulty: Medium\nQ19. When addressing business model failure, the lecture uses the analogy of a dentist.\nWhat does this analogy illustrate?\nA) The need for a futuristic approach\nB) The importance of eliminating the root cause of a problem rather than just treating its symptoms\nC) The high cost associated with business failure\nD) The necessity of having multiple alternative courses of action\nSource: 6ovBBRjrZOs | Difficulty: Medium\nQ20. The lecture identifies 'Innovation Centralized to One Functional Group' as an\norganizational challenge. Why is this a problem?\nA) It makes the R&D department too powerful\nB) It prevents organization-wide engagement and misses innovation opportunities in other areas\n\nC) It is too expensive to have more than one innovation group\nD) It violates the principle of 'six thinking hats'\nSource: SmzvXPSExds | Difficulty: Medium\nQ21. How has the business model for news and media evolved with the rise of Mobile\nJournalism ('Mojo')?\nA) It has become more centralized, with fewer reporters\nB) It has led to increased public participation, with viewers becoming active reporters\nC) It has eliminated the need for advertising revenue\nD) It has focused exclusively on long-form investigative journalism\nSource: ohQvcWZt7-o | Difficulty: Medium\nQ22. The lecture suggests that an industrial organization manufacturing electrical\ngenerators for thermal power plants should redefine its business. What is the strategic\nreason for this?\nA) To focus solely on generator maintenance\nB) To avoid obsolescence by positioning itself as a broader 'power generation facilitator' capable of\npivoting to new technologies\nC) To increase the price of its current generators\nD) To merge with a thermal power plant\nSource: UL86GGHBX5Q | Difficulty: Medium\nQ23. The lecture discusses the concept of 'Policy Frameworks as Thresholds' in the context\nof disaster management. What is the cumulative negative effect of this tendency?\nA) It encourages organizations to exceed policy guidelines, leading to over-investment\nB) It leads to a disastrous cumulative effect when every entity operates at the bare minimum\nrequirement, increasing overall risk\nC) It makes policies too complex for organizations to understand and implement\nD) It eliminates the need for human intervention in disaster planning\nSource: -3blTaJznfc | Difficulty: Hard\nQ24. The lecture contrasts the Random (Schumpeterian) and Systematic (Value Innovation)\nschools of thought. What is a key risk of the Random school's 'learning from failures'\napproach, as illustrated by the Jaws Polymers case?\nA) It is too theoretical and lacks practical application\nB) It guarantees success but at a very high cost\nC) The learning process can be so slow that competitors capture the market before the innovator can\nrecover\nD) It discourages any form of risk-taking, leading to stagnation\nSource: 3OsKhkI_0E0 | Difficulty: Hard\nQ25. The lecture defines sustainability through a generational lens, emphasizing\n'Generational Coherence.' What does this concept imply about the present generation's\nactions?\nA) They should prioritize immediate economic gains to fund future environmental projects\nB) They should focus exclusively on preserving the legacy of the elder generation\nC) They must ensure a better future for the younger generation while simultaneously honoring the efforts\nof the older generation\nD) They should disregard past practices to create a completely new future\nSource: 4LK_tzopi74 | Difficulty: Hard\nQ26. In the Bajaj Auto vs. TVS Motors case, TVS argued that the concept of twin spark plugs\nwas prior art. Why did the court's decision lean in favor of Bajaj?\nA) Because TVS's technology was identical to Bajaj's in every aspect\n\nB) Because the court found TVS's timing in challenging the patent, just before its own product launch,\nwas not entirely bona fide\nC) Because twin spark plugs had never been used in any engine before Bajaj's patent\nD) Because TVS failed to pay the required court fees for the challenge\nSource: k9FlsrrNzBQ | Difficulty: Hard\nQ27. The lecture explains that for an idea to be 'sticky,' it needs to be Concrete, arouse\nCuriosity, and have Credibility. How did George Fernandez, as an idea champion, apply the\n'Curiosity' element to the rail-cum-road bridge project?\nA) By creating a dramatic public protest to draw media attention\nB) By keeping the project details secret to build suspense\nC) By calculating and presenting the economic benefits to the state governments, thereby piquing their\ninterest and engagement\nD) By claiming the bridge would be the longest in the world\nSource: dmci0IVUq00 | Difficulty: Hard\nQ28. According to the lecture, under what circumstances would a startup with a solid,\nrisk-proof idea strategically prefer debt financing over equity financing after an initial\nfunding round?\nA) To distribute the risk of failure among more partners\nB) To gain mentorship from experienced debt providers\nC) To avoid further dilution of the founders' ownership and retain a larger stake in the high-potential\nventure\nD) Because debt financing does not require repayment\nSource: u6J30oXHODM | Difficulty: Hard\nQ29. How does Morphological Analysis facilitate the discovery of novel technological\nsolutions?\nA) By iteratively refining expert opinions until a consensus is reached\nB) By extrapolating a trend line from the peaks of successive S-curves\nC) By systematically exploring all possible combinations of a technology's sub-capabilities to generate\nnew configurations\nD) By monitoring journals and patents for signals of technological change\nSource: ubRAaOMytww | Difficulty: Hard\nQ30. The contemporary AMA definition of marketing includes value for 'society at large.'\nHow does this societal element influence the marketing of innovation?\nA) It mandates that all innovative products must be sold on a non-profit basis\nB) It suggests that truly valuable innovations should contribute to social development, potentially leading\nto the exclusion of products that are detrimental to society\nC) It restricts marketing efforts to only government-approved social causes\nD) It focuses marketing exclusively on customers at the bottom of the pyramid\nSource: dxOGKCODSXI | Difficulty: Hard\n\nAnswer Key\n1: C\n2: B\n3: B\n4: C\n5: B\n6: B\n7: B\n8: D\n9: B\n10: B\n11: B\n12: B\n13: C\n14: D\n15: C\n16: B\n17: C\n18: B\n19: B\n20: B\n21: B\n22: B\n23: B\n24: C\n25: C\n26: B\n27: C\n28: C\n29: C\n30: B",
+      "userId": "user-hitk-vinayak-001",
+      "fileName": "mock-exam-1.pdf",
+      "id": "doc-4def64c7",
+      "mimeType": "application/pdf",
       "filePath": "C:\\Users\\vinay\\Downloads\\Workflow_AI_Obsidian_Vault\\ai-workspace\\server\\uploads\\doc-1793629268957-e088be.pdf",
+      "sizeBytes": 14556,
+      "createdAt": "2026-11-02T14:21:09.062Z",
       "keyTakeaways": [
         "Q1. According to the '3 I's' framework, what transforms an 'invention' into an 'innovation'?",
         "Q4. In the Six Thinking Hats method, which hat focuses on objective facts, figures, and information?",
@@ -335,22 +344,13 @@
         "Q14. According to the lecture, what is the sole true outcome of any experiment in innovation management?",
         "Q19. When addressing business model failure, the lecture uses the analogy of a dentist. What does this analogy illustrate?",
         "Q23. The lecture discusses the concept of 'Policy Frameworks as Thresholds' in the context of disaster management. What is the cumulative negative effect of this tendency?"
-      ],
-      "mimeType": "application/pdf",
-      "summary": "This academic assessment contains 23 evaluative questions spanning core course concepts, analytical definitions, and problem-solving methodologies. Key evaluated areas include: According to the '3 I's' framework, what transform; In the Six Thinking Hats method, which hat focuses; The three interconnected dimensions of sustainable.",
-      "userId": "user-hitk-vinayak-001",
-      "createdAt": "2026-11-02T14:21:09.062Z",
-      "sizeBytes": 14556,
-      "id": "doc-4def64c7",
-      "factualityScore": 1,
-      "extractedText": "noc21_mg63\n Mock Exam 1 | Course ID: noc21_mg63\nQ1. According to the '3 I's' framework, what transforms an 'invention' into an 'innovation'?\nA) A new Idea\nB) A novel Implementation\nC) A measurable Impact\nD) A curious mindset\nSource: 7dHahNW-RzQ | Difficulty: Easy\nQ2. What is the primary goal of a business incubator?\nA) To generate profit for the university\nB) To produce successful firms that are financially viable and free-standing\nC) To provide permanent office space for startups\nD) To exclusively fund high-risk technology ventures\nSource: 0atwylbVW2M | Difficulty: Easy\nQ3. In Goods-Dominant (G-D) Logic, where is value primarily created?\nA) By the customer during use\nB) By the firm during production and distribution\nC) Jointly by the firm and the customer\nD) In the broader society\nSource: a1NU1Aq5Fz0 | Difficulty: Easy\nQ4. In the Six Thinking Hats method, which hat focuses on objective facts, figures, and\ninformation?\nA) Red Hat\nB) Green Hat\nC) White Hat\nD) Black Hat\nSource: 4lAnvwUTt1s | Difficulty: Easy\nQ5. What is a key characteristic of Product Life Cycles (PLCs) in the current business\nenvironment?\nA) They are becoming longer\nB) They are rapidly shrinking\nC) They have stabilized at a 5-year duration\nD) They only apply to digital products\nSource: c9ZENOt1j_w | Difficulty: Easy\nQ6. What is the primary purpose of a trademark?\nA) To protect a new invention for 20 years\nB) To distinguish the goods or services of one enterprise from others\nC) To protect the expression of an artistic idea\nD) To keep a business formula secret\nSource: XWV84MPpeCU | Difficulty: Easy\nQ7. The three interconnected dimensions of sustainable development are often referred to\nas the 'Three Ps'. What do they represent?\n\nA) Product, Process, Promotion\nB) Profit, People, Planet\nC) Planning, Production, Performance\nD) Policy, Practice, Participation\nSource: _99enJyI3Pk | Difficulty: Easy\nQ8. Which of the following is NOT one of the three core responsibilities of an entrepreneur\nas defined in the lecture?\nA) Organizing a business\nB) Managing a business\nC) Taking risk\nD) Guaranteeing profit\nSource: zu7IjsAhn5A | Difficulty: Easy\nQ9. What is the primary function of divergent thinking in problem-solving?\nA) To narrow down options to find the single best solution\nB) To generate creative ideas by exploring many possible solutions\nC) To analyze a problem at a granular level\nD) To implement a chosen solution\nSource: 7ZahdDWi-0A | Difficulty: Easy\nQ10. Which of the following is the best example of product innovation?\nA) Implementing a new inventory management system like Kanban\nB) Launching a new smartwatch with novel features\nC) Creating a new advertising campaign for an old product\nD) Restructuring the organization's departments\nSource: teD4tvEYwFM | Difficulty: Easy\nQ11. The lecture describes 'reflexivity' as a crucial element in entrepreneurship. How is it\ndifferent from simply gathering feedback?\nA) It is about reflecting on financial reports\nB) It involves a profound self-awareness and understanding how one's own perspective influences\ninteractions\nC) It is the process of prototyping and testing ideas\nD) It refers to the legal reflection of a business's intent\nSource: -uHZaUEvbG8 | Difficulty: Medium\nQ12. In the 'Elephant and Rider' analogy, what does the rider represent and what challenge\ndoes it help overcome?\nA) The emotional side; it overcomes resistance to change\nB) The analytical side; it helps overcome prediction disability\nC) The societal pressure; it overcomes inertia\nD) The innovative idea; it overcomes lack of confidence\nSource: FUD-yIYM3FA | Difficulty: Medium\nQ13. How did Cirque du Soleil apply the 'Eliminate' component of the ERRC framework to\ncreate a blue ocean?\nA) By raising the uniqueness of the venue\nB) By creating a theme for each show\nC) By eliminating star performers and animal shows\nD) By reducing fun and humor\nSource: HeMdrlIOPp8 | Difficulty: Medium\n\nQ14. According to the lecture, what is the sole true outcome of any experiment in innovation\nmanagement?\nA) Success or failure\nB) A market-ready product\nC) Increased profit\nD) Learning\nSource: UyM9uVbJVhI | Difficulty: Medium\nQ15. The 'Challenge Book' methodology suggests three ways to identify problems. Which of\nthe following involves recognizing emerging trends in technology, demographics, or\nregulations?\nA) Feel the Pain\nB) See the Waste\nC) Sense the Wave\nD) Create the Buzz\nSource: kq5ODX77Qho | Difficulty: Medium\nQ16. What are the three key criteria an invention must satisfy to be patentable in India?\nA) Profitability, Marketability, and Popularity\nB) Novelty, Non-obviousness, and Usefulness\nC) Originality, Expression, and Fixation\nD) Secrecy, Commercial Value, and Complexity\nSource: p8ZQlDao7ME | Difficulty: Medium\nQ17. According to the S-curve of technological evolution, what is the strategic implication\nfor an organization when its current technology (Technology A) is nearing the saturation\nphase?\nA) To invest heavily in marketing Technology A to extend its life\nB) To stop all R&D to save costs\nC) To proactively invest in developing a new technology (Technology B) that will supersede it\nD) To acquire a competitor that uses the same technology\nSource: 4Vy4y7ot3HE | Difficulty: Medium\nQ18. Why does the lecture emphasize the importance of having *internal* role models within\nan organization for fostering innovation?\nA) Because external figures like Steve Jobs are not inspiring\nB) Because internal heroes make goals seem more tangible and attainable for colleagues\nC) Because internal role models are less expensive to promote\nD) Because only internal employees understand the company's innovation strategy\nSource: INMQIOGQPys | Difficulty: Medium\nQ19. When addressing business model failure, the lecture uses the analogy of a dentist.\nWhat does this analogy illustrate?\nA) The need for a futuristic approach\nB) The importance of eliminating the root cause of a problem rather than just treating its symptoms\nC) The high cost associated with business failure\nD) The necessity of having multiple alternative courses of action\nSource: 6ovBBRjrZOs | Difficulty: Medium\nQ20. The lecture identifies 'Innovation Centralized to One Functional Group' as an\norganizational challenge. Why is this a problem?\nA) It makes the R&D department too powerful\nB) It prevents organization-wide engagement and misses innovation opportunities in other areas\n\nC) It is too expensive to have more than one innovation group\nD) It violates the principle of 'six thinking hats'\nSource: SmzvXPSExds | Difficulty: Medium\nQ21. How has the business model for news and media evolved with the rise of Mobile\nJournalism ('Mojo')?\nA) It has become more centralized, with fewer reporters\nB) It has led to increased public participation, with viewers becoming active reporters\nC) It has eliminated the need for advertising revenue\nD) It has focused exclusively on long-form investigative journalism\nSource: ohQvcWZt7-o | Difficulty: Medium\nQ22. The lecture suggests that an industrial organization manufacturing electrical\ngenerators for thermal power plants should redefine its business. What is the strategic\nreason for this?\nA) To focus solely on generator maintenance\nB) To avoid obsolescence by positioning itself as a broader 'power generation facilitator' capable of\npivoting to new technologies\nC) To increase the price of its current generators\nD) To merge with a thermal power plant\nSource: UL86GGHBX5Q | Difficulty: Medium\nQ23. The lecture discusses the concept of 'Policy Frameworks as Thresholds' in the context\nof disaster management. What is the cumulative negative effect of this tendency?\nA) It encourages organizations to exceed policy guidelines, leading to over-investment\nB) It leads to a disastrous cumulative effect when every entity operates at the bare minimum\nrequirement, increasing overall risk\nC) It makes policies too complex for organizations to understand and implement\nD) It eliminates the need for human intervention in disaster planning\nSource: -3blTaJznfc | Difficulty: Hard\nQ24. The lecture contrasts the Random (Schumpeterian) and Systematic (Value Innovation)\nschools of thought. What is a key risk of the Random school's 'learning from failures'\napproach, as illustrated by the Jaws Polymers case?\nA) It is too theoretical and lacks practical application\nB) It guarantees success but at a very high cost\nC) The learning process can be so slow that competitors capture the market before the innovator can\nrecover\nD) It discourages any form of risk-taking, leading to stagnation\nSource: 3OsKhkI_0E0 | Difficulty: Hard\nQ25. The lecture defines sustainability through a generational lens, emphasizing\n'Generational Coherence.' What does this concept imply about the present generation's\nactions?\nA) They should prioritize immediate economic gains to fund future environmental projects\nB) They should focus exclusively on preserving the legacy of the elder generation\nC) They must ensure a better future for the younger generation while simultaneously honoring the efforts\nof the older generation\nD) They should disregard past practices to create a completely new future\nSource: 4LK_tzopi74 | Difficulty: Hard\nQ26. In the Bajaj Auto vs. TVS Motors case, TVS argued that the concept of twin spark plugs\nwas prior art. Why did the court's decision lean in favor of Bajaj?\nA) Because TVS's technology was identical to Bajaj's in every aspect\n\nB) Because the court found TVS's timing in challenging the patent, just before its own product launch,\nwas not entirely bona fide\nC) Because twin spark plugs had never been used in any engine before Bajaj's patent\nD) Because TVS failed to pay the required court fees for the challenge\nSource: k9FlsrrNzBQ | Difficulty: Hard\nQ27. The lecture explains that for an idea to be 'sticky,' it needs to be Concrete, arouse\nCuriosity, and have Credibility. How did George Fernandez, as an idea champion, apply the\n'Curiosity' element to the rail-cum-road bridge project?\nA) By creating a dramatic public protest to draw media attention\nB) By keeping the project details secret to build suspense\nC) By calculating and presenting the economic benefits to the state governments, thereby piquing their\ninterest and engagement\nD) By claiming the bridge would be the longest in the world\nSource: dmci0IVUq00 | Difficulty: Hard\nQ28. According to the lecture, under what circumstances would a startup with a solid,\nrisk-proof idea strategically prefer debt financing over equity financing after an initial\nfunding round?\nA) To distribute the risk of failure among more partners\nB) To gain mentorship from experienced debt providers\nC) To avoid further dilution of the founders' ownership and retain a larger stake in the high-potential\nventure\nD) Because debt financing does not require repayment\nSource: u6J30oXHODM | Difficulty: Hard\nQ29. How does Morphological Analysis facilitate the discovery of novel technological\nsolutions?\nA) By iteratively refining expert opinions until a consensus is reached\nB) By extrapolating a trend line from the peaks of successive S-curves\nC) By systematically exploring all possible combinations of a technology's sub-capabilities to generate\nnew configurations\nD) By monitoring journals and patents for signals of technological change\nSource: ubRAaOMytww | Difficulty: Hard\nQ30. The contemporary AMA definition of marketing includes value for 'society at large.'\nHow does this societal element influence the marketing of innovation?\nA) It mandates that all innovative products must be sold on a non-profit basis\nB) It suggests that truly valuable innovations should contribute to social development, potentially leading\nto the exclusion of products that are detrimental to society\nC) It restricts marketing efforts to only government-approved social causes\nD) It focuses marketing exclusively on customers at the bottom of the pyramid\nSource: dxOGKCODSXI | Difficulty: Hard\n\nAnswer Key\n1: C\n2: B\n3: B\n4: C\n5: B\n6: B\n7: B\n8: D\n9: B\n10: B\n11: B\n12: B\n13: C\n14: D\n15: C\n16: B\n17: C\n18: B\n19: B\n20: B\n21: B\n22: B\n23: B\n24: C\n25: C\n26: B\n27: C\n28: C\n29: C\n30: B",
-      "fileName": "mock-exam-1.pdf"
+      ]
     },
     "doc-9a6ca327": {
-      "userId": "user-hitk-vinayak-001",
-      "mimeType": "application/pdf",
-      "filePath": "C:\\Users\\vinay\\Downloads\\Workflow_AI_Obsidian_Vault\\ai-workspace\\server\\uploads\\doc-1793670756822-78df52.pdf",
       "factualityScore": 1,
+      "userId": "user-hitk-vinayak-001",
+      "filePath": "C:\\Users\\vinay\\Downloads\\Workflow_AI_Obsidian_Vault\\ai-workspace\\server\\uploads\\doc-1793670756822-78df52.pdf",
+      "extractedText": "VINAYAK CHANDRA\n9608527498 | Kolkata, India | vinayakchandra69@gmail.com | linkedin.com/in/vinayak\nComputer Science and Business Systems student with a strong foundation in software development, data analytics, and web \ntechnologies. Passionate about building intelligent, technology-driven solutions with hands-on experience in UI/UX design, data \nstructures, and end-to-end project delivery. Demonstrated leadership through event organisation, team management, and technical \nprojects. Eager to contribute to innovative product development in a fast-paced, technology-first environment.\nSKILLS\nCORE SUBJECT PROFICIENCIES\nData Structures & Algorithms • Design & Analysis of Algorithms • Database Management Systems (DBMS) • \nComputer Networks • Operating Systems • Object Oriented Programming • Artificial Intelligence • Machine Learning\nTECHNICAL EXPERIENCE\nCERTIFICATIONS\n• Deloitte Technology Job Simulation — 2025\n• Oracle Cloud Infrastructure Certified Foundations Associate — 2025\n• Oracle Database@AWS Certified Architect Professional — 2025\nEDUCATION\nHeritage Institute of Technology, Kolkata Aug 2023 – 2027\nBachelor of Technology in Computer Science and Business Systems Kolkata, West Bengal\n• University: Maulana Abul Kalam Azad University of Technology (MAKAUT)\n• Year of Passing: 2027\n• CGPA: 7.92/10.00\n• Course Type: Full-time\nDr. Dukhan Ram DAV Public School, Danapur 2020 – 2022\nHigher Secondary (Class 12) & Secondary (Class 10) Patna, Bihar\n• Board: Central Board of Secondary Education (CBSE)\n• Class 12 (2022): 81.6%\n• Class 10 (2020): 92.6%\n• Course Type: Full-time\nACTIVITIES\n• Event Convener & Organizer — Gaming Team, HIITK Tech Fest — 2025–2026\n• Design Team Member, Heritage Institute of Technology Workshop — Guiding collaborative sessions — 2025\n• Member of Google Developer Student Club — 2024\n• Student Mini Project Showcase — Research, Presenter — 2025\nLanguages: JAVA, Python, Javascript, C\nWeb Development: React.js, Node.js, HTML, CSS\nTools: MySQL, Adobe XD, Figma, AutoCAD, Blender\nFull-Stack Development Intern · Navodita Infotech JUN 2026 · JUL 2026\n· Worked on full-stack web development projects using modern web technologies.\n· Assisted in designing and implementing responsive user interfaces and backend functionality.\n· Collaborated with team members to develop, test, and deploy software features.\n· Gained practical experience in version control, debugging, and software development workflows.\nProperty Listing Portal 2025\n· Built a PHP-based property portal hosted on Hostinger (Linux/Apache), using unique property-ID URLs.\n· Integrated Google Sheets through CSV/XLSX parsing and Apps Script sync for property data updates.\n· Implemented SSD-backed caching with stale-while-revalidate (SWR) to improve response times.\n· Added dynamic filtering, WhatsApp sharing, and spreadsheet hyperlink extraction.\nDoombox · Gaming Social Network 2025\n· Built a full-stack gaming social network using React, Node.js, Express.js, and SQLite.\n· Integrated the IGDB API to retrieve video game information and support game discovery.\n· Implemented user accounts, game reviews, and ratings for a community-driven experience.\n· Developed backend API routes to connect the frontend with application and game data.",
       "keyTakeaways": [
         "VINAYAK CHANDRA 9608527498 | Kolkata, India | vinayakchandra69@gmail.com | linkedin.com/in/vinayak Computer Science and Business Systems student with a strong foundation in software development, data analytics, and web technologies.",
         "Passionate about building intelligent, technology-driven solutions with hands-on experience in UI/UX design, data structures, and end-to-end project delivery.",
@@ -360,814 +360,814 @@
         "Doombox · Gaming Social Network 2025 · Built a full-stack gaming social network using React, Node.js, Express.js, and SQLite.",
         "· Developed backend API routes to connect the frontend with application and game data."
       ],
-      "extractedText": "VINAYAK CHANDRA\n9608527498 | Kolkata, India | vinayakchandra69@gmail.com | linkedin.com/in/vinayak\nComputer Science and Business Systems student with a strong foundation in software development, data analytics, and web \ntechnologies. Passionate about building intelligent, technology-driven solutions with hands-on experience in UI/UX design, data \nstructures, and end-to-end project delivery. Demonstrated leadership through event organisation, team management, and technical \nprojects. Eager to contribute to innovative product development in a fast-paced, technology-first environment.\nSKILLS\nCORE SUBJECT PROFICIENCIES\nData Structures & Algorithms • Design & Analysis of Algorithms • Database Management Systems (DBMS) • \nComputer Networks • Operating Systems • Object Oriented Programming • Artificial Intelligence • Machine Learning\nTECHNICAL EXPERIENCE\nCERTIFICATIONS\n• Deloitte Technology Job Simulation — 2025\n• Oracle Cloud Infrastructure Certified Foundations Associate — 2025\n• Oracle Database@AWS Certified Architect Professional — 2025\nEDUCATION\nHeritage Institute of Technology, Kolkata Aug 2023 – 2027\nBachelor of Technology in Computer Science and Business Systems Kolkata, West Bengal\n• University: Maulana Abul Kalam Azad University of Technology (MAKAUT)\n• Year of Passing: 2027\n• CGPA: 7.92/10.00\n• Course Type: Full-time\nDr. Dukhan Ram DAV Public School, Danapur 2020 – 2022\nHigher Secondary (Class 12) & Secondary (Class 10) Patna, Bihar\n• Board: Central Board of Secondary Education (CBSE)\n• Class 12 (2022): 81.6%\n• Class 10 (2020): 92.6%\n• Course Type: Full-time\nACTIVITIES\n• Event Convener & Organizer — Gaming Team, HIITK Tech Fest — 2025–2026\n• Design Team Member, Heritage Institute of Technology Workshop — Guiding collaborative sessions — 2025\n• Member of Google Developer Student Club — 2024\n• Student Mini Project Showcase — Research, Presenter — 2025\nLanguages: JAVA, Python, Javascript, C\nWeb Development: React.js, Node.js, HTML, CSS\nTools: MySQL, Adobe XD, Figma, AutoCAD, Blender\nFull-Stack Development Intern · Navodita Infotech JUN 2026 · JUL 2026\n· Worked on full-stack web development projects using modern web technologies.\n· Assisted in designing and implementing responsive user interfaces and backend functionality.\n· Collaborated with team members to develop, test, and deploy software features.\n· Gained practical experience in version control, debugging, and software development workflows.\nProperty Listing Portal 2025\n· Built a PHP-based property portal hosted on Hostinger (Linux/Apache), using unique property-ID URLs.\n· Integrated Google Sheets through CSV/XLSX parsing and Apps Script sync for property data updates.\n· Implemented SSD-backed caching with stale-while-revalidate (SWR) to improve response times.\n· Added dynamic filtering, WhatsApp sharing, and spreadsheet hyperlink extraction.\nDoombox · Gaming Social Network 2025\n· Built a full-stack gaming social network using React, Node.js, Express.js, and SQLite.\n· Integrated the IGDB API to retrieve video game information and support game discovery.\n· Implemented user accounts, game reviews, and ratings for a community-driven experience.\n· Developed backend API routes to connect the frontend with application and game data.",
-      "summary": "VINAYAK CHANDRA 9608527498 | Kolkata, India | vinayakchandra69@gmail.com | linkedin.com/in/vinayak Computer Science and Business Systems student with a strong foundation in software development, data analytics, and web technologies. Passionate about building intelligent, technology-driven solutions with hands-on experience in UI/UX design, data structures, and end-to-end project delivery. Demonstrated leadership through event organisation, team management, and technical projects. · Gained practical experience in version control, debugging, and software development workflows. Property Listing Portal 2025 · Built a PHP-based property portal hosted on Hostinger (Linux/Apache), using unique property-ID URLs. Doombox · Gaming Social Network 2025 · Built a full-stack gaming social network using React, Node.js, Express.js, and SQLite. · Developed backend API routes to connect the frontend with application and game data.",
-      "sizeBytes": 300610,
-      "createdAt": "2026-11-03T01:52:37.222Z",
+      "mimeType": "application/pdf",
       "fileName": "Vinayak_chandra.pdf",
-      "id": "doc-9a6ca327"
+      "createdAt": "2026-11-03T01:52:37.222Z",
+      "id": "doc-9a6ca327",
+      "summary": "VINAYAK CHANDRA 9608527498 | Kolkata, India | vinayakchandra69@gmail.com | linkedin.com/in/vinayak Computer Science and Business Systems student with a strong foundation in software development, data analytics, and web technologies. Passionate about building intelligent, technology-driven solutions with hands-on experience in UI/UX design, data structures, and end-to-end project delivery. Demonstrated leadership through event organisation, team management, and technical projects. · Gained practical experience in version control, debugging, and software development workflows. Property Listing Portal 2025 · Built a PHP-based property portal hosted on Hostinger (Linux/Apache), using unique property-ID URLs. Doombox · Gaming Social Network 2025 · Built a full-stack gaming social network using React, Node.js, Express.js, and SQLite. · Developed backend API routes to connect the frontend with application and game data.",
+      "sizeBytes": 300610
     }
   },
   "calendarEvents": {
     "evt-5a440b94": {
       "createdAt": "2026-11-03T00:47:24.857Z",
       "endAt": "2026-11-10T04:30:00.000Z",
-      "isReadOnly": false,
       "updatedAt": "2026-11-03T00:47:24.857Z",
+      "color": "#f97316",
+      "isReadOnly": false,
       "description": "",
       "userId": "user-hitk-vinayak-001",
-      "id": "evt-5a440b94",
-      "isAllDay": false,
-      "title": "Brochure design",
-      "startAt": "2026-11-10T03:30:00.000Z",
+      "calendarName": "Personal",
       "location": "",
-      "color": "#f97316",
-      "calendarName": "Personal"
+      "startAt": "2026-11-10T03:30:00.000Z",
+      "title": "Brochure design",
+      "isAllDay": false,
+      "id": "evt-5a440b94"
     }
   },
   "dailyPlans": {
     "plan-2026-11-01-82a8e3": {
-      "planDate": "2026-11-01",
-      "id": "plan-2026-11-01-82a8e3",
-      "conflicts": [],
-      "timezone": "Asia/Kolkata",
+      "createdAt": "2026-11-02T13:07:57.995Z",
       "assumptions": [
         "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
         "Fixed Google Calendar events take absolute scheduling precedence.",
         "Tasks allocated sequentially by ML priority score into unbooked slots."
       ],
       "totalBreakMinutes": 90,
-      "userId": "user-hitk-vinayak-001",
+      "timezone": "Asia/Kolkata",
+      "id": "plan-2026-11-01-82a8e3",
       "blocks": [
         {
-          "endAt": "2026-11-01T05:00:00.000Z",
-          "durationMinutes": 90,
-          "taskId": "task-001",
-          "kind": "proposed_focus",
           "id": "block-3d1b84fd",
-          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
-          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
-          "startAt": "2026-11-01T03:30:00.000Z"
-        },
-        {
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "kind": "break",
-          "startAt": "2026-11-01T05:00:00.000Z",
-          "title": "Scheduled Recovery Break",
-          "endAt": "2026-11-01T05:15:00.000Z",
-          "durationMinutes": 15,
-          "id": "block-b7cf8319"
-        },
-        {
-          "kind": "proposed_focus",
-          "endAt": "2026-11-01T06:15:00.000Z",
-          "id": "block-d2864301",
-          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
-          "durationMinutes": 60,
-          "startAt": "2026-11-01T05:15:00.000Z",
-          "taskId": "task-002",
-          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix"
-        },
-        {
-          "id": "block-fef8d367",
-          "startAt": "2026-11-01T06:15:00.000Z",
-          "kind": "break",
-          "durationMinutes": 15,
-          "title": "Scheduled Recovery Break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "endAt": "2026-11-01T06:30:00.000Z"
-        },
-        {
-          "endAt": "2026-11-01T08:00:00.000Z",
-          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
-          "kind": "proposed_focus",
-          "startAt": "2026-11-01T06:30:00.000Z",
-          "id": "block-1e7afd97",
-          "title": "Focus: E2E Integration Test Task",
-          "taskId": "task-48ad6a41",
-          "durationMinutes": 90
-        },
-        {
-          "id": "block-2e4951af",
-          "endAt": "2026-11-01T08:15:00.000Z",
-          "kind": "break",
-          "startAt": "2026-11-01T08:00:00.000Z",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "durationMinutes": 15,
-          "title": "Scheduled Recovery Break"
-        },
-        {
           "durationMinutes": 90,
-          "kind": "proposed_focus",
-          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
-          "startAt": "2026-11-01T08:15:00.000Z",
-          "title": "Focus: E2E Integration Test Task",
-          "taskId": "task-15963452",
-          "endAt": "2026-11-01T09:45:00.000Z",
-          "id": "block-34f168af"
-        },
-        {
-          "title": "Scheduled Recovery Break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "startAt": "2026-11-01T09:45:00.000Z",
-          "id": "block-c658dc0a",
-          "endAt": "2026-11-01T10:00:00.000Z",
-          "durationMinutes": 15,
-          "kind": "break"
-        },
-        {
-          "title": "Focus: Project report",
-          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot.",
-          "id": "block-6e6a594b",
-          "durationMinutes": 60,
-          "taskId": "task-97173f25",
-          "startAt": "2026-11-01T10:00:00.000Z",
-          "endAt": "2026-11-01T11:00:00.000Z",
+          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
+          "endAt": "2026-11-01T05:00:00.000Z",
+          "taskId": "task-001",
+          "startAt": "2026-11-01T03:30:00.000Z",
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
           "kind": "proposed_focus"
         },
         {
-          "startAt": "2026-11-01T11:00:00.000Z",
-          "endAt": "2026-11-01T11:15:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
           "kind": "break",
-          "title": "Scheduled Recovery Break",
           "durationMinutes": 15,
-          "id": "block-9c1d9b10",
-          "reason": "Prevents cognitive fatigue between intense focus sessions."
+          "endAt": "2026-11-01T05:15:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "id": "block-b7cf8319",
+          "startAt": "2026-11-01T05:00:00.000Z"
         },
         {
-          "endAt": "2026-11-01T12:00:00.000Z",
-          "id": "block-c9cb7b7b",
-          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot.",
           "kind": "proposed_focus",
+          "id": "block-d2864301",
+          "startAt": "2026-11-01T05:15:00.000Z",
+          "taskId": "task-002",
+          "durationMinutes": 60,
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
+          "endAt": "2026-11-01T06:15:00.000Z",
+          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix"
+        },
+        {
+          "startAt": "2026-11-01T06:15:00.000Z",
+          "endAt": "2026-11-01T06:30:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "id": "block-fef8d367",
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "durationMinutes": 15
+        },
+        {
+          "startAt": "2026-11-01T06:30:00.000Z",
+          "taskId": "task-48ad6a41",
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
+          "title": "Focus: E2E Integration Test Task",
+          "endAt": "2026-11-01T08:00:00.000Z",
+          "id": "block-1e7afd97",
+          "durationMinutes": 90,
+          "kind": "proposed_focus"
+        },
+        {
+          "durationMinutes": 15,
+          "kind": "break",
+          "endAt": "2026-11-01T08:15:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "id": "block-2e4951af",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "startAt": "2026-11-01T08:00:00.000Z"
+        },
+        {
+          "endAt": "2026-11-01T09:45:00.000Z",
+          "title": "Focus: E2E Integration Test Task",
+          "id": "block-34f168af",
+          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
+          "startAt": "2026-11-01T08:15:00.000Z",
+          "taskId": "task-15963452",
+          "kind": "proposed_focus",
+          "durationMinutes": 90
+        },
+        {
+          "startAt": "2026-11-01T09:45:00.000Z",
+          "endAt": "2026-11-01T10:00:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "durationMinutes": 15,
+          "kind": "break",
+          "id": "block-c658dc0a"
+        },
+        {
+          "startAt": "2026-11-01T10:00:00.000Z",
+          "durationMinutes": 60,
+          "kind": "proposed_focus",
+          "taskId": "task-97173f25",
+          "id": "block-6e6a594b",
+          "endAt": "2026-11-01T11:00:00.000Z",
+          "title": "Focus: Project report",
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot."
+        },
+        {
+          "durationMinutes": 15,
+          "title": "Scheduled Recovery Break",
+          "endAt": "2026-11-01T11:15:00.000Z",
+          "startAt": "2026-11-01T11:00:00.000Z",
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "id": "block-9c1d9b10"
+        },
+        {
           "durationMinutes": 45,
-          "startAt": "2026-11-01T11:15:00.000Z",
+          "id": "block-c9cb7b7b",
+          "endAt": "2026-11-01T12:00:00.000Z",
           "title": "Focus: Submit HITK Library Due Books & Clearance Form",
-          "taskId": "task-003"
+          "taskId": "task-003",
+          "startAt": "2026-11-01T11:15:00.000Z",
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot."
         },
         {
           "endAt": "2026-11-01T12:15:00.000Z",
-          "startAt": "2026-11-01T12:00:00.000Z",
-          "durationMinutes": 15,
-          "kind": "break",
           "title": "Scheduled Recovery Break",
+          "durationMinutes": 15,
+          "startAt": "2026-11-01T12:00:00.000Z",
+          "kind": "break",
           "reason": "Prevents cognitive fatigue between intense focus sessions.",
           "id": "block-066f54a0"
         }
       ],
-      "createdAt": "2026-11-02T13:07:57.995Z",
-      "totalWorkMinutes": 435
+      "totalWorkMinutes": 435,
+      "conflicts": [],
+      "planDate": "2026-11-01",
+      "userId": "user-hitk-vinayak-001"
     },
     "plan-2026-11-03-b91b67": {
-      "conflicts": [],
-      "planDate": "2026-11-03",
-      "id": "plan-2026-11-03-b91b67",
       "assumptions": [
         "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
         "Fixed Google Calendar events take absolute scheduling precedence.",
         "Tasks allocated sequentially by ML priority score into unbooked slots."
       ],
       "totalWorkMinutes": 435,
-      "userId": "user-hitk-vinayak-001",
-      "timezone": "Asia/Kolkata",
       "blocks": [
         {
-          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
-          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
-          "kind": "proposed_focus",
           "startAt": "2026-11-03T03:30:00.000Z",
-          "taskId": "task-001",
+          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
           "endAt": "2026-11-03T05:00:00.000Z",
           "durationMinutes": 90,
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
+          "taskId": "task-001",
+          "kind": "proposed_focus",
           "id": "block-2f7d81d2"
         },
         {
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "durationMinutes": 15,
+          "endAt": "2026-11-03T05:15:00.000Z",
           "title": "Scheduled Recovery Break",
           "startAt": "2026-11-03T05:00:00.000Z",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
           "id": "block-2e01e46b",
-          "kind": "break",
-          "endAt": "2026-11-03T05:15:00.000Z",
-          "durationMinutes": 15
-        },
-        {
-          "durationMinutes": 60,
-          "id": "block-ed9cc84b",
-          "endAt": "2026-11-03T06:15:00.000Z",
-          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
-          "startAt": "2026-11-03T05:15:00.000Z",
-          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
-          "kind": "proposed_focus",
-          "taskId": "task-002"
-        },
-        {
-          "startAt": "2026-11-03T06:15:00.000Z",
-          "durationMinutes": 15,
-          "endAt": "2026-11-03T06:30:00.000Z",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "kind": "break",
-          "title": "Scheduled Recovery Break",
-          "id": "block-af2bbe7d"
-        },
-        {
-          "endAt": "2026-11-03T08:00:00.000Z",
-          "id": "block-2eead99a",
-          "taskId": "task-48ad6a41",
-          "title": "Focus: E2E Integration Test Task",
-          "durationMinutes": 90,
-          "startAt": "2026-11-03T06:30:00.000Z",
-          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
-          "kind": "proposed_focus"
-        },
-        {
-          "title": "Scheduled Recovery Break",
-          "id": "block-fc56c1b8",
-          "durationMinutes": 15,
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "endAt": "2026-11-03T08:15:00.000Z",
-          "startAt": "2026-11-03T08:00:00.000Z",
           "kind": "break"
         },
         {
-          "title": "Focus: E2E Integration Test Task",
-          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
-          "id": "block-fd1c0414",
-          "startAt": "2026-11-03T08:15:00.000Z",
-          "durationMinutes": 90,
           "kind": "proposed_focus",
-          "taskId": "task-15963452",
-          "endAt": "2026-11-03T09:45:00.000Z"
-        },
-        {
-          "title": "Scheduled Recovery Break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "startAt": "2026-11-03T09:45:00.000Z",
-          "durationMinutes": 15,
-          "kind": "break",
-          "id": "block-1e6cd406",
-          "endAt": "2026-11-03T10:00:00.000Z"
-        },
-        {
-          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot.",
-          "kind": "proposed_focus",
-          "id": "block-175ba5b3",
-          "startAt": "2026-11-03T10:00:00.000Z",
-          "title": "Focus: Project report",
-          "taskId": "task-97173f25",
-          "durationMinutes": 60,
-          "endAt": "2026-11-03T11:00:00.000Z"
-        },
-        {
-          "title": "Scheduled Recovery Break",
-          "kind": "break",
-          "id": "block-edc0e30c",
-          "endAt": "2026-11-03T11:15:00.000Z",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "durationMinutes": 15,
-          "startAt": "2026-11-03T11:00:00.000Z"
-        },
-        {
-          "endAt": "2026-11-03T12:00:00.000Z",
-          "durationMinutes": 45,
-          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot.",
-          "kind": "proposed_focus",
-          "startAt": "2026-11-03T11:15:00.000Z",
-          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
-          "taskId": "task-003",
-          "id": "block-01c0c55a"
-        },
-        {
-          "id": "block-0a77a8da",
-          "title": "Scheduled Recovery Break",
-          "kind": "break",
-          "endAt": "2026-11-03T12:15:00.000Z",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "durationMinutes": 15,
-          "startAt": "2026-11-03T12:00:00.000Z"
-        }
-      ],
-      "createdAt": "2026-11-02T13:08:04.634Z",
-      "totalBreakMinutes": 90
-    },
-    "plan-2026-11-04-4b0e3d": {
-      "totalBreakMinutes": 90,
-      "planDate": "2026-11-04",
-      "id": "plan-2026-11-04-4b0e3d",
-      "conflicts": [],
-      "timezone": "Asia/Kolkata",
-      "blocks": [
-        {
-          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
-          "taskId": "task-001",
-          "durationMinutes": 90,
-          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
-          "endAt": "2026-11-04T05:00:00.000Z",
-          "kind": "proposed_focus",
-          "id": "block-c468b0d6",
-          "startAt": "2026-11-04T03:30:00.000Z"
-        },
-        {
-          "title": "Scheduled Recovery Break",
-          "id": "block-0062a133",
-          "startAt": "2026-11-04T05:00:00.000Z",
-          "kind": "break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "endAt": "2026-11-04T05:15:00.000Z",
-          "durationMinutes": 15
-        },
-        {
-          "endAt": "2026-11-04T06:15:00.000Z",
           "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
-          "id": "block-afdb0f06",
-          "startAt": "2026-11-04T05:15:00.000Z",
-          "kind": "proposed_focus",
+          "taskId": "task-002",
+          "endAt": "2026-11-03T06:15:00.000Z",
           "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
+          "startAt": "2026-11-03T05:15:00.000Z",
           "durationMinutes": 60,
-          "taskId": "task-002"
+          "id": "block-ed9cc84b"
         },
         {
-          "title": "Scheduled Recovery Break",
-          "kind": "break",
-          "startAt": "2026-11-04T06:15:00.000Z",
           "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "endAt": "2026-11-04T06:30:00.000Z",
+          "startAt": "2026-11-03T06:15:00.000Z",
+          "kind": "break",
           "durationMinutes": 15,
-          "id": "block-1da35b1c"
+          "endAt": "2026-11-03T06:30:00.000Z",
+          "id": "block-af2bbe7d",
+          "title": "Scheduled Recovery Break"
         },
         {
-          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
-          "kind": "proposed_focus",
           "title": "Focus: E2E Integration Test Task",
-          "id": "block-81c931c0",
-          "taskId": "task-48ad6a41",
-          "startAt": "2026-11-04T06:30:00.000Z",
-          "endAt": "2026-11-04T08:00:00.000Z",
+          "endAt": "2026-11-03T08:00:00.000Z",
+          "id": "block-2eead99a",
+          "durationMinutes": 90,
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
+          "startAt": "2026-11-03T06:30:00.000Z",
+          "kind": "proposed_focus",
+          "taskId": "task-48ad6a41"
+        },
+        {
+          "durationMinutes": 15,
+          "startAt": "2026-11-03T08:00:00.000Z",
+          "kind": "break",
+          "title": "Scheduled Recovery Break",
+          "endAt": "2026-11-03T08:15:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "id": "block-fc56c1b8"
+        },
+        {
+          "endAt": "2026-11-03T09:45:00.000Z",
+          "title": "Focus: E2E Integration Test Task",
+          "kind": "proposed_focus",
+          "id": "block-fd1c0414",
+          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
+          "startAt": "2026-11-03T08:15:00.000Z",
+          "taskId": "task-15963452",
           "durationMinutes": 90
         },
         {
-          "kind": "break",
-          "id": "block-446e4bc8",
+          "durationMinutes": 15,
+          "startAt": "2026-11-03T09:45:00.000Z",
+          "endAt": "2026-11-03T10:00:00.000Z",
           "title": "Scheduled Recovery Break",
           "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "endAt": "2026-11-04T08:15:00.000Z",
-          "startAt": "2026-11-04T08:00:00.000Z",
+          "id": "block-1e6cd406",
+          "kind": "break"
+        },
+        {
+          "taskId": "task-97173f25",
+          "startAt": "2026-11-03T10:00:00.000Z",
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot.",
+          "durationMinutes": 60,
+          "title": "Focus: Project report",
+          "endAt": "2026-11-03T11:00:00.000Z",
+          "id": "block-175ba5b3"
+        },
+        {
+          "durationMinutes": 15,
+          "endAt": "2026-11-03T11:15:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "kind": "break",
+          "startAt": "2026-11-03T11:00:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "id": "block-edc0e30c"
+        },
+        {
+          "id": "block-01c0c55a",
+          "taskId": "task-003",
+          "startAt": "2026-11-03T11:15:00.000Z",
+          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot.",
+          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
+          "endAt": "2026-11-03T12:00:00.000Z",
+          "durationMinutes": 45,
+          "kind": "proposed_focus"
+        },
+        {
+          "kind": "break",
+          "startAt": "2026-11-03T12:00:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "durationMinutes": 15,
+          "id": "block-0a77a8da",
+          "endAt": "2026-11-03T12:15:00.000Z",
+          "title": "Scheduled Recovery Break"
+        }
+      ],
+      "timezone": "Asia/Kolkata",
+      "id": "plan-2026-11-03-b91b67",
+      "createdAt": "2026-11-02T13:08:04.634Z",
+      "planDate": "2026-11-03",
+      "userId": "user-hitk-vinayak-001",
+      "totalBreakMinutes": 90,
+      "conflicts": []
+    },
+    "plan-2026-11-04-4b0e3d": {
+      "totalWorkMinutes": 435,
+      "id": "plan-2026-11-04-4b0e3d",
+      "planDate": "2026-11-04",
+      "blocks": [
+        {
+          "kind": "proposed_focus",
+          "id": "block-c468b0d6",
+          "taskId": "task-001",
+          "endAt": "2026-11-04T05:00:00.000Z",
+          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
+          "durationMinutes": 90,
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
+          "startAt": "2026-11-04T03:30:00.000Z"
+        },
+        {
+          "kind": "break",
+          "title": "Scheduled Recovery Break",
+          "endAt": "2026-11-04T05:15:00.000Z",
+          "id": "block-0062a133",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "startAt": "2026-11-04T05:00:00.000Z",
           "durationMinutes": 15
         },
         {
-          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
-          "id": "block-0c6bdc7e",
-          "title": "Focus: E2E Integration Test Task",
+          "taskId": "task-002",
+          "id": "block-afdb0f06",
+          "durationMinutes": 60,
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
+          "endAt": "2026-11-04T06:15:00.000Z",
+          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
           "kind": "proposed_focus",
-          "durationMinutes": 90,
-          "endAt": "2026-11-04T09:45:00.000Z",
-          "taskId": "task-15963452",
-          "startAt": "2026-11-04T08:15:00.000Z"
+          "startAt": "2026-11-04T05:15:00.000Z"
         },
         {
           "title": "Scheduled Recovery Break",
-          "kind": "break",
-          "id": "block-cb7a0264",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "endAt": "2026-11-04T06:30:00.000Z",
           "durationMinutes": 15,
-          "endAt": "2026-11-04T10:00:00.000Z",
-          "startAt": "2026-11-04T09:45:00.000Z"
+          "kind": "break",
+          "id": "block-1da35b1c",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "startAt": "2026-11-04T06:15:00.000Z"
         },
         {
-          "startAt": "2026-11-04T10:00:00.000Z",
-          "endAt": "2026-11-04T11:00:00.000Z",
+          "durationMinutes": 90,
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
+          "title": "Focus: E2E Integration Test Task",
+          "endAt": "2026-11-04T08:00:00.000Z",
+          "taskId": "task-48ad6a41",
+          "id": "block-81c931c0",
+          "startAt": "2026-11-04T06:30:00.000Z",
+          "kind": "proposed_focus"
+        },
+        {
+          "endAt": "2026-11-04T08:15:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "id": "block-446e4bc8",
+          "startAt": "2026-11-04T08:00:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "kind": "break",
+          "durationMinutes": 15
+        },
+        {
+          "endAt": "2026-11-04T09:45:00.000Z",
+          "title": "Focus: E2E Integration Test Task",
+          "kind": "proposed_focus",
+          "id": "block-0c6bdc7e",
+          "startAt": "2026-11-04T08:15:00.000Z",
+          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
+          "durationMinutes": 90,
+          "taskId": "task-15963452"
+        },
+        {
+          "id": "block-cb7a0264",
+          "title": "Scheduled Recovery Break",
+          "endAt": "2026-11-04T10:00:00.000Z",
+          "startAt": "2026-11-04T09:45:00.000Z",
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "durationMinutes": 15
+        },
+        {
           "durationMinutes": 60,
-          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot.",
-          "title": "Focus: Project report",
           "kind": "proposed_focus",
           "id": "block-a3ae63d3",
+          "endAt": "2026-11-04T11:00:00.000Z",
+          "title": "Focus: Project report",
+          "startAt": "2026-11-04T10:00:00.000Z",
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot.",
           "taskId": "task-97173f25"
         },
         {
           "endAt": "2026-11-04T11:15:00.000Z",
-          "id": "block-b9659f0b",
-          "startAt": "2026-11-04T11:00:00.000Z",
-          "kind": "break",
           "title": "Scheduled Recovery Break",
+          "durationMinutes": 15,
+          "id": "block-b9659f0b",
+          "kind": "break",
           "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "durationMinutes": 15
+          "startAt": "2026-11-04T11:00:00.000Z"
         },
         {
-          "kind": "proposed_focus",
-          "endAt": "2026-11-04T12:00:00.000Z",
-          "taskId": "task-003",
-          "id": "block-b3d95109",
           "durationMinutes": 45,
           "startAt": "2026-11-04T11:15:00.000Z",
+          "id": "block-b3d95109",
+          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
+          "endAt": "2026-11-04T12:00:00.000Z",
+          "taskId": "task-003",
           "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot.",
-          "title": "Focus: Submit HITK Library Due Books & Clearance Form"
+          "kind": "proposed_focus"
         },
         {
-          "endAt": "2026-11-04T12:15:00.000Z",
-          "id": "block-1fe646ec",
-          "kind": "break",
           "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-04T12:00:00.000Z",
+          "endAt": "2026-11-04T12:15:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
           "durationMinutes": 15,
-          "reason": "Prevents cognitive fatigue between intense focus sessions."
+          "kind": "break",
+          "startAt": "2026-11-04T12:00:00.000Z",
+          "id": "block-1fe646ec"
         }
       ],
-      "userId": "user-hitk-vinayak-001",
-      "createdAt": "2026-11-02T13:08:13.597Z",
       "assumptions": [
         "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
         "Fixed Google Calendar events take absolute scheduling precedence.",
         "Tasks allocated sequentially by ML priority score into unbooked slots."
       ],
-      "totalWorkMinutes": 435
+      "timezone": "Asia/Kolkata",
+      "conflicts": [],
+      "totalBreakMinutes": 90,
+      "userId": "user-hitk-vinayak-001",
+      "createdAt": "2026-11-02T13:08:13.597Z"
     },
     "plan-2026-11-13-e89ece": {
+      "id": "plan-2026-11-13-e89ece",
+      "totalBreakMinutes": 90,
+      "userId": "user-hitk-vinayak-001",
+      "planDate": "2026-11-13",
+      "assumptions": [
+        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
+        "Fixed Google Calendar events take absolute scheduling precedence.",
+        "Tasks allocated sequentially by ML priority score into unbooked slots."
+      ],
+      "timezone": "Asia/Kolkata",
+      "createdAt": "2026-11-02T13:08:19.889Z",
       "blocks": [
         {
-          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
           "startAt": "2026-11-13T03:30:00.000Z",
-          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
           "kind": "proposed_focus",
-          "durationMinutes": 90,
+          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
           "endAt": "2026-11-13T05:00:00.000Z",
           "taskId": "task-001",
-          "id": "block-9223b669"
+          "id": "block-9223b669",
+          "durationMinutes": 90
         },
         {
-          "durationMinutes": 15,
-          "startAt": "2026-11-13T05:00:00.000Z",
+          "title": "Scheduled Recovery Break",
           "endAt": "2026-11-13T05:15:00.000Z",
-          "title": "Scheduled Recovery Break",
           "id": "block-4d49901f",
-          "kind": "break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions."
-        },
-        {
-          "id": "block-13ee96ad",
-          "endAt": "2026-11-13T06:15:00.000Z",
-          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
-          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
-          "startAt": "2026-11-13T05:15:00.000Z",
-          "taskId": "task-002",
-          "durationMinutes": 60,
-          "kind": "proposed_focus"
-        },
-        {
-          "title": "Scheduled Recovery Break",
-          "id": "block-e381738d",
-          "kind": "break",
-          "startAt": "2026-11-13T06:15:00.000Z",
-          "endAt": "2026-11-13T06:30:00.000Z",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "durationMinutes": 15
-        },
-        {
-          "startAt": "2026-11-13T06:30:00.000Z",
-          "taskId": "task-48ad6a41",
-          "endAt": "2026-11-13T08:00:00.000Z",
-          "kind": "proposed_focus",
-          "title": "Focus: E2E Integration Test Task",
-          "id": "block-624029a9",
-          "durationMinutes": 90,
-          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot."
-        },
-        {
-          "id": "block-7554a457",
-          "title": "Scheduled Recovery Break",
           "durationMinutes": 15,
           "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "kind": "break",
-          "startAt": "2026-11-13T08:00:00.000Z",
-          "endAt": "2026-11-13T08:15:00.000Z"
-        },
-        {
-          "title": "Focus: E2E Integration Test Task",
-          "taskId": "task-15963452",
-          "durationMinutes": 90,
-          "startAt": "2026-11-13T08:15:00.000Z",
-          "id": "block-b22a36b2",
-          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
-          "endAt": "2026-11-13T09:45:00.000Z",
-          "kind": "proposed_focus"
-        },
-        {
-          "endAt": "2026-11-13T10:00:00.000Z",
-          "startAt": "2026-11-13T09:45:00.000Z",
-          "kind": "break",
-          "durationMinutes": 15,
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "title": "Scheduled Recovery Break",
-          "id": "block-7a3aeb0f"
-        },
-        {
-          "title": "Focus: Project report",
-          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot.",
-          "startAt": "2026-11-13T10:00:00.000Z",
-          "id": "block-1940cca5",
-          "taskId": "task-97173f25",
-          "durationMinutes": 60,
-          "kind": "proposed_focus",
-          "endAt": "2026-11-13T11:00:00.000Z"
-        },
-        {
-          "id": "block-b33d4cb1",
-          "kind": "break",
-          "endAt": "2026-11-13T11:15:00.000Z",
-          "durationMinutes": 15,
-          "startAt": "2026-11-13T11:00:00.000Z",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "title": "Scheduled Recovery Break"
-        },
-        {
-          "durationMinutes": 45,
-          "startAt": "2026-11-13T11:15:00.000Z",
-          "taskId": "task-003",
-          "endAt": "2026-11-13T12:00:00.000Z",
-          "id": "block-322d5061",
-          "kind": "proposed_focus",
-          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
-          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot."
-        },
-        {
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "title": "Scheduled Recovery Break",
-          "kind": "break",
-          "durationMinutes": 15,
-          "endAt": "2026-11-13T12:15:00.000Z",
-          "startAt": "2026-11-13T12:00:00.000Z",
-          "id": "block-f3ff3c8e"
-        }
-      ],
-      "conflicts": [],
-      "userId": "user-hitk-vinayak-001",
-      "id": "plan-2026-11-13-e89ece",
-      "assumptions": [
-        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
-        "Fixed Google Calendar events take absolute scheduling precedence.",
-        "Tasks allocated sequentially by ML priority score into unbooked slots."
-      ],
-      "timezone": "Asia/Kolkata",
-      "totalBreakMinutes": 90,
-      "totalWorkMinutes": 435,
-      "createdAt": "2026-11-02T13:08:19.889Z",
-      "planDate": "2026-11-13"
-    },
-    "plan-2026-11-02-701e77": {
-      "createdAt": "2026-11-02T13:22:41.520Z",
-      "planDate": "2026-11-02",
-      "timezone": "Asia/Kolkata",
-      "id": "plan-2026-11-02-701e77",
-      "conflicts": [],
-      "totalBreakMinutes": 45,
-      "assumptions": [
-        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
-        "Fixed Google Calendar events take absolute scheduling precedence.",
-        "Tasks allocated sequentially by ML priority score into unbooked slots."
-      ],
-      "blocks": [
-        {
-          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
-          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
-          "kind": "proposed_focus",
-          "endAt": "2026-11-02T04:30:00.000Z",
-          "taskId": "task-001",
-          "startAt": "2026-11-02T03:30:00.000Z",
-          "durationMinutes": 60,
-          "id": "block-bf1d0f5a"
-        },
-        {
-          "title": "CBS3293: Cloud & Distributed Systems Lecture",
-          "startAt": "2026-11-02T10:00:00+05:30",
-          "reason": "Fixed commitment from HITK Academic Schedule (Room 304, Main Building)",
-          "durationMinutes": 90,
-          "id": "block-79c4717d",
-          "kind": "fixed_event_reference",
-          "endAt": "2026-11-02T11:30:00+05:30"
-        },
-        {
-          "endAt": "2026-11-02T07:00:00.000Z",
-          "startAt": "2026-11-02T06:00:00.000Z",
-          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
-          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
-          "durationMinutes": 60,
-          "kind": "proposed_focus",
-          "id": "block-9af46707",
-          "taskId": "task-002"
-        },
-        {
-          "kind": "break",
-          "endAt": "2026-11-02T07:15:00.000Z",
-          "durationMinutes": 15,
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "startAt": "2026-11-02T07:00:00.000Z",
-          "id": "block-490521f5",
-          "title": "Scheduled Recovery Break"
-        },
-        {
-          "id": "block-b1d18bfa",
-          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
-          "title": "Focus: E2E Integration Test Task",
-          "durationMinutes": 90,
-          "startAt": "2026-11-02T07:15:00.000Z",
-          "kind": "proposed_focus",
-          "taskId": "task-48ad6a41",
-          "endAt": "2026-11-02T08:45:00.000Z"
-        },
-        {
-          "id": "block-85c71506",
-          "title": "Scheduled Recovery Break",
-          "kind": "break",
-          "startAt": "2026-11-02T08:45:00.000Z",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "endAt": "2026-11-02T09:00:00.000Z",
-          "durationMinutes": 15
-        },
-        {
-          "durationMinutes": 60,
-          "endAt": "2026-11-02T15:30:00+05:30",
-          "reason": "Fixed commitment from HITK Faculty Meetings (Faculty Cabin 12)",
-          "id": "block-8f9ebc00",
-          "kind": "fixed_event_reference",
-          "title": "Project Review with Prof. Sajal Mitra",
-          "startAt": "2026-11-02T14:30:00+05:30"
-        },
-        {
-          "taskId": "task-15963452",
-          "id": "block-39b4e4d9",
-          "kind": "proposed_focus",
-          "title": "Focus: E2E Integration Test Task",
-          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
-          "endAt": "2026-11-02T11:30:00.000Z",
-          "durationMinutes": 90,
-          "startAt": "2026-11-02T10:00:00.000Z"
-        },
-        {
-          "durationMinutes": 15,
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "title": "Scheduled Recovery Break",
-          "kind": "break",
-          "id": "block-822cfb93",
-          "startAt": "2026-11-02T11:30:00.000Z",
-          "endAt": "2026-11-02T11:45:00.000Z"
-        },
-        {
-          "title": "Focus: Project report",
-          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot.",
-          "id": "block-f86194b2",
-          "taskId": "task-97173f25",
-          "endAt": "2026-11-02T12:30:00.000Z",
-          "startAt": "2026-11-02T11:45:00.000Z",
-          "durationMinutes": 45,
-          "kind": "proposed_focus"
-        }
-      ],
-      "totalWorkMinutes": 345,
-      "userId": "user-hitk-vinayak-001"
-    },
-    "plan-2026-11-15-3e2e7e": {
-      "conflicts": [],
-      "timezone": "Asia/Kolkata",
-      "totalWorkMinutes": 435,
-      "totalBreakMinutes": 90,
-      "id": "plan-2026-11-15-3e2e7e",
-      "assumptions": [
-        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
-        "Fixed Google Calendar events take absolute scheduling precedence.",
-        "Tasks allocated sequentially by ML priority score into unbooked slots."
-      ],
-      "planDate": "2026-11-15",
-      "userId": "user-hitk-vinayak-001",
-      "createdAt": "2026-11-02T14:04:12.444Z",
-      "blocks": [
-        {
-          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
-          "durationMinutes": 90,
-          "kind": "proposed_focus",
-          "startAt": "2026-11-15T03:30:00.000Z",
-          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
-          "taskId": "task-001",
-          "endAt": "2026-11-15T05:00:00.000Z",
-          "id": "block-2deb2106"
-        },
-        {
-          "title": "Scheduled Recovery Break",
-          "id": "block-77b279fd",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "endAt": "2026-11-15T05:15:00.000Z",
-          "durationMinutes": 15,
-          "startAt": "2026-11-15T05:00:00.000Z",
+          "startAt": "2026-11-13T05:00:00.000Z",
           "kind": "break"
         },
         {
-          "kind": "proposed_focus",
-          "startAt": "2026-11-15T05:15:00.000Z",
-          "endAt": "2026-11-15T06:15:00.000Z",
-          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
           "durationMinutes": 60,
-          "id": "block-98e0c66f",
+          "kind": "proposed_focus",
+          "id": "block-13ee96ad",
           "taskId": "task-002",
-          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix"
+          "endAt": "2026-11-13T06:15:00.000Z",
+          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
+          "startAt": "2026-11-13T05:15:00.000Z"
         },
         {
-          "id": "block-c3bbfae2",
-          "endAt": "2026-11-15T06:30:00.000Z",
           "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-15T06:15:00.000Z",
+          "endAt": "2026-11-13T06:30:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "id": "block-e381738d",
           "durationMinutes": 15,
-          "kind": "break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions."
+          "startAt": "2026-11-13T06:15:00.000Z",
+          "kind": "break"
         },
         {
-          "id": "block-fd24b7c6",
-          "endAt": "2026-11-15T08:00:00.000Z",
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
           "kind": "proposed_focus",
           "taskId": "task-48ad6a41",
           "durationMinutes": 90,
-          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
-          "startAt": "2026-11-15T06:30:00.000Z",
-          "title": "Focus: E2E Integration Test Task"
+          "title": "Focus: E2E Integration Test Task",
+          "endAt": "2026-11-13T08:00:00.000Z",
+          "startAt": "2026-11-13T06:30:00.000Z",
+          "id": "block-624029a9"
+        },
+        {
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "durationMinutes": 15,
+          "endAt": "2026-11-13T08:15:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "kind": "break",
+          "startAt": "2026-11-13T08:00:00.000Z",
+          "id": "block-7554a457"
+        },
+        {
+          "startAt": "2026-11-13T08:15:00.000Z",
+          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
+          "taskId": "task-15963452",
+          "kind": "proposed_focus",
+          "title": "Focus: E2E Integration Test Task",
+          "endAt": "2026-11-13T09:45:00.000Z",
+          "durationMinutes": 90,
+          "id": "block-b22a36b2"
+        },
+        {
+          "kind": "break",
+          "id": "block-7a3aeb0f",
+          "startAt": "2026-11-13T09:45:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "durationMinutes": 15,
+          "title": "Scheduled Recovery Break",
+          "endAt": "2026-11-13T10:00:00.000Z"
+        },
+        {
+          "id": "block-1940cca5",
+          "endAt": "2026-11-13T11:00:00.000Z",
+          "title": "Focus: Project report",
+          "durationMinutes": 60,
+          "taskId": "task-97173f25",
+          "startAt": "2026-11-13T10:00:00.000Z",
+          "kind": "proposed_focus",
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot."
+        },
+        {
+          "kind": "break",
+          "startAt": "2026-11-13T11:00:00.000Z",
+          "durationMinutes": 15,
+          "id": "block-b33d4cb1",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "title": "Scheduled Recovery Break",
+          "endAt": "2026-11-13T11:15:00.000Z"
+        },
+        {
+          "taskId": "task-003",
+          "durationMinutes": 45,
+          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot.",
+          "endAt": "2026-11-13T12:00:00.000Z",
+          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
+          "startAt": "2026-11-13T11:15:00.000Z",
+          "id": "block-322d5061",
+          "kind": "proposed_focus"
         },
         {
           "title": "Scheduled Recovery Break",
-          "startAt": "2026-11-15T08:00:00.000Z",
+          "id": "block-f3ff3c8e",
           "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "endAt": "2026-11-13T12:15:00.000Z",
+          "durationMinutes": 15,
+          "startAt": "2026-11-13T12:00:00.000Z",
+          "kind": "break"
+        }
+      ],
+      "totalWorkMinutes": 435,
+      "conflicts": []
+    },
+    "plan-2026-11-02-701e77": {
+      "planDate": "2026-11-02",
+      "conflicts": [],
+      "id": "plan-2026-11-02-701e77",
+      "assumptions": [
+        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
+        "Fixed Google Calendar events take absolute scheduling precedence.",
+        "Tasks allocated sequentially by ML priority score into unbooked slots."
+      ],
+      "createdAt": "2026-11-02T13:22:41.520Z",
+      "totalWorkMinutes": 345,
+      "userId": "user-hitk-vinayak-001",
+      "timezone": "Asia/Kolkata",
+      "totalBreakMinutes": 45,
+      "blocks": [
+        {
+          "durationMinutes": 60,
+          "id": "block-bf1d0f5a",
+          "startAt": "2026-11-02T03:30:00.000Z",
+          "endAt": "2026-11-02T04:30:00.000Z",
+          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
+          "taskId": "task-001",
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
+          "kind": "proposed_focus"
+        },
+        {
+          "reason": "Fixed commitment from HITK Academic Schedule (Room 304, Main Building)",
+          "title": "CBS3293: Cloud & Distributed Systems Lecture",
+          "endAt": "2026-11-02T11:30:00+05:30",
+          "kind": "fixed_event_reference",
+          "id": "block-79c4717d",
+          "startAt": "2026-11-02T10:00:00+05:30",
+          "durationMinutes": 90
+        },
+        {
+          "taskId": "task-002",
+          "id": "block-9af46707",
+          "startAt": "2026-11-02T06:00:00.000Z",
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
+          "endAt": "2026-11-02T07:00:00.000Z",
+          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
+          "durationMinutes": 60,
+          "kind": "proposed_focus"
+        },
+        {
+          "durationMinutes": 15,
+          "kind": "break",
+          "id": "block-490521f5",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "startAt": "2026-11-02T07:00:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "endAt": "2026-11-02T07:15:00.000Z"
+        },
+        {
+          "endAt": "2026-11-02T08:45:00.000Z",
+          "title": "Focus: E2E Integration Test Task",
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
+          "taskId": "task-48ad6a41",
+          "startAt": "2026-11-02T07:15:00.000Z",
+          "id": "block-b1d18bfa",
+          "durationMinutes": 90,
+          "kind": "proposed_focus"
+        },
+        {
+          "kind": "break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "id": "block-85c71506",
+          "durationMinutes": 15,
+          "startAt": "2026-11-02T08:45:00.000Z",
+          "endAt": "2026-11-02T09:00:00.000Z",
+          "title": "Scheduled Recovery Break"
+        },
+        {
+          "startAt": "2026-11-02T14:30:00+05:30",
+          "id": "block-8f9ebc00",
+          "title": "Project Review with Prof. Sajal Mitra",
+          "endAt": "2026-11-02T15:30:00+05:30",
+          "kind": "fixed_event_reference",
+          "reason": "Fixed commitment from HITK Faculty Meetings (Faculty Cabin 12)",
+          "durationMinutes": 60
+        },
+        {
+          "id": "block-39b4e4d9",
+          "endAt": "2026-11-02T11:30:00.000Z",
+          "startAt": "2026-11-02T10:00:00.000Z",
+          "title": "Focus: E2E Integration Test Task",
+          "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
+          "taskId": "task-15963452",
+          "kind": "proposed_focus",
+          "durationMinutes": 90
+        },
+        {
+          "endAt": "2026-11-02T11:45:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "startAt": "2026-11-02T11:30:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "kind": "break",
+          "id": "block-822cfb93",
+          "durationMinutes": 15
+        },
+        {
+          "taskId": "task-97173f25",
+          "kind": "proposed_focus",
+          "durationMinutes": 45,
+          "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot.",
+          "startAt": "2026-11-02T11:45:00.000Z",
+          "title": "Focus: Project report",
+          "endAt": "2026-11-02T12:30:00.000Z",
+          "id": "block-f86194b2"
+        }
+      ]
+    },
+    "plan-2026-11-15-3e2e7e": {
+      "userId": "user-hitk-vinayak-001",
+      "planDate": "2026-11-15",
+      "totalBreakMinutes": 90,
+      "totalWorkMinutes": 435,
+      "timezone": "Asia/Kolkata",
+      "blocks": [
+        {
+          "kind": "proposed_focus",
+          "title": "Focus: Prepare Seminar 3 Slides for Prof. Sajal Mitra",
+          "endAt": "2026-11-15T05:00:00.000Z",
+          "reason": "ML Priority: HIGH (Score 93.3). Allocated in available unbooked slot.",
+          "startAt": "2026-11-15T03:30:00.000Z",
+          "taskId": "task-001",
+          "id": "block-2deb2106",
+          "durationMinutes": 90
+        },
+        {
+          "id": "block-77b279fd",
+          "startAt": "2026-11-15T05:00:00.000Z",
+          "durationMinutes": 15,
+          "kind": "break",
+          "endAt": "2026-11-15T05:15:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
+        },
+        {
+          "title": "Focus: Evaluate Random Forest Model with ROUGE & Confusion Matrix",
+          "endAt": "2026-11-15T06:15:00.000Z",
+          "reason": "ML Priority: HIGH (Score 90.7). Allocated in available unbooked slot.",
+          "id": "block-98e0c66f",
+          "taskId": "task-002",
+          "startAt": "2026-11-15T05:15:00.000Z",
+          "kind": "proposed_focus",
+          "durationMinutes": 60
+        },
+        {
+          "durationMinutes": 15,
+          "id": "block-c3bbfae2",
+          "kind": "break",
+          "startAt": "2026-11-15T06:15:00.000Z",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "title": "Scheduled Recovery Break",
+          "endAt": "2026-11-15T06:30:00.000Z"
+        },
+        {
+          "reason": "ML Priority: MEDIUM (Score 65.4). Allocated in available unbooked slot.",
+          "endAt": "2026-11-15T08:00:00.000Z",
+          "title": "Focus: E2E Integration Test Task",
+          "id": "block-fd24b7c6",
+          "durationMinutes": 90,
+          "taskId": "task-48ad6a41",
+          "kind": "proposed_focus",
+          "startAt": "2026-11-15T06:30:00.000Z"
+        },
+        {
+          "endAt": "2026-11-15T08:15:00.000Z",
+          "title": "Scheduled Recovery Break",
           "id": "block-715ddeb6",
           "durationMinutes": 15,
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
           "kind": "break",
-          "endAt": "2026-11-15T08:15:00.000Z"
+          "startAt": "2026-11-15T08:00:00.000Z"
         },
         {
-          "durationMinutes": 90,
-          "taskId": "task-15963452",
           "title": "Focus: E2E Integration Test Task",
-          "kind": "proposed_focus",
+          "endAt": "2026-11-15T09:45:00.000Z",
+          "startAt": "2026-11-15T08:15:00.000Z",
           "reason": "ML Priority: MEDIUM (Score 64.8). Allocated in available unbooked slot.",
           "id": "block-2e0b0f8a",
-          "endAt": "2026-11-15T09:45:00.000Z",
-          "startAt": "2026-11-15T08:15:00.000Z"
+          "durationMinutes": 90,
+          "taskId": "task-15963452",
+          "kind": "proposed_focus"
         },
         {
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "startAt": "2026-11-15T09:45:00.000Z",
-          "title": "Scheduled Recovery Break",
           "kind": "break",
-          "durationMinutes": 15,
+          "title": "Scheduled Recovery Break",
           "endAt": "2026-11-15T10:00:00.000Z",
-          "id": "block-c9e2d86a"
+          "id": "block-c9e2d86a",
+          "reason": "Prevents cognitive fatigue between intense focus sessions.",
+          "durationMinutes": 15,
+          "startAt": "2026-11-15T09:45:00.000Z"
         },
         {
           "durationMinutes": 60,
+          "kind": "proposed_focus",
+          "title": "Focus: Project report",
+          "startAt": "2026-11-15T10:00:00.000Z",
           "endAt": "2026-11-15T11:00:00.000Z",
           "reason": "ML Priority: MEDIUM (Score 56.8). Allocated in available unbooked slot.",
-          "kind": "proposed_focus",
-          "startAt": "2026-11-15T10:00:00.000Z",
-          "title": "Focus: Project report",
           "taskId": "task-97173f25",
           "id": "block-c6bbc7ee"
         },
         {
-          "id": "block-dfa10192",
           "title": "Scheduled Recovery Break",
-          "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "startAt": "2026-11-15T11:00:00.000Z",
+          "endAt": "2026-11-15T11:15:00.000Z",
           "kind": "break",
-          "durationMinutes": 15,
-          "endAt": "2026-11-15T11:15:00.000Z"
-        },
-        {
-          "endAt": "2026-11-15T12:00:00.000Z",
-          "durationMinutes": 45,
-          "taskId": "task-003",
-          "id": "block-2af92b4d",
-          "kind": "proposed_focus",
-          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
-          "startAt": "2026-11-15T11:15:00.000Z",
-          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot."
-        },
-        {
-          "title": "Scheduled Recovery Break",
           "reason": "Prevents cognitive fatigue between intense focus sessions.",
-          "startAt": "2026-11-15T12:00:00.000Z",
           "durationMinutes": 15,
+          "id": "block-dfa10192",
+          "startAt": "2026-11-15T11:00:00.000Z"
+        },
+        {
+          "id": "block-2af92b4d",
+          "durationMinutes": 45,
+          "title": "Focus: Submit HITK Library Due Books & Clearance Form",
+          "endAt": "2026-11-15T12:00:00.000Z",
+          "taskId": "task-003",
+          "reason": "ML Priority: MEDIUM (Score 54). Allocated in available unbooked slot.",
+          "kind": "proposed_focus",
+          "startAt": "2026-11-15T11:15:00.000Z"
+        },
+        {
+          "startAt": "2026-11-15T12:00:00.000Z",
           "id": "block-b7885bc8",
           "kind": "break",
-          "endAt": "2026-11-15T12:15:00.000Z"
+          "durationMinutes": 15,
+          "endAt": "2026-11-15T12:15:00.000Z",
+          "title": "Scheduled Recovery Break",
+          "reason": "Prevents cognitive fatigue between intense focus sessions."
         }
-      ]
-    },
-    "plan-2026-11-03-fd7576": {
-      "userId": "usr-521d76d8",
-      "blocks": [],
+      ],
+      "conflicts": [],
       "assumptions": [
         "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
         "Fixed Google Calendar events take absolute scheduling precedence.",
         "Tasks allocated sequentially by ML priority score into unbooked slots."
       ],
-      "createdAt": "2026-11-03T02:02:53.994Z",
-      "totalBreakMinutes": 0,
-      "id": "plan-2026-11-03-fd7576",
+      "createdAt": "2026-11-02T14:04:12.444Z",
+      "id": "plan-2026-11-15-3e2e7e"
+    },
+    "plan-2026-11-03-fd7576": {
+      "assumptions": [
+        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
+        "Fixed Google Calendar events take absolute scheduling precedence.",
+        "Tasks allocated sequentially by ML priority score into unbooked slots."
+      ],
       "timezone": "Asia/Kolkata",
-      "planDate": "2026-11-03",
       "conflicts": [],
-      "totalWorkMinutes": 0
+      "userId": "usr-521d76d8",
+      "id": "plan-2026-11-03-fd7576",
+      "createdAt": "2026-11-03T02:02:53.994Z",
+      "totalWorkMinutes": 0,
+      "blocks": [],
+      "planDate": "2026-11-03",
+      "totalBreakMinutes": 0
     }
   },
   "activityLogs": [
@@ -1632,6 +1632,27 @@
         "path": "/api/v1/documents/upload"
       },
       "createdAt": "2026-11-03T01:52:37.223Z"
+    },
+    {
+      "id": "act-ed2821d7",
+      "userId": "user-hitk-vinayak-001",
+      "action": "created",
+      "entityType": "calendar_event",
+      "entityId": "evt-8ef4d669",
+      "metadata": {
+        "title": "CSBS Seminar 3 Presentation",
+        "startAt": "2026-11-05T10:00:00.000Z"
+      },
+      "createdAt": "2026-11-03T02:36:43.769Z"
+    },
+    {
+      "id": "act-84a1a01b",
+      "userId": "user-hitk-vinayak-001",
+      "action": "deleted",
+      "entityType": "calendar_event",
+      "entityId": "evt-8ef4d669",
+      "metadata": {},
+      "createdAt": "2026-11-03T02:37:11.427Z"
     }
   ]
 }

@@ -47,6 +47,7 @@ router.post('/events', (req: AuthenticatedRequest, res: Response, next) => {
       endAt,
       isAllDay = false,
       calendarName = 'Personal',
+      eventType = 'meeting',
       location = '',
       description = '',
       color = '#3b82f6'
@@ -67,6 +68,7 @@ router.post('/events', (req: AuthenticatedRequest, res: Response, next) => {
       endAt: end,
       isAllDay: Boolean(isAllDay),
       calendarName: calendarName || 'Personal',
+      eventType: eventType || 'meeting',
       location: location || '',
       description: description || '',
       color: color || '#3b82f6',
@@ -110,6 +112,7 @@ router.patch('/events/:id', (req: AuthenticatedRequest, res: Response, next) => 
       endAt,
       isAllDay,
       calendarName,
+      eventType,
       location,
       description,
       color
@@ -122,6 +125,7 @@ router.patch('/events/:id', (req: AuthenticatedRequest, res: Response, next) => 
       endAt: endAt !== undefined ? new Date(endAt).toISOString() : existing.endAt,
       isAllDay: isAllDay !== undefined ? Boolean(isAllDay) : existing.isAllDay,
       calendarName: calendarName !== undefined ? calendarName : existing.calendarName,
+      eventType: eventType !== undefined ? eventType : existing.eventType,
       location: location !== undefined ? location : existing.location,
       description: description !== undefined ? description : existing.description,
       color: color !== undefined ? color : existing.color,
