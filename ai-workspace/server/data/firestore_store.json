@@ -225,6 +225,43 @@
       "sourceType": "manual",
       "createdAt": "2026-11-03T01:05:53.505Z",
       "updatedAt": "2026-11-03T01:05:53.505Z"
+    },
+    "task-9cd27f31": {
+      "sourceReference": "AI Assistant /create",
+      "description": "Created via Slash Command: /create",
+      "category": "project",
+      "title": "Presentation that is to be submiited on 5 nov, 19:00",
+      "userPriority": "high",
+      "createdAt": "2026-11-03T01:35:44.665Z",
+      "dependencyCount": 0,
+      "estimatedMinutes": 60,
+      "userId": "user-hitk-vinayak-001",
+      "isOverdue": false,
+      "predictedPriority": "high",
+      "sourceType": "ai",
+      "id": "task-9cd27f31",
+      "priorityScore": 92,
+      "status": "todo",
+      "updatedAt": "2026-11-03T01:35:44.665Z",
+      "dueAt": "2026-11-04T01:35:44.665Z"
+    },
+    "task-522d3529": {
+      "title": "Presentation that is to be submiited on 5 nov, 19:00",
+      "estimatedMinutes": 60,
+      "updatedAt": "2026-11-03T01:35:53.699Z",
+      "description": "",
+      "userId": "user-hitk-vinayak-001",
+      "category": "project",
+      "predictedPriority": "medium",
+      "status": "todo",
+      "dueAt": "2026-11-04T01:35:53.699Z",
+      "sourceType": "ai",
+      "createdAt": "2026-11-03T01:35:53.699Z",
+      "priorityScore": 57.4,
+      "isOverdue": false,
+      "id": "task-522d3529",
+      "userPriority": "high",
+      "dependencyCount": 0
     }
   },
   "notes": {
@@ -1527,6 +1564,19 @@
         "path": "/api/v1/tasks/task-fbda1fb0"
       },
       "createdAt": "2026-11-03T01:06:16.792Z"
+    },
+    {
+      "id": "act-c8521354",
+      "userId": "user-hitk-vinayak-001",
+      "action": "TASK_CREATED",
+      "entityType": "task",
+      "entityId": "task-522d3529",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/tasks",
+        "title": "Presentation that is to be submiited on 5 nov, 19:00"
+      },
+      "createdAt": "2026-11-03T01:35:53.738Z"
     }
   ]
 }

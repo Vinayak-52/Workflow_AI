@@ -28,7 +28,7 @@ export const TasksView: React.FC<{
   const [category, setCategory] = useState<TaskCategory>('project');
   const [userPriority, setUserPriority] = useState<TaskPriority>('medium');
   const [dueAt, setDueAt] = useState('');
-  const [estimatedMinutes, setEstimatedMinutes] = useState(60);
+  const [estimatedMinutes, setEstimatedMinutes] = useState<number | string>(60);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [repredictingId, setRepredictingId] = useState<string | null>(null);
@@ -102,7 +102,7 @@ export const TasksView: React.FC<{
         category,
         userPriority,
         dueAt: dueAt ? new Date(dueAt).toISOString() : new Date(Date.now() + 24 * 3600 * 1000).toISOString(),
-        estimatedMinutes
+        estimatedMinutes: Math.min(Math.max(Number(estimatedMinutes) || 60, 5), 500)
       });
       setTasks(prev => [res.task, ...prev]);
       handleCloseModal();
@@ -135,7 +135,7 @@ export const TasksView: React.FC<{
         category,
         userPriority,
         dueAt: dueAt ? new Date(dueAt).toISOString() : editingTask.dueAt,
-        estimatedMinutes
+        estimatedMinutes: Math.min(Math.max(Number(estimatedMinutes) || 60, 5), 500)
       });
       setTasks(prev => prev.map(t => (t.id === editingTask.id ? res.task : t)));
       handleCloseModal();
@@ -600,16 +600,53 @@ export const TasksView: React.FC<{
                 </div>
 
                 <div>
-                  <label className="block text-slate-600 dark:text-charcoal-400 mb-1 font-medium">Estimated Duration (mins)</label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-slate-600 dark:text-charcoal-400 font-medium">Estimated Duration (mins)</label>
+                    <span className="text-[10px] text-slate-400 dark:text-charcoal-500 font-mono">5 - 500 min</span>
+                  </div>
                   <input
                     type="number"
-                    min={15}
-                    max={480}
-                    step={15}
+                    min={5}
+                    max={500}
+                    step={1}
                     value={estimatedMinutes}
-                    onChange={e => setEstimatedMinutes(Number(e.target.value))}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500"
+                    placeholder="e.g. 45"
+                    onChange={e => {
+                      const val = e.target.value;
+                      if (val === '') {
+                        setEstimatedMinutes('' as any);
+                        return;
+                      }
+                      const num = parseInt(val, 10);
+                      if (!isNaN(num)) {
+                        setEstimatedMinutes(num);
+                      }
+                    }}
+                    onBlur={() => {
+                      let val = Number(estimatedMinutes);
+                      if (isNaN(val) || val < 5) val = 5;
+                      if (val > 500) val = 500;
+                      setEstimatedMinutes(val);
+                    }}
+                    className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-slate-900 dark:text-charcoal-200 focus:border-brand-500 outline-none"
                   />
+                  {/* Quick duration presets */}
+                  <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+                    {[15, 30, 45, 60, 90, 120, 180].map(mins => (
+                      <button
+                        key={mins}
+                        type="button"
+                        onClick={() => setEstimatedMinutes(mins)}
+                        className={`text-[10px] px-2 py-0.5 rounded font-medium transition cursor-pointer ${
+                          Number(estimatedMinutes) === mins
+                            ? 'bg-blue-600 text-white dark:bg-brand-500'
+                            : 'bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-slate-600 dark:text-charcoal-300'
+                        }`}
+                      >
+                        {mins}m
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
