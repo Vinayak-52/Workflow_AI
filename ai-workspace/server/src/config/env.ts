@@ -4,12 +4,8 @@ import fs from 'fs';
 
 const candidateEnvPaths = [
   path.resolve(process.cwd(), '.env'),
-  path.resolve(process.cwd(), '..', '.env'),
   path.resolve(process.cwd(), 'ai-workspace/server/.env'),
-  path.resolve(process.cwd(), 'server/.env'),
-  path.resolve(__dirname, '../../../.env'),
-  path.resolve(__dirname, '../../.env'),
-  path.resolve(__dirname, '../.env')
+  path.resolve(process.cwd(), 'server/.env')
 ];
 
 for (const p of candidateEnvPaths) {
@@ -29,6 +25,5 @@ export const CONFIG = {
   FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY || '',
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || '',
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || '',
-  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || '',
-  GEMINI_API_KEY: process.env.GEMINI_API_KEY || ''
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || ''
 };
