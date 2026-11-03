@@ -37,6 +37,25 @@
       },
       "passwordHash": "$2a$10$Cabct1qf9OP8NdDsg7ai.O4bYhoXE7MerM./JIOAnxUOYbe7H8EFm",
       "email": "rog@hitk.edu.in"
+    },
+    "usr-002d1c6c": {
+      "id": "usr-002d1c6c",
+      "username": "ayantik.goswami.csbs27@heritageit.edu.in",
+      "email": "ayantik.goswami.csbs27@heritageit.edu.in@hitk.edu.in",
+      "displayName": "Ayantik Goswami",
+      "passwordHash": "$2a$10$yTKZZgxRWykiHNYl1d012OHZNt4Ks2yx4KYz/aVnlpXFq/WPOJikG",
+      "timezone": "Asia/Kolkata",
+      "preferences": {
+        "theme": "dark",
+        "timezone": "Asia/Kolkata",
+        "workingHours": {
+          "start": "09:00",
+          "end": "18:00"
+        },
+        "breakDurationMinutes": 15
+      },
+      "createdAt": "2026-11-03T03:53:30.937Z",
+      "updatedAt": "2026-11-03T03:53:30.937Z"
     }
   },
   "tasks": {
@@ -366,6 +385,41 @@
       "id": "doc-9a6ca327",
       "summary": "VINAYAK CHANDRA 9608527498 | Kolkata, India | vinayakchandra69@gmail.com | linkedin.com/in/vinayak Computer Science and Business Systems student with a strong foundation in software development, data analytics, and web technologies. Passionate about building intelligent, technology-driven solutions with hands-on experience in UI/UX design, data structures, and end-to-end project delivery. Demonstrated leadership through event organisation, team management, and technical projects. · Gained practical experience in version control, debugging, and software development workflows. Property Listing Portal 2025 · Built a PHP-based property portal hosted on Hostinger (Linux/Apache), using unique property-ID URLs. Doombox · Gaming Social Network 2025 · Built a full-stack gaming social network using React, Node.js, Express.js, and SQLite. · Developed backend API routes to connect the frontend with application and game data.",
       "sizeBytes": 300610
+    },
+    "doc-0f33b56e": {
+      "id": "doc-0f33b56e",
+      "userId": "usr-002d1c6c",
+      "fileName": "8_Weeks_Plan_Filled (1).pdf",
+      "filePath": "C:\\Users\\Ayantik Goswami\\Code\\FinalYear\\ai-workspace\\server\\uploads\\doc-1793678478307-abf4bd.pdf",
+      "mimeType": "application/pdf",
+      "sizeBytes": 311617,
+      "extractedText": "Department of Computer Science and Business Systems, HITK Eight Weeks Plan Title of the Project: AI Workspace Mentor: Prof. Sajal Mitra Week1: Member 1: Finalize ML requirements, priority factors, and AI workflow Member 2: Set up Git repository, Node/Express project, and database design Member 3: Create React project, dashboard wireframe, and component plan Member 4: Prepare research - to - feature mapping, test plan, and acceptance criteria Week2: Member 1: Create synthetic ta sk dataset and baseline priority rules Member 2: Build task, note, user, and deadline REST APIs Member 3: Build login, dashboard, and task - create screens Member 4: Research suitable prioritization metrics and validate sample task data Week3: Member 1: Tra in and evaluate initial Random Forest task - prioritization model Member 2: Connect backend to Firebase/Firestore and implement authentication Member 3: Integrate task UI with APIs; add task - list, edit, and delete interfaces Member 4: Test CRUD APIs through Postman and document defects Week4: Member 1: Design smart - reminder logic using urgency, deadlines, workload, and available time . Member 2: Implement reminder service and notification scheduling endpoints Member 3: Build calendar, priority labels, filters, and reminder settings UI\nMember 4: Test task - priority and reminder cases, including missed or overdue tasks Week5: Member 1: Integrate a pre - trained summarization model; evaluate factuality and summary quality Me mber 2: Build document - upload API and Firebase Storage integration Member 3: Build document upload, notes, and summary - result screens Member 4: Prepare document test set; evaluate summary relevance, clarity, and errors Week6: Member 1: Improve priority mo del using completion - history feedback; define continuous - learning workflow Member 2: Add activity logging, model - input endpoint, validation, and error handling Member 3: Add recommendation panel, loading/error states, and responsive UI Member 4: Run integr ation testing across frontend, APIs, database, and AI services Week 7: Member 1: Document AI model, data fields, limitations, and future RL enhancement Member 2: Prepare cloud deployment configuration, API documentation, and backup rules Member 3: Polish UI, improve accessibility, and prepare live demo screens Member 4: Conduct user testing, security/basic privacy checks, and regression testing Week8: Member 1: Present AI methodology and final model results Member 2: Deploy final prototype and support live demo Member 3: Demonstrate frontend workflow and dashboard features Member 4: Compile test report, research references, known risks, and final QA Reference : Member 1 > Ayantik Goswami Member 2 > Ankit Kumar Kunwar Member 3 > Vinayak Chandra Member 4 > Yash Raj\nName Class Roll No. Signature 1 Ayantik Goswami 2360006 2 Yash Raj 2360014 3 Ankit Kumar Kunwar 2360031 4 Vinayak Chandra 2360035",
+      "summary": "Department of Computer Science and Business Systems, HITK Eight Weeks Plan Title of the Project: AI Workspace Mentor: Prof. Signature 1 Ayantik Goswami 2360006 2 Yash Raj 2360014 3 Ankit Kumar Kunwar 2360031 4 Vinayak Chandra 2360035",
+      "keyTakeaways": [
+        "Department of Computer Science and Business Systems, HITK Eight Weeks Plan Title of the Project: AI Workspace Mentor: Prof.",
+        "Signature 1 Ayantik Goswami 2360006 2 Yash Raj 2360014 3 Ankit Kumar Kunwar 2360031 4 Vinayak Chandra 2360035"
+      ],
+      "factualityScore": 1,
+      "createdAt": "2026-11-03T04:01:18.688Z"
+    },
+    "doc-d075e70b": {
+      "id": "doc-d075e70b",
+      "userId": "usr-002d1c6c",
+      "fileName": "MODULE 3 SUGGESTIVE QUESTIONS.docx.pdf",
+      "filePath": "C:\\Users\\Ayantik Goswami\\Code\\FinalYear\\ai-workspace\\server\\uploads\\doc-1793678909036-8e3888.pdf",
+      "mimeType": "application/pdf",
+      "sizeBytes": 28223,
+      "extractedText": "1. Describe AI-native network slicing architecture for 6G. 2. Justify whether spectrum sensing in Cognitive Radio can enable efficient spectrum resource management. 3. Discuss the major challenges involved in spectrum sensing techniques. 4. Explain how Deep Learning improves spectrum sensing performance. 5. Explain the concept of network slicing in modern wireless networks. 6. Explain the concept of spectrum sensing and its role in wireless communication. 7. Analyze AI-based solutions across different phases of network slicing lifecycle. 8. Explain the advantages of Artificial Intelligence based spectrum sensing. 9. Illustrate spectrum sensing using multiple networks operating in different frequency bands. 10. Analyze whether hybrid Machine Learning models can enhance spectrum sensing performance. 11. Explain the application of Reinforcement Learning in spectrum sensing. 12. Differentiate between Neural Networks and Deep Neural Networks. 13. Discuss benefits, challenges and future scope of AI-driven spectrum sensing. 14. List and explain different spectrum sensing schemes. 15. Discuss the role of Artificial Intelligence in network slicing. 16. Evaluate the role of Cognitive Radio Networks in intelligent mobility management. 17. Describe the composition and working of the Spectrum Management Framework (SMF). 18. List and describe advanced spectrum sensing methods. 19. Explain the applications of Deep Neural Networks in spectrum sensing. 20. Explain the procedure of information exchange in AI-driven network slicing. 21. Explain the role of Federated Learning in spectrum sensing. 22. Explain the concepts of decision metric and threshold in conventional spectrum sensing. 23. Describe the role of Convolutional Neural Networks in cooperative spectrum sensing. 24. Explain how Machine Learning techniques are applied in spectrum sensing.\n25. Discuss challenges in 6G and AI-powered multiple access systems.",
+      "summary": "Justify whether spectrum sensing in Cognitive Radio can enable efficient spectrum resource management. Explain how Deep Learning improves spectrum sensing performance. Explain the concept of spectrum sensing and its role in wireless communication. Explain the advantages of Artificial Intelligence based spectrum sensing. Explain the role of Federated Learning in spectrum sensing.",
+      "keyTakeaways": [
+        "Justify whether spectrum sensing in Cognitive Radio can enable efficient spectrum resource management.",
+        "Explain how Deep Learning improves spectrum sensing performance.",
+        "Explain the concept of spectrum sensing and its role in wireless communication.",
+        "Explain the advantages of Artificial Intelligence based spectrum sensing.",
+        "Explain the role of Federated Learning in spectrum sensing."
+      ],
+      "factualityScore": 1,
+      "createdAt": "2026-11-03T04:08:29.086Z"
     }
   },
   "calendarEvents": {
@@ -1168,6 +1222,22 @@
       "blocks": [],
       "planDate": "2026-11-03",
       "totalBreakMinutes": 0
+    },
+    "plan-2026-11-03-8da2fb": {
+      "id": "plan-2026-11-03-8da2fb",
+      "userId": "usr-002d1c6c",
+      "planDate": "2026-11-03",
+      "timezone": "Asia/Kolkata",
+      "blocks": [],
+      "totalWorkMinutes": 0,
+      "totalBreakMinutes": 0,
+      "conflicts": [],
+      "assumptions": [
+        "Working hours standard: 09:00 to 18:00 (Asia/Kolkata)",
+        "Fixed Google Calendar events take absolute scheduling precedence.",
+        "Tasks allocated sequentially by ML priority score into unbooked slots."
+      ],
+      "createdAt": "2026-11-03T03:53:31.049Z"
     }
   },
   "activityLogs": [
@@ -1653,6 +1723,30 @@
       "entityId": "evt-8ef4d669",
       "metadata": {},
       "createdAt": "2026-11-03T02:37:11.427Z"
+    },
+    {
+      "id": "act-525a284b",
+      "userId": "usr-002d1c6c",
+      "action": "DOCUMENT_UPLOADED",
+      "entityType": "document",
+      "entityId": "entity-action",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/documents/upload"
+      },
+      "createdAt": "2026-11-03T04:01:18.691Z"
+    },
+    {
+      "id": "act-7d9b5c25",
+      "userId": "usr-002d1c6c",
+      "action": "DOCUMENT_UPLOADED",
+      "entityType": "document",
+      "entityId": "entity-action",
+      "metadata": {
+        "method": "POST",
+        "path": "/api/v1/documents/upload"
+      },
+      "createdAt": "2026-11-03T04:08:29.090Z"
     }
   ]
 }

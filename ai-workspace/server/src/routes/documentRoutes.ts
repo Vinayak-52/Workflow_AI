@@ -15,6 +15,8 @@ import { activityLogger } from '../middleware/activityLogger.js';
 import { MLClient } from '../services/mlClient.js';
 import { askDocumentWithGemini } from '../services/geminiService.js';
 import { DocumentRecord } from '../models/types.js';
+import { extractDocumentText, isBinaryGarbage } from '../services/documentExtractor.js';
+import { generateDocumentSummary } from '../services/nlpSummarizer.js';
 
 const uploadDir = path.resolve(process.cwd(), 'uploads');
 if (!fs.existsSync(uploadDir)) {
@@ -63,32 +65,8 @@ router.post('/upload', upload.single('file'), activityLogger('document', 'DOCUME
     }
 
     const filePath = req.file.path;
-    let extractedText = '';
-
-    // Extract text cleanly using ML service (supports PDF, DOCX, TXT, MD, etc.)
-    const ext = path.extname(req.file.originalname).toLowerCase();
-    if (ext === '.txt' || ext === '.md' || ext === '.markdown' || ext === '.json') {
-      try {
-        extractedText = fs.readFileSync(filePath, 'utf-8');
-      } catch (_) {
-        extractedText = await MLClient.extractText(filePath);
-      }
-    } else {
-      extractedText = await MLClient.extractText(filePath);
-      if (!extractedText || extractedText.trim().length === 0) {
-        // Fallback for unrecognized formats
-        const buffer = fs.readFileSync(filePath);
-        extractedText = buffer.toString('utf-8').replace(/[^\x20-\x7E\t\r\n]/g, ' ');
-        extractedText = extractedText.replace(/\s{2,}/g, ' ').trim();
-      }
-    }
-
-    if (!extractedText || extractedText.trim().length < 10) {
-      extractedText = `Extracted content from ${req.file.originalname}. Analysis pending.`;
-    }
-
-    // Auto-generate preliminary extractive summary with 7 high-salience points
-    const summaryResult = await MLClient.summarize(extractedText, 7);
+    const extractedText = await extractDocumentText(filePath, req.file.originalname);
+    const summaryResult = await generateDocumentSummary(req.file.originalname, extractedText, 5);
 
     const docRecord: DocumentRecord = {
       id: `doc-${uuidv4().slice(0, 8)}`,
@@ -132,8 +110,11 @@ router.post('/:id/summarize', async (req: AuthenticatedRequest, res: Response, n
       return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Document not found' } });
     }
 
-    const { maxSentences = 7 } = req.body;
-    const summaryResult = await MLClient.summarize(doc.extractedText, maxSentences);
+    if (isBinaryGarbage(doc.extractedText) && fs.existsSync(doc.filePath)) {
+      doc.extractedText = await extractDocumentText(doc.filePath, doc.fileName);
+    }
+    const { maxSentences = 5 } = req.body;
+    const summaryResult = await generateDocumentSummary(doc.fileName, doc.extractedText, maxSentences);
 
     doc.summary = summaryResult.summary;
     doc.keyTakeaways = summaryResult.key_takeaways;
@@ -165,6 +146,11 @@ router.post('/:id/ask', async (req: AuthenticatedRequest, res: Response, next) =
     const { question } = req.body;
     if (!question || typeof question !== 'string' || !question.trim()) {
       return res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'Question string is required' } });
+    }
+
+    if (isBinaryGarbage(doc.extractedText) && fs.existsSync(doc.filePath)) {
+      doc.extractedText = await extractDocumentText(doc.filePath, doc.fileName);
+      db.saveDocument(doc);
     }
 
     const result = await askDocumentWithGemini(doc.fileName, doc.extractedText, question.trim());

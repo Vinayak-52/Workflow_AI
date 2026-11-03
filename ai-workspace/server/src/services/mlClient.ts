@@ -4,6 +4,7 @@
  */
 
 import { CONFIG } from '../config/env.js';
+import { generateDocumentSummary } from './nlpSummarizer.js';
 
 export interface MLPriorityResponse {
   predicted_priority: 'low' | 'medium' | 'high';
@@ -79,7 +80,7 @@ export class MLClient {
     return '';
   }
 
-  static async summarize(text: string, maxSentences: number = 3): Promise<any> {
+  static async summarize(text: string, maxSentences: number = 5): Promise<any> {
     try {
       const response = await fetch(`${this.baseUrl}/summarize`, {
         method: 'POST',
@@ -93,17 +94,9 @@ export class MLClient {
     } catch (e) {
       // Fallback
     }
-    // Simple heuristic summary fallback
-    const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.trim().length > 15);
-    const summary = sentences.slice(0, maxSentences).join(' ');
-    return {
-      summary: summary || text.slice(0, 200),
-      key_takeaways: sentences.slice(0, maxSentences),
-      action_items: [],
-      compression_ratio: Math.round((summary.length / Math.max(1, text.length)) * 100) / 100,
-      factuality_score: 1.0,
-      fallback: true
-    };
+
+    // Call advanced NLP Summarization Engine (Gemini 2.0 Flash + Extractive Salience MMR)
+    return await generateDocumentSummary('Document', text, maxSentences);
   }
 
   static async recordFeedback(feedbackData: any): Promise<any> {

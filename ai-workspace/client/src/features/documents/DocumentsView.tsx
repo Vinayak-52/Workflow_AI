@@ -12,6 +12,7 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
   const [selectedDoc, setSelectedDoc] = useState<DocumentRecord | null>(null);
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  const [isSummarizing, setIsSummarizing] = useState(false);
 
   // Ask Document QA States
   const [isAskModalOpen, setIsAskModalOpen] = useState(false);
@@ -40,6 +41,22 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
       }
     } catch (e) {
       console.error(e);
+    }
+  };
+
+  const handleResummarize = async (id: string) => {
+    if (isSummarizing) return;
+    setIsSummarizing(true);
+    try {
+      const res = await api.summarizeDocument(id, 5);
+      setDocuments(prev => prev.map(d => (d.id === id ? { ...d, summary: res.summary, keyTakeaways: res.keyTakeaways, factualityScore: res.factualityScore } : d)));
+      if (selectedDoc?.id === id) {
+        setSelectedDoc(prev => prev ? { ...prev, summary: res.summary, keyTakeaways: res.keyTakeaways, factualityScore: res.factualityScore } : null);
+      }
+    } catch (e: any) {
+      alert(`Re-summarization failed: ${e.message}`);
+    } finally {
+      setIsSummarizing(false);
     }
   };
 
