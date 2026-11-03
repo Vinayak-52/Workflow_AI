@@ -13,6 +13,7 @@ import { db } from '../database/store.js';
 import { authMiddleware, AuthenticatedRequest } from '../middleware/auth.js';
 import { activityLogger } from '../middleware/activityLogger.js';
 import { MLClient } from '../services/mlClient.js';
+import { askDocumentWithGemini } from '../services/geminiService.js';
 import { DocumentRecord } from '../models/types.js';
 
 const uploadDir = path.resolve(process.cwd(), 'uploads');
@@ -147,6 +148,33 @@ router.post('/:id/summarize', async (req: AuthenticatedRequest, res: Response, n
       actionItems: summaryResult.action_items,
       factualityScore: summaryResult.factuality_score,
       compressionRatio: summaryResult.compression_ratio
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Ask Question about Document (Grounded Gemini QA)
+router.post('/:id/ask', async (req: AuthenticatedRequest, res: Response, next) => {
+  try {
+    const doc = db.getDocumentById(req.params.id, req.user!.id);
+    if (!doc) {
+      return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'Document not found' } });
+    }
+
+    const { question } = req.body;
+    if (!question || typeof question !== 'string' || !question.trim()) {
+      return res.status(400).json({ error: { code: 'VALIDATION_ERROR', message: 'Question string is required' } });
+    }
+
+    const result = await askDocumentWithGemini(doc.fileName, doc.extractedText, question.trim());
+
+    return res.json({
+      documentId: doc.id,
+      fileName: doc.fileName,
+      question: question.trim(),
+      answer: result.answer,
+      model: result.model
     });
   } catch (err) {
     next(err);

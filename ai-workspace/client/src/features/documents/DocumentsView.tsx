@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import {
   Upload, FileText, Sparkles, Trash2, CheckCircle, AlertCircle,
-  FileCheck, Download, Bot, RefreshCw, Layers
+  FileCheck, Download, Bot, RefreshCw, Layers, MessageSquare, Send, X, Copy, Check, HelpCircle
 } from 'lucide-react';
 import { api } from '../../services/api.ts';
 import { DocumentRecord } from '../../types/index.ts';
+import { FormattedMessage } from '../../components/FormattedMessage.tsx';
 
 export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTaskCreated }) => {
   const [documents, setDocuments] = useState<DocumentRecord[]>([]);
   const [selectedDoc, setSelectedDoc] = useState<DocumentRecord | null>(null);
   const [uploading, setUploading] = useState(false);
-  const [summarizing, setSummarizing] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+
+  // Ask Document QA States
+  const [isAskModalOpen, setIsAskModalOpen] = useState(false);
+  const [askQuestion, setAskQuestion] = useState('');
+  const [isAsking, setIsAsking] = useState(false);
+  const [qaHistory, setQaHistory] = useState<Array<{ question: string; answer: string; model?: string; timestamp: string }>>([]);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const quickPrompts = [
+    'What are the main skills & technical proficiencies?',
+    'Summarize work experience and projects',
+    'What are the key takeaways & core points?',
+    'List contact details and qualifications'
+  ];
 
   useEffect(() => {
     loadDocs();
@@ -43,18 +57,33 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
     }
   };
 
-  const handleDeepSummarize = async () => {
-    if (!selectedDoc) return;
-    setSummarizing(true);
+  const handleAsk = async (queryText?: string) => {
+    const q = (queryText || askQuestion).trim();
+    if (!q || !selectedDoc || isAsking) return;
+
+    setIsAsking(true);
+    setAskQuestion('');
+
     try {
-      const res = await api.summarizeDocument(selectedDoc.id, 7);
-      setSelectedDoc(prev => (prev ? { ...prev, summary: res.summary, keyTakeaways: res.keyTakeaways, factualityScore: res.factualityScore } : null));
-      setDocuments(prev => prev.map(d => (d.id === selectedDoc.id ? { ...d, summary: res.summary, keyTakeaways: res.keyTakeaways } : d)));
-    } catch (e: any) {
-      alert(`Summarization failed: ${e.message}`);
+      const res = await api.askDocument(selectedDoc.id, q);
+      const newEntry = {
+        question: q,
+        answer: res.answer,
+        model: res.model,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      setQaHistory(prev => [newEntry, ...prev]);
+    } catch (err: any) {
+      alert(`Error querying document: ${err.message}`);
     } finally {
-      setSummarizing(false);
+      setIsAsking(false);
     }
+  };
+
+  const copyAnswer = (text: string, idx: number) => {
+    navigator.clipboard.writeText(text);
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 2000);
   };
 
   const handleDelete = async (id: string) => {
@@ -172,7 +201,7 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
           </div>
         </div>
 
-        {/* Summary Detail Card */}
+        {/* Summary & Q&A Detail Card */}
         <div className="md:col-span-2">
           {selectedDoc ? (
             <div className="p-6 rounded-2xl bg-white dark:bg-charcoal-900 border border-slate-200/80 dark:border-charcoal-800 space-y-5 shadow-sm">
@@ -187,13 +216,101 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
                   </p>
                 </div>
                 <button
-                  onClick={handleDeepSummarize}
-                  disabled={summarizing}
-                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold shadow-md shadow-brand-500/20 transition disabled:opacity-50"
+                  type="button"
+                  onClick={() => setIsAskModalOpen(true)}
+                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-500/20 transition cursor-pointer"
                 >
-                  <Sparkles className={`w-3.5 h-3.5 ${summarizing ? 'animate-spin' : ''}`} />
-                  {summarizing ? 'Analyzing...' : 'Deep Re-summarize'}
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>Ask Document</span>
                 </button>
+              </div>
+
+              {/* Quick Document Q&A Section */}
+              <div className="p-4 rounded-xl bg-blue-50/40 dark:bg-charcoal-950/60 border border-blue-100 dark:border-charcoal-800 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-900 dark:text-charcoal-100 flex items-center gap-1.5">
+                    <HelpCircle className="w-4 h-4 text-blue-600 dark:text-brand-400" />
+                    Ask Questions from this Document
+                  </span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-brand-400 border border-blue-500/20 font-semibold font-mono">
+                    Gemini Grounded Q&amp;A
+                  </span>
+                </div>
+
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    handleAsk();
+                  }}
+                  className="flex items-center gap-2"
+                >
+                  <input
+                    type="text"
+                    value={askQuestion}
+                    onChange={e => setAskQuestion(e.target.value)}
+                    placeholder={`Ask anything about ${selectedDoc.fileName}...`}
+                    className="flex-1 px-3 py-2 rounded-xl bg-white dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-700 text-xs text-slate-900 dark:text-charcoal-100 placeholder-slate-400 dark:placeholder-charcoal-500 focus:border-blue-500 outline-none"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isAsking || !askQuestion.trim()}
+                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-xs font-semibold flex items-center gap-1.5 transition shrink-0 cursor-pointer shadow-xs"
+                  >
+                    {isAsking ? (
+                      <Sparkles className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Send className="w-3.5 h-3.5" />
+                    )}
+                    <span>{isAsking ? 'Thinking...' : 'Ask'}</span>
+                  </button>
+                </form>
+
+                {/* Suggestions */}
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="text-[10px] text-slate-400 dark:text-charcoal-500 font-medium">Suggestions:</span>
+                  {quickPrompts.map((qp, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => handleAsk(qp)}
+                      className="px-2.5 py-1 rounded-lg bg-white dark:bg-charcoal-900 hover:bg-slate-100 dark:hover:bg-charcoal-800 text-slate-700 dark:text-charcoal-300 text-[10px] border border-slate-200 dark:border-charcoal-700 transition cursor-pointer"
+                    >
+                      {qp}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Latest Q&A Result */}
+                {qaHistory.length > 0 && (
+                  <div className="mt-3 p-4 rounded-xl bg-white dark:bg-charcoal-900 border border-blue-200 dark:border-charcoal-700 space-y-2 shadow-xs">
+                    <div className="flex items-center justify-between text-xs pb-1 border-b border-slate-100 dark:border-charcoal-800">
+                      <span className="font-bold text-slate-900 dark:text-charcoal-100 flex items-center gap-1.5">
+                        <Bot className="w-4 h-4 text-blue-600 dark:text-brand-400" />
+                        Q: {qaHistory[0].question}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono text-slate-400 dark:text-charcoal-500">
+                          {qaHistory[0].model || 'Gemini'}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => copyAnswer(qaHistory[0].answer, 0)}
+                          className="text-slate-400 hover:text-slate-600 dark:hover:text-charcoal-200 p-1"
+                          title="Copy answer"
+                        >
+                          {copiedIdx === 0 ? (
+                            <Check className="w-3.5 h-3.5 text-emerald-500" />
+                          ) : (
+                            <Copy className="w-3.5 h-3.5" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                    <div className="text-xs text-slate-800 dark:text-charcoal-200 leading-relaxed font-sans">
+                      <FormattedMessage content={qaHistory[0].answer} />
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Summary Results */}
@@ -247,6 +364,139 @@ export const DocumentsView: React.FC<{ onTaskCreated?: () => void }> = ({ onTask
           )}
         </div>
       </div>
+
+      {/* Ask Document Modal */}
+      {isAskModalOpen && selectedDoc && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 dark:bg-charcoal-950/80 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="w-full max-w-2xl bg-white dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-800 rounded-2xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+            {/* Modal Header */}
+            <div className="p-4 border-b border-slate-100 dark:border-charcoal-800 flex items-center justify-between bg-slate-50/60 dark:bg-charcoal-950/40">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-brand-600/20 text-blue-600 dark:text-brand-400 flex items-center justify-center border border-blue-200/80 dark:border-brand-500/30">
+                  <MessageSquare className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-charcoal-100">
+                    Ask Document: {selectedDoc.fileName}
+                  </h3>
+                  <p className="text-[10px] text-slate-500 dark:text-charcoal-400">
+                    Grounded strictly on document contents using Gemini AI
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsAskModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 dark:text-charcoal-400 dark:hover:text-charcoal-200 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-charcoal-800 transition cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Q&A Body */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {/* Suggestions */}
+              <div className="space-y-1.5">
+                <span className="text-[10px] font-semibold text-slate-400 dark:text-charcoal-500 uppercase tracking-wider">
+                  Suggested Questions
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {quickPrompts.map((qp, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => handleAsk(qp)}
+                      className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-slate-700 dark:text-charcoal-300 text-[11px] transition text-left cursor-pointer"
+                    >
+                      {qp}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Q&A Thread */}
+              {qaHistory.length === 0 ? (
+                <div className="py-12 text-center text-xs text-slate-400 dark:text-charcoal-500 space-y-2">
+                  <Bot className="w-8 h-8 mx-auto opacity-40 text-blue-500" />
+                  <p className="font-semibold text-slate-600 dark:text-charcoal-400">
+                    No questions asked yet for this document.
+                  </p>
+                  <p className="text-[11px]">
+                    Type a question below or choose a suggestion to get instant answers.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {qaHistory.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-xl bg-slate-50 dark:bg-charcoal-850/80 border border-slate-200/80 dark:border-charcoal-750 space-y-2"
+                    >
+                      <div className="flex items-center justify-between text-xs pb-1 border-b border-slate-200/60 dark:border-charcoal-700">
+                        <span className="font-bold text-slate-900 dark:text-charcoal-100 flex items-center gap-1.5">
+                          <Bot className="w-3.5 h-3.5 text-blue-600 dark:text-brand-400" />
+                          {item.question}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-mono text-slate-400 dark:text-charcoal-500">
+                            {item.model || 'Gemini'} • {item.timestamp}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => copyAnswer(item.answer, idx)}
+                            className="text-slate-400 hover:text-slate-600 dark:hover:text-charcoal-200 p-1 cursor-pointer"
+                            title="Copy answer"
+                          >
+                            {copiedIdx === idx ? (
+                              <Check className="w-3.5 h-3.5 text-emerald-500" />
+                            ) : (
+                              <Copy className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                      <div className="text-xs text-slate-800 dark:text-charcoal-200 leading-relaxed font-sans">
+                        <FormattedMessage content={item.answer} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Modal Input Footer */}
+            <div className="p-3 border-t border-slate-100 dark:border-charcoal-800 bg-white dark:bg-charcoal-900">
+              <form
+                onSubmit={e => {
+                  e.preventDefault();
+                  handleAsk();
+                }}
+                className="flex items-center gap-2"
+              >
+                <input
+                  type="text"
+                  value={askQuestion}
+                  onChange={e => setAskQuestion(e.target.value)}
+                  placeholder={`Ask a question about ${selectedDoc.fileName}...`}
+                  className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-charcoal-800 border border-slate-200 dark:border-charcoal-700 text-xs text-slate-900 dark:text-charcoal-100 placeholder-slate-400 dark:placeholder-charcoal-500 focus:border-blue-500 outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={isAsking || !askQuestion.trim()}
+                  className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-xs font-semibold flex items-center gap-1.5 transition shrink-0 cursor-pointer shadow-md shadow-blue-500/20"
+                >
+                  {isAsking ? (
+                    <Sparkles className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <Send className="w-3.5 h-3.5" />
+                  )}
+                  <span>{isAsking ? 'Analyzing...' : 'Ask'}</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

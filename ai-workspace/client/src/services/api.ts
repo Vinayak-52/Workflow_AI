@@ -182,6 +182,19 @@ class ApiService {
     });
   }
 
+  async askDocument(id: string, question: string): Promise<{
+    documentId: string;
+    fileName: string;
+    question: string;
+    answer: string;
+    model: string;
+  }> {
+    return this.request(`/documents/${id}/ask`, {
+      method: 'POST',
+      body: JSON.stringify({ question })
+    });
+  }
+
   async deleteDocument(id: string): Promise<any> {
     return this.request(`/documents/${id}`, { method: 'DELETE' });
   }

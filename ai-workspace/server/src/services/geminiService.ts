@@ -299,3 +299,94 @@ export async function chatWithGemini(
 
   throw new Error(`Gemini API error: ${lastError?.message || 'Failed to generate response'}`);
 }
+
+/**
+ * Question Answering grounded strictly on an uploaded document using Gemini with fallback
+ */
+export async function askDocumentWithGemini(
+  documentName: string,
+  documentText: string,
+  question: string
+): Promise<{ answer: string; model: string }> {
+  const apiKey = CONFIG.GEMINI_API_KEY;
+  const trimmedQ = (question || '').trim();
+  if (!trimmedQ) {
+    return { answer: 'Please enter a question to ask about this document.', model: 'local' };
+  }
+
+  if (apiKey) {
+    const systemPrompt = `You are an expert Document Q&A Assistant embedded in the AI Workspace.
+Answer the user's question accurately, concisely, and factually based STRICTLY on the document text provided below.
+If the information needed to answer the question is not in the document, explicitly say: "This information is not mentioned in the document."
+Use clean markdown formatting, bold keywords, and concise bullet points.`;
+
+    const truncatedDoc = documentText.length > 35000
+      ? documentText.slice(0, 35000) + '\n\n[... Remaining content truncated for token limits ...]'
+      : documentText;
+
+    const userPrompt = `DOCUMENT NAME: ${documentName}\n\n=== DOCUMENT TEXT ===\n${truncatedDoc}\n=== END DOCUMENT TEXT ===\n\nUSER QUESTION: ${trimmedQ}`;
+
+    const payload = {
+      system_instruction: {
+        parts: [{ text: systemPrompt }]
+      },
+      contents: [
+        {
+          role: 'user',
+          parts: [{ text: userPrompt }]
+        }
+      ],
+      generationConfig: {
+        maxOutputTokens: 1000,
+        temperature: 0.25,
+        topP: 0.85
+      }
+    };
+
+    const modelsToTry = [_cachedFastModel, ...FAST_MODELS.filter(m => m !== _cachedFastModel)];
+    for (const modelName of modelsToTry) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal: AbortSignal.timeout(15000)
+        });
+
+        if (response.ok) {
+          const data = (await response.json()) as any;
+          const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+          if (text) {
+            _cachedFastModel = modelName;
+            return { answer: text, model: modelName };
+          }
+        }
+      } catch (e: any) {
+        console.warn(`[DocumentQA] Model ${modelName} error:`, e.message);
+      }
+    }
+  }
+
+  // Resilient Extractive Fallback (Offline / No Key):
+  const qTerms = trimmedQ.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+  const sentences = documentText.split(/(?<=[.!?])\s+|\n{2,}/).filter(s => s.trim().length > 20);
+  const scored = sentences.map(s => {
+    const sLower = s.toLowerCase();
+    const hits = qTerms.reduce((count, term) => count + (sLower.includes(term) ? 1 : 0), 0);
+    return { sentence: s.trim(), hits };
+  }).filter(item => item.hits > 0).sort((a, b) => b.hits - a.hits);
+
+  if (scored.length > 0) {
+    const best = scored.slice(0, 4).map(item => `• "${item.sentence}"`).join('\n\n');
+    return {
+      answer: `**Relevant excerpts found in ${documentName}:**\n\n${best}`,
+      model: 'extractive-salience-engine'
+    };
+  }
+
+  return {
+    answer: `No specific information matching "${trimmedQ}" was located in **${documentName}**.`,
+    model: 'extractive-salience-engine'
+  };
+}
