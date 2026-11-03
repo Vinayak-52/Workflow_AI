@@ -9,9 +9,13 @@ import { Task, TaskPriority, TaskCategory, TaskStatus } from '../../types/index.
 export const TasksView: React.FC<{
   isCreateOpen?: boolean;
   onCloseCreate?: () => void;
+  targetEditTaskId?: string | null;
+  onClearTargetEditTaskId?: () => void;
 }> = ({
   isCreateOpen = false,
-  onCloseCreate
+  onCloseCreate,
+  targetEditTaskId,
+  onClearTargetEditTaskId
 }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
@@ -188,6 +192,36 @@ export const TasksView: React.FC<{
     setDueAt(task.dueAt ? task.dueAt.slice(0, 16) : getDefaultDateTime());
     setEstimatedMinutes(task.estimatedMinutes);
   };
+
+  useEffect(() => {
+    if (!targetEditTaskId) return;
+
+    const findAndOpen = (list: Task[]) => {
+      const match = list.find(
+        t => t.id === targetEditTaskId ||
+             t.title.trim().toLowerCase() === targetEditTaskId.trim().toLowerCase() ||
+             t.title.toLowerCase().includes(targetEditTaskId.toLowerCase())
+      );
+      if (match) {
+        openEdit(match);
+        if (onClearTargetEditTaskId) {
+          onClearTargetEditTaskId();
+        }
+        return true;
+      }
+      return false;
+    };
+
+    if (tasks.length > 0 && findAndOpen(tasks)) {
+      return;
+    }
+
+    api.getTasks().then(res => {
+      const fetched = res.tasks || [];
+      setTasks(fetched);
+      findAndOpen(fetched);
+    }).catch(console.error);
+  }, [targetEditTaskId, tasks]);
 
   const setDeadlinePreset = (preset: 'today' | 'tomorrow' | 'week') => {
     const pad = (n: number) => String(n).padStart(2, '0');

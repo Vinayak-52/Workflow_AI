@@ -23,6 +23,7 @@ interface AssistantPanelProps {
   onClose: () => void;
   activeContext?: { type: string; id: string | null; label?: string };
   onTaskCreated?: () => void;
+  onEditTask?: (taskId: string, task?: any) => void;
 }
 
 const SLASH_COMMANDS = [
@@ -67,7 +68,8 @@ export const AssistantPanel: React.FC<AssistantPanelProps> = ({
   isOpen,
   onClose,
   activeContext,
-  onTaskCreated
+  onTaskCreated,
+  onEditTask
 }) => {
   const [activeTab, setActiveTab] = useState<'chat' | 'recommendations'>('chat');
   const [messages, setMessages] = useState<Array<{ sender: 'user' | 'assistant'; text: string; sources?: any[]; proposals?: any[]; warnings?: string[] }>>([
@@ -139,22 +141,6 @@ export const AssistantPanel: React.FC<AssistantPanelProps> = ({
       ]);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleAcceptProposal = async (proposal: any) => {
-    try {
-      await api.createTask({
-        title: proposal.title || proposal.task?.title,
-        category: proposal.category || proposal.task?.category || 'project',
-        userPriority: proposal.userPriority || proposal.task?.userPriority || 'medium',
-        sourceType: proposal.sourceType || 'ai',
-        sourceReference: proposal.sourceReference
-      });
-      alert(`Task "${proposal.title || proposal.task?.title}" saved into your workspace!`);
-      if (onTaskCreated) onTaskCreated();
-    } catch (e: any) {
-      alert(`Failed to save task: ${e.message}`);
     }
   };
 
@@ -312,24 +298,43 @@ export const AssistantPanel: React.FC<AssistantPanelProps> = ({
                     </div>
                   )}
 
-                  {/* Task Proposals */}
+                  {/* Task Proposals / Actions */}
                   {m.proposals && m.proposals.length > 0 && (
                     <div className="mt-2.5 space-y-1.5">
                       <div className="text-[10px] font-semibold text-blue-600 dark:text-brand-400">Proposed Actions:</div>
-                      {m.proposals.map((prop, pIdx) => (
-                        <div
-                          key={pIdx}
-                          className="p-2 rounded-xl bg-white dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-700 flex items-center justify-between gap-2"
-                        >
-                          <span className="text-[11px] text-slate-800 dark:text-charcoal-200 truncate">{prop.title || prop.task?.title}</span>
-                          <button
-                            onClick={() => handleAcceptProposal(prop)}
-                            className="px-2.5 py-1 text-[10px] bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition"
+                      {m.proposals.map((prop, pIdx) => {
+                        const taskId = prop.taskId || prop.task?.id || prop.id;
+                        const isDeleted = prop.type === 'delete_task';
+
+                        return (
+                          <div
+                            key={pIdx}
+                            className="p-2 rounded-xl bg-white dark:bg-charcoal-900 border border-slate-200 dark:border-charcoal-700 flex items-center justify-between gap-2"
                           >
-                            Add Task
-                          </button>
-                        </div>
-                      ))}
+                            <span className="text-[11px] text-slate-800 dark:text-charcoal-200 truncate font-medium">
+                              {prop.title || prop.task?.title || 'Task Details'}
+                            </span>
+                            {isDeleted ? (
+                              <span className="text-[10px] font-medium text-rose-500 dark:text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-md">
+                                Deleted
+                              </span>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (onEditTask && taskId) {
+                                    onEditTask(taskId, prop.task);
+                                  }
+                                }}
+                                className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] bg-blue-50 dark:bg-brand-500/10 hover:bg-blue-100 dark:hover:bg-brand-500/20 text-blue-600 dark:text-brand-400 font-semibold rounded-lg border border-blue-200/80 dark:border-brand-500/30 transition shrink-0 cursor-pointer shadow-xs"
+                              >
+                                <Edit3 className="w-3 h-3" />
+                                <span>Edit Details</span>
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>

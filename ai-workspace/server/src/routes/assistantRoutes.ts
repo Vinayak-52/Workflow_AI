@@ -127,7 +127,7 @@ router.post('/chat', async (req: AuthenticatedRequest, res: Response, next) => {
         return res.json({
           answer: `✅ **Task Created Successfully!**\n\n• **Title:** ${newTask.title}\n• **Priority:** \`${newTask.userPriority.toUpperCase()}\` (Score: ${newTask.priorityScore})\n• **Category:** \`${newTask.category}\`\n• **Deadline:** Tomorrow\n\nThe task is now live on your dashboard and synced to Firestore!`,
           sources: [{ type: 'task', id: newTask.id, label: newTask.title }],
-          proposals: [{ type: 'create_task', task: newTask }],
+          proposals: [{ type: 'create_task', taskId: newTask.id, title: newTask.title, task: newTask }],
           warnings: []
         });
       }
@@ -187,7 +187,7 @@ router.post('/chat', async (req: AuthenticatedRequest, res: Response, next) => {
         return res.json({
           answer: `✅ **Task Updated Successfully!**\n\n• **Title:** ${match.title}\n• **Status:** \`${match.status}\`\n• **Priority:** \`${match.predictedPriority || match.userPriority}\``,
           sources: [{ type: 'task', id: match.id, label: match.title }],
-          proposals: [{ type: 'update_task', task: match }],
+          proposals: [{ type: 'update_task', taskId: match.id, title: match.title, task: match }],
           warnings: []
         });
       }
@@ -223,7 +223,7 @@ router.post('/chat', async (req: AuthenticatedRequest, res: Response, next) => {
         return res.json({
           answer: `🗑️ **Task Deleted Successfully!**\n\nRemoved "**${match.title}**" from your workspace.`,
           sources: [],
-          proposals: [{ type: 'delete_task', taskId: match.id }],
+          proposals: [{ type: 'delete_task', taskId: match.id, title: match.title }],
           warnings: []
         });
       }
@@ -296,7 +296,7 @@ router.post('/chat', async (req: AuthenticatedRequest, res: Response, next) => {
       return res.json({
         answer: `✅ **Task Created Successfully!**\n\n• **Title:** ${newTask.title}\n• **Priority:** \`${newTask.userPriority.toUpperCase()}\` (Score: ${newTask.priorityScore})\n• **Due:** Tomorrow\n\nIt is now saved in your workspace and displayed on your dashboard!`,
         sources: [{ type: 'task', id: newTask.id, label: newTask.title }],
-        proposals: [{ type: 'create_task', task: newTask }],
+        proposals: [{ type: 'create_task', taskId: newTask.id, title: newTask.title, task: newTask }],
         warnings: []
       });
     }

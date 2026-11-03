@@ -32,6 +32,7 @@ export const AppShell: React.FC<AppShellProps> = ({
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
+  const [targetEditTaskId, setTargetEditTaskId] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
   const navItems = [
@@ -60,6 +61,8 @@ export const AppShell: React.FC<AppShellProps> = ({
             key={refreshKey}
             isCreateOpen={isCreateTaskOpen}
             onCloseCreate={() => setIsCreateTaskOpen(false)}
+            targetEditTaskId={targetEditTaskId}
+            onClearTargetEditTaskId={() => setTargetEditTaskId(null)}
           />
         );
       case 'notes':
@@ -271,6 +274,10 @@ export const AppShell: React.FC<AppShellProps> = ({
         }}
         onTaskCreated={() => {
           setRefreshKey(prev => prev + 1);
+        }}
+        onEditTask={(taskId) => {
+          setCurrentView('tasks');
+          setTargetEditTaskId(taskId);
         }}
       />
     </div>
