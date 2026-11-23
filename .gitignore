@@ -10,5 +10,5 @@ backups/
 serviceAccountKey.json
 *serviceAccountKey*.json
 *.pem
-data/
+/data/
 *.zip

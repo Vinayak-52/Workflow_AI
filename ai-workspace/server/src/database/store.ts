@@ -68,20 +68,35 @@ class DatabaseStore {
   private isInitialized: boolean = false;
 
   constructor() {
-    const candidateDirs = [
-      path.resolve(process.cwd(), 'data'),
-      path.resolve(process.cwd(), '../data'),
-      path.resolve(process.cwd(), '../../data')
+    const candidateFiles = [
+      path.resolve(process.cwd(), 'ai-workspace/server/data/firestore_store.json'),
+      path.resolve(process.cwd(), 'data/firestore_store.json'),
+      path.resolve(process.cwd(), '../data/firestore_store.json'),
+      path.resolve(__dirname, '../data/firestore_store.json'),
+      path.resolve(__dirname, '../../data/firestore_store.json'),
+      path.resolve(__dirname, '../../ai-workspace/server/data/firestore_store.json')
     ];
-    let dataDir = candidateDirs.find(d => fs.existsSync(d)) || candidateDirs[0];
-    if (!fs.existsSync(dataDir)) {
-      try {
-        fs.mkdirSync(dataDir, { recursive: true });
-      } catch (e) {
-        // Fallback for read-only serverless lambdas
+    let foundFile = candidateFiles.find(f => fs.existsSync(f));
+
+    if (foundFile) {
+      this.filePath = foundFile;
+    } else {
+      const candidateDirs = [
+        path.resolve(process.cwd(), 'ai-workspace/server/data'),
+        path.resolve(process.cwd(), 'data'),
+        path.resolve(process.cwd(), '../data')
+      ];
+      let dataDir = candidateDirs.find(d => fs.existsSync(d)) || candidateDirs[0];
+      if (!fs.existsSync(dataDir)) {
+        try {
+          fs.mkdirSync(dataDir, { recursive: true });
+        } catch (e) {
+          dataDir = '/tmp';
+        }
       }
+      this.filePath = path.join(dataDir, 'firestore_store.json');
     }
-    this.filePath = path.join(dataDir, 'firestore_store.json');
+
     this.data = this.load();
   }
 
@@ -199,7 +214,14 @@ class DatabaseStore {
       fs.writeFileSync(this.filePath, JSON.stringify(d, null, 2), 'utf-8');
     } catch (e: any) {
       // In serverless environments (e.g. Vercel), local filesystem may be read-only.
-      // In-memory state and Firestore handle persistent storage.
+      // Attempt saving to writable /tmp directory
+      try {
+        if (!this.filePath.startsWith('/tmp')) {
+          fs.writeFileSync('/tmp/firestore_store.json', JSON.stringify(d, null, 2), 'utf-8');
+        }
+      } catch (tmpErr) {
+        // In-memory state and Firestore handle persistent storage.
+      }
     }
   }
 
