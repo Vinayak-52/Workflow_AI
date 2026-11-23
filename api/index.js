@@ -65,28 +65,31 @@ var CONFIG = {
 // ai-workspace/server/src/database/store.ts
 var import_fs2 = __toESM(require("fs"));
 var import_path2 = __toESM(require("path"));
-var import_app = require("firebase-admin/app");
-var import_firestore = require("firebase-admin/firestore");
 var firestoreInstance = null;
 function getFirestoreInstance() {
+  return firestoreInstance;
+}
+async function initFirestoreInstance() {
   if (firestoreInstance) return firestoreInstance;
   if (CONFIG.FIREBASE_PROJECT_ID && CONFIG.FIREBASE_CLIENT_EMAIL && CONFIG.FIREBASE_PRIVATE_KEY) {
     try {
-      if ((0, import_app.getApps)().length === 0) {
+      const { initializeApp, getApps, cert } = await import("firebase-admin/app");
+      const { getFirestore } = await import("firebase-admin/firestore");
+      if (getApps().length === 0) {
         let formattedKey = CONFIG.FIREBASE_PRIVATE_KEY.trim();
         if (formattedKey.startsWith('"') && formattedKey.endsWith('"') || formattedKey.startsWith("'") && formattedKey.endsWith("'")) {
           formattedKey = formattedKey.slice(1, -1);
         }
         formattedKey = formattedKey.replace(/\\n/g, "\n");
-        (0, import_app.initializeApp)({
-          credential: (0, import_app.cert)({
+        initializeApp({
+          credential: cert({
             projectId: CONFIG.FIREBASE_PROJECT_ID,
             clientEmail: CONFIG.FIREBASE_CLIENT_EMAIL,
             privateKey: formattedKey
           })
         });
       }
-      firestoreInstance = (0, import_firestore.getFirestore)();
+      firestoreInstance = getFirestore();
       firestoreInstance.settings({ ignoreUndefinedProperties: true });
       console.log(`[Firebase] Connected to Firestore project: ${CONFIG.FIREBASE_PROJECT_ID}`);
       return firestoreInstance;
@@ -133,7 +136,7 @@ var DatabaseStore = class {
   async init() {
     if (this.isInitialized) return;
     this.isInitialized = true;
-    const fsDb = getFirestoreInstance();
+    const fsDb = await initFirestoreInstance();
     if (!fsDb) {
       console.log("[Firebase] Running in offline local JSON store mode.");
       return;
@@ -2231,9 +2234,13 @@ ${best}`,
 }
 
 // ai-workspace/server/src/routes/documentRoutes.ts
-var uploadDir = import_path4.default.resolve(process.cwd(), "uploads");
-if (!import_fs4.default.existsSync(uploadDir)) {
-  import_fs4.default.mkdirSync(uploadDir, { recursive: true });
+var isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+var uploadDir = isServerless ? "/tmp/uploads" : import_path4.default.resolve(process.cwd(), "uploads");
+try {
+  if (!import_fs4.default.existsSync(uploadDir)) {
+    import_fs4.default.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (e) {
 }
 var storage = import_multer.default.diskStorage({
   destination: (_req, _file, cb) => {

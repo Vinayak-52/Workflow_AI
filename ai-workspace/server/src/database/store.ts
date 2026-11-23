@@ -6,8 +6,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import { initializeApp, getApps, cert } from 'firebase-admin/app';
-import { getFirestore, Firestore } from 'firebase-admin/firestore';
 import { CONFIG } from '../config/env.js';
 import {
   User,
@@ -20,12 +18,18 @@ import {
   ActivityLog
 } from '../models/types.js';
 
-let firestoreInstance: Firestore | null = null;
+let firestoreInstance: any = null;
 
-function getFirestoreInstance(): Firestore | null {
+function getFirestoreInstance(): any {
+  return firestoreInstance;
+}
+
+async function initFirestoreInstance(): Promise<any> {
   if (firestoreInstance) return firestoreInstance;
   if (CONFIG.FIREBASE_PROJECT_ID && CONFIG.FIREBASE_CLIENT_EMAIL && CONFIG.FIREBASE_PRIVATE_KEY) {
     try {
+      const { initializeApp, getApps, cert } = await import('firebase-admin/app');
+      const { getFirestore } = await import('firebase-admin/firestore');
       if (getApps().length === 0) {
         let formattedKey = CONFIG.FIREBASE_PRIVATE_KEY.trim();
         if ((formattedKey.startsWith('"') && formattedKey.endsWith('"')) || (formattedKey.startsWith("'") && formattedKey.endsWith("'"))) {
@@ -104,7 +108,7 @@ class DatabaseStore {
     if (this.isInitialized) return;
     this.isInitialized = true;
 
-    const fsDb = getFirestoreInstance();
+    const fsDb = await initFirestoreInstance();
     if (!fsDb) {
       console.log('[Firebase] Running in offline local JSON store mode.');
       return;
@@ -128,7 +132,7 @@ class DatabaseStore {
         try {
           const snapshot = await fsDb.collection(colName).get();
           if (!snapshot.empty) {
-            snapshot.forEach(docSnap => {
+            snapshot.forEach((docSnap: any) => {
               const itemData = docSnap.data();
               if (itemData) {
                 (this.data[colName] as any)[docSnap.id] = itemData;
@@ -156,9 +160,9 @@ class DatabaseStore {
       if (!process.env.VERCEL && !process.env.AWS_LAMBDA_FUNCTION_NAME) {
         for (const colName of collections) {
           fsDb.collection(colName).onSnapshot(
-            snapshot => {
+            (snapshot: any) => {
               let hasChanges = false;
-              snapshot.docChanges().forEach(change => {
+              snapshot.docChanges().forEach((change: any) => {
                 if (change.type === 'added' || change.type === 'modified') {
                   const docData = change.doc.data();
                   if (docData) {
@@ -174,7 +178,7 @@ class DatabaseStore {
                 this.save();
               }
             },
-            err => {
+            (err: any) => {
               console.warn(`[Firebase] Listener warning for '${colName}':`, err.message);
             }
           );

@@ -18,9 +18,14 @@ import { DocumentRecord } from '../models/types.js';
 import { extractDocumentText, isBinaryGarbage } from '../services/documentExtractor.js';
 import { generateDocumentSummary } from '../services/nlpSummarizer.js';
 
-const uploadDir = path.resolve(process.cwd(), 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+const uploadDir = isServerless ? '/tmp/uploads' : path.resolve(process.cwd(), 'uploads');
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+  }
+} catch (e) {
+  // Ignore filesystem errors in serverless environments
 }
 
 const storage = multer.diskStorage({
