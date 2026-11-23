@@ -75,7 +75,11 @@ class DatabaseStore {
     ];
     let dataDir = candidateDirs.find(d => fs.existsSync(d)) || candidateDirs[0];
     if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true });
+      try {
+        fs.mkdirSync(dataDir, { recursive: true });
+      } catch (e) {
+        // Fallback for read-only serverless lambdas
+      }
     }
     this.filePath = path.join(dataDir, 'firestore_store.json');
     this.data = this.load();
@@ -189,7 +193,12 @@ class DatabaseStore {
 
   private save(dataToSave?: DatabaseSchema) {
     const d = dataToSave || this.data;
-    fs.writeFileSync(this.filePath, JSON.stringify(d, null, 2), 'utf-8');
+    try {
+      fs.writeFileSync(this.filePath, JSON.stringify(d, null, 2), 'utf-8');
+    } catch (e: any) {
+      // In serverless environments (e.g. Vercel), local filesystem may be read-only.
+      // In-memory state and Firestore handle persistent storage.
+    }
   }
 
   // User operations

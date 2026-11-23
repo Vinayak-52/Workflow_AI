@@ -1,142 +1,601 @@
 /**
- * Demo Data Seeder for Academic Presentation & Testing
- * Member 2: Ankit Kumar Kunwar (2360031) & Member 3: Vinayak Chandra (2360035)
+ * Polished Demo Data Seeder for Academic Presentation & Showcase
+ * Department of CSBS, HITK - Workflow AI Project
  */
 
 import bcrypt from 'bcryptjs';
 import { db } from './store.js';
-import { Task, Note, CalendarEvent, User } from '../models/types.js';
+import { Task, Note, CalendarEvent, Reminder, User } from '../models/types.js';
+import { PlannerService } from '../services/plannerService.js';
 
-export async function seedDemoData() {
-  const existingUser = db.getUserByEmail('vinayak@hitk.edu.in');
-  const userId = existingUser ? existingUser.id : 'user-hitk-vinayak-001';
+function makeLocalIso(daysOffset: number, hour: number, minute: number = 0): string {
+  const now = new Date();
+  const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysOffset, hour, minute, 0, 0);
+  return d.toISOString();
+}
 
-  if (!existingUser) {
-    const passwordHash = await bcrypt.hash('password123', 10);
-    const demoUser: User = {
-      id: userId,
+export async function seedDemoData(force = false) {
+  const targetUsers = [
+    {
+      id: 'user-hitk-vinayak-001',
       username: 'vinayak',
       email: 'vinayak@hitk.edu.in',
-      displayName: 'Vinayak Chandra (HITK CSBS)',
-      passwordHash,
-      timezone: 'Asia/Kolkata',
-      preferences: {
-        theme: 'dark',
-        timezone: 'Asia/Kolkata',
-        workingHours: {
-          start: '09:00',
-          end: '18:00'
-        },
-        breakDurationMinutes: 15
-      },
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
-    db.saveUser(demoUser);
-  }
+      displayName: 'Vinayak Chandra (HITK CSBS)'
+    },
+    {
+      id: 'usr-521d76d8',
+      username: 'rog',
+      email: 'rog@hitk.edu.in',
+      displayName: 'Shivam Kumar'
+    }
+  ];
 
-  // Check if tasks already exist
-  const existingTasks = db.getTasksByUserId(userId);
-  if (existingTasks.length === 0) {
-    const now = new Date();
-    
-    // Seed realistic tasks
-    const tasksToSeed: Partial<Task>[] = [
+  const passwordHash = await bcrypt.hash('password123', 10);
+
+  for (const u of targetUsers) {
+    let user = db.getUserById(u.id);
+    if (!user) {
+      user = {
+        id: u.id,
+        username: u.username,
+        email: u.email,
+        displayName: u.displayName,
+        passwordHash,
+        timezone: 'Asia/Kolkata',
+        preferences: {
+          theme: 'dark',
+          timezone: 'Asia/Kolkata',
+          workingHours: { start: '09:00', end: '18:00' },
+          breakDurationMinutes: 15
+        },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      db.saveUser(user);
+    }
+
+    const currentTasks = db.getTasksByUserId(u.id);
+    if (!force && currentTasks.length >= 10) {
+      continue;
+    }
+
+    // Clean up outdated or test artifact tasks
+    for (const t of currentTasks) {
+      db.deleteTask(t.id, u.id);
+    }
+    const currentEvents = db.getCalendarEventsByUserId(u.id);
+    for (const ev of currentEvents) {
+      db.deleteCalendarEvent(ev.id, u.id);
+    }
+
+    // --- 1. Polished Academic & Project Tasks ---
+    const tasksToSeed: Task[] = [
       {
-        id: 'task-001',
-        title: 'Prepare Seminar 3 Slides for Prof. Sajal Mitra',
-        description: 'Complete the slide deck covering Problem Statement, Feasibility Analysis, and 3-Layer Architecture.',
+        id: `task-${u.id.slice(-4)}-01`,
+        userId: u.id,
+        title: 'Prepare Term Paper Seminar 3 Presentation for Prof. Sajal Mitra',
+        description: 'Finalize presentation deck covering problem statement, system architecture, scikit-learn pipeline, and live Firestore sync.',
         status: 'in_progress',
         category: 'academic',
         userPriority: 'high',
         predictedPriority: 'high',
-        priorityScore: 92.5,
-        dueAt: new Date(now.getTime() + 4 * 3600 * 1000).toISOString(),
+        priorityScore: 94.5,
+        dueAt: makeLocalIso(0, 16, 0), // Today 16:00
         estimatedMinutes: 90,
         isOverdue: false,
         dependencyCount: 1,
-        sourceType: 'manual'
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-2, 10, 0),
+        updatedAt: makeLocalIso(0, 9, 30)
       },
       {
-        id: 'task-002',
-        title: 'Evaluate Random Forest Model with ROUGE & Confusion Matrix',
-        description: 'Run train_model.py, verify test accuracy > 85%, and generate classification report for Member 1.',
-        status: 'todo',
+        id: `task-${u.id.slice(-4)}-02`,
+        userId: u.id,
+        title: 'Train & Benchmark Random Forest Classifier (v2.1)',
+        description: 'Evaluate test accuracy with 5-fold CV, confusion matrix, and feature importances for task urgency weighting.',
+        status: 'in_progress',
         category: 'project',
         userPriority: 'high',
         predictedPriority: 'high',
-        priorityScore: 88.0,
-        dueAt: new Date(now.getTime() + 8 * 3600 * 1000).toISOString(),
+        priorityScore: 91.0,
+        dueAt: makeLocalIso(0, 19, 0), // Today 19:00
         estimatedMinutes: 60,
         isOverdue: false,
         dependencyCount: 0,
         sourceType: 'ai',
-        sourceReference: 'Generated from AI Assistant planning recommendation'
+        sourceReference: 'Generated by AI Assistant from Sprint Planning Notes',
+        createdAt: makeLocalIso(-1, 14, 0),
+        updatedAt: makeLocalIso(0, 10, 0)
       },
       {
-        id: 'task-003',
-        title: 'Submit HITK Library Due Books & Clearance Form',
-        description: 'Return Pattern Recognition by Bishop and collect signed clearance receipt.',
+        id: `task-${u.id.slice(-4)}-03`,
+        userId: u.id,
+        title: 'Submit IEEE Conference Draft Paper on Contextual Scheduling',
+        description: 'Incorporate reviewer comments on Section 3 (extractive summarization metrics) and format with IEEE double-column LaTeX template.',
         status: 'todo',
-        category: 'administrative',
+        category: 'academic',
+        userPriority: 'high',
+        predictedPriority: 'high',
+        priorityScore: 89.2,
+        dueAt: makeLocalIso(1, 18, 0), // Tomorrow 18:00
+        estimatedMinutes: 120,
+        isOverdue: false,
+        dependencyCount: 1,
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-3, 11, 0),
+        updatedAt: makeLocalIso(-1, 16, 0)
+      },
+      {
+        id: `task-${u.id.slice(-4)}-04`,
+        userId: u.id,
+        title: 'Deploy Backend Microservices on Render & Cloud Run',
+        description: 'Verify Docker multi-stage build, environment variables, health-check endpoints, and CORS headers for production domain.',
+        status: 'todo',
+        category: 'project',
         userPriority: 'medium',
         predictedPriority: 'medium',
-        priorityScore: 54.0,
-        dueAt: new Date(now.getTime() + 28 * 3600 * 1000).toISOString(),
-        estimatedMinutes: 45,
+        priorityScore: 78.4,
+        dueAt: makeLocalIso(2, 15, 0), // +2 days
+        estimatedMinutes: 75,
         isOverdue: false,
         dependencyCount: 0,
-        sourceType: 'manual'
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-2, 15, 0),
+        updatedAt: makeLocalIso(0, 8, 0)
       },
       {
-        id: 'task-004',
-        title: 'Literature Review on NLP Transformers (Awasthi et al., 2021)',
-        description: 'Summarize extractive vs abstractive techniques for Seminar 3 report section 2.4.',
-        status: 'done',
+        id: `task-${u.id.slice(-4)}-05`,
+        userId: u.id,
+        title: 'CSBS Department Mini-Project Code Review & Documentation',
+        description: 'Complete technical documentation in Obsidian vault, finalize architectural diagrams, and prepare team rubric.',
+        status: 'todo',
         category: 'academic',
         userPriority: 'medium',
         predictedPriority: 'medium',
-        priorityScore: 61.0,
-        dueAt: new Date(now.getTime() - 24 * 3600 * 1000).toISOString(),
+        priorityScore: 73.1,
+        dueAt: makeLocalIso(3, 17, 0), // +3 days
+        estimatedMinutes: 45,
+        isOverdue: false,
+        dependencyCount: 0,
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-2, 12, 0),
+        updatedAt: makeLocalIso(0, 9, 0)
+      },
+      {
+        id: `task-${u.id.slice(-4)}-06`,
+        userId: u.id,
+        title: 'Deloitte Campus Placement Technical Assessment Preparation',
+        description: 'Review System Design patterns, SQL index optimizations, and core operating system concepts.',
+        status: 'todo',
+        category: 'personal',
+        userPriority: 'medium',
+        predictedPriority: 'medium',
+        priorityScore: 68.0,
+        dueAt: makeLocalIso(4, 20, 0), // +4 days
+        estimatedMinutes: 90,
+        isOverdue: false,
+        dependencyCount: 0,
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-3, 18, 0),
+        updatedAt: makeLocalIso(0, 9, 0)
+      },
+      {
+        id: `task-${u.id.slice(-4)}-07`,
+        userId: u.id,
+        title: 'Renew IEEE & ACM Student Membership & Reimbursement',
+        description: 'Submit digital payment receipts to CSBS departmental accounts section for term semester reimbursement.',
+        status: 'todo',
+        category: 'administrative',
+        userPriority: 'low',
+        predictedPriority: 'low',
+        priorityScore: 41.5,
+        dueAt: makeLocalIso(6, 12, 0), // +6 days
+        estimatedMinutes: 30,
+        isOverdue: false,
+        dependencyCount: 0,
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-4, 10, 0),
+        updatedAt: makeLocalIso(-1, 11, 0)
+      },
+      {
+        id: `task-${u.id.slice(-4)}-08`,
+        userId: u.id,
+        title: 'Cloud Architecture & Microservices Assignment 4',
+        description: 'Implement Kubernetes Pod autoscaling config and push YAML manifests to GitHub classroom repository.',
+        status: 'todo',
+        category: 'academic',
+        userPriority: 'high',
+        predictedPriority: 'high',
+        priorityScore: 82.0,
+        dueAt: makeLocalIso(-1, 23, 59), // Yesterday (Overdue demo)
+        estimatedMinutes: 60,
+        isOverdue: true,
+        dependencyCount: 0,
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-5, 9, 0),
+        updatedAt: makeLocalIso(-1, 18, 0)
+      },
+      {
+        id: `task-${u.id.slice(-4)}-09`,
+        userId: u.id,
+        title: 'Implement Extractive TextRank NLP Summarizer with ROUGE-L',
+        description: 'Benchmarked extractive summarization on seminar document dataset with 0.82 ROUGE-1 F1 score.',
+        status: 'done',
+        category: 'project',
+        userPriority: 'high',
+        predictedPriority: 'high',
+        priorityScore: 93.0,
+        dueAt: makeLocalIso(0, 14, 0),
         estimatedMinutes: 120,
         isOverdue: false,
         dependencyCount: 0,
         sourceType: 'note',
-        completedAt: new Date(now.getTime() - 12 * 3600 * 1000).toISOString()
+        createdAt: makeLocalIso(-4, 10, 0),
+        updatedAt: makeLocalIso(0, 13, 0),
+        completedAt: makeLocalIso(0, 13, 15)
       },
       {
-        id: 'task-005',
-        title: 'Setup Docker Container & Cloud Deployment Script',
-        description: 'Write Dockerfile and docker-compose orchestration for Express backend and Python ML service.',
-        status: 'todo',
-        category: 'project',
-        userPriority: 'low',
+        id: `task-${u.id.slice(-4)}-10`,
+        userId: u.id,
+        title: 'HITK Central Library Clearance & Book Return',
+        description: 'Returned Bishop Pattern Recognition and Tanenbaum Distributed Systems; received digital NOC receipt.',
+        status: 'done',
+        category: 'administrative',
+        userPriority: 'medium',
         predictedPriority: 'medium',
-        priorityScore: 51.5,
-        dueAt: new Date(now.getTime() + 72 * 3600 * 1000).toISOString(),
+        priorityScore: 64.0,
+        dueAt: makeLocalIso(-1, 16, 0),
+        estimatedMinutes: 40,
+        isOverdue: false,
+        dependencyCount: 0,
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-4, 11, 0),
+        updatedAt: makeLocalIso(-1, 15, 30),
+        completedAt: makeLocalIso(-1, 15, 45)
+      },
+      {
+        id: `task-${u.id.slice(-4)}-11`,
+        userId: u.id,
+        title: 'Configure Firebase Admin SDK & Cloud Firestore 2-Way Sync',
+        description: 'Set up real-time listener sync, dual-mode fallback, and service account key integration.',
+        status: 'done',
+        category: 'project',
+        userPriority: 'high',
+        predictedPriority: 'high',
+        priorityScore: 95.0,
+        dueAt: makeLocalIso(-2, 18, 0),
         estimatedMinutes: 90,
         isOverdue: false,
-        dependencyCount: 2,
-        sourceType: 'manual'
+        dependencyCount: 1,
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-4, 14, 0),
+        updatedAt: makeLocalIso(-2, 17, 30),
+        completedAt: makeLocalIso(-2, 17, 50)
+      },
+      {
+        id: `task-${u.id.slice(-4)}-12`,
+        userId: u.id,
+        title: 'Setup Tailwind UI Dark Mode Theme & Responsive Shell',
+        description: 'Designed custom color tokens, modern glassmorphism panels, and mobile-friendly navigation sidebar.',
+        status: 'done',
+        category: 'project',
+        userPriority: 'low',
+        predictedPriority: 'low',
+        priorityScore: 48.0,
+        dueAt: makeLocalIso(-4, 18, 0),
+        estimatedMinutes: 60,
+        isOverdue: false,
+        dependencyCount: 0,
+        sourceType: 'manual',
+        createdAt: makeLocalIso(-6, 12, 0),
+        updatedAt: makeLocalIso(-4, 17, 0),
+        completedAt: makeLocalIso(-4, 17, 10)
       }
     ];
 
     for (const t of tasksToSeed) {
-      db.saveTask({
-        ...t,
-        userId,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      } as Task);
+      db.saveTask(t);
     }
 
-    // Seed Notes
-    const notesToSeed: Partial<Note>[] = [
+    // --- 2. Polished Calendar Events Across the Month ---
+    const eventsToSeed: CalendarEvent[] = [
+      // Today Events
       {
-        id: 'note-001',
+        id: `evt-${u.id.slice(-4)}-01`,
+        userId: u.id,
+        title: 'Distributed Systems & Cloud Architecture Lecture',
+        startAt: makeLocalIso(0, 10, 30),
+        endAt: makeLocalIso(0, 11, 45),
+        isAllDay: false,
+        calendarName: 'Academic',
+        eventType: 'class',
+        location: 'Room 402, CSBS Department, HITK',
+        description: 'Lecture on consensus algorithms (Raft & Paxos) and cloud scalability models.',
+        color: '#06b6d4',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-3, 10, 0),
+        updatedAt: makeLocalIso(-3, 10, 0)
+      },
+      {
+        id: `evt-${u.id.slice(-4)}-02`,
+        userId: u.id,
+        title: 'Sprint Review: AI Workspace Team Sync',
+        startAt: makeLocalIso(0, 14, 0),
+        endAt: makeLocalIso(0, 15, 30),
+        isAllDay: false,
+        calendarName: 'Project',
+        eventType: 'meeting',
+        location: 'HITK Incubation Center / Google Meet',
+        description: 'Weekly team sync with Ayantik, Ankit, and Yash to review ML inference and API benchmarks.',
+        color: '#007aff',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-3, 11, 0),
+        updatedAt: makeLocalIso(-3, 11, 0)
+      },
+      {
+        id: `evt-${u.id.slice(-4)}-03`,
+        userId: u.id,
+        title: 'Mentor Progress Review with Prof. Sajal Mitra',
+        startAt: makeLocalIso(0, 16, 30),
+        endAt: makeLocalIso(0, 17, 30),
+        isAllDay: false,
+        calendarName: 'Academic',
+        eventType: 'meeting',
+        location: 'Faculty Cabin 214, CSBS Department',
+        description: 'Live demonstration of dual-mode Firestore synchronization, Random Forest task ranking, and ROUGE summarizer.',
+        color: '#007aff',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-4, 10, 0),
+        updatedAt: makeLocalIso(-4, 10, 0)
+      },
+
+      // Tomorrow Events (+1 day)
+      {
+        id: `evt-${u.id.slice(-4)}-04`,
+        userId: u.id,
+        title: 'Business Analytics & Financial Systems Seminar',
+        startAt: makeLocalIso(1, 11, 0),
+        endAt: makeLocalIso(1, 12, 30),
+        isAllDay: false,
+        calendarName: 'Academic',
+        eventType: 'class',
+        location: 'Auditorium 2, HITK',
+        description: 'Industry guest lecture on FinTech data pipelines and algorithmic risk management.',
+        color: '#06b6d4',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-4, 12, 0),
+        updatedAt: makeLocalIso(-4, 12, 0)
+      },
+      {
+        id: `evt-${u.id.slice(-4)}-05`,
+        userId: u.id,
+        title: 'Deloitte Campus Placement Briefing',
+        startAt: makeLocalIso(1, 15, 0),
+        endAt: makeLocalIso(1, 16, 0),
+        isAllDay: false,
+        calendarName: 'Personal',
+        eventType: 'meeting',
+        location: 'Virtual / MS Teams',
+        description: 'Pre-placement briefing on case study interview rounds and eligibility criteria.',
+        color: '#007aff',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-5, 9, 0),
+        updatedAt: makeLocalIso(-5, 9, 0)
+      },
+
+      // Day +2 Events
+      {
+        id: `evt-${u.id.slice(-4)}-06`,
+        userId: u.id,
+        title: 'Artificial Intelligence & Machine Learning Lab',
+        startAt: makeLocalIso(2, 10, 0),
+        endAt: makeLocalIso(2, 13, 0),
+        isAllDay: false,
+        calendarName: 'Academic',
+        eventType: 'class',
+        location: 'Central Computing Lab 3, HITK',
+        description: 'Hands-on practical session on model evaluation, ROC curves, and hyperparameter tuning.',
+        color: '#06b6d4',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-4, 10, 0),
+        updatedAt: makeLocalIso(-4, 10, 0)
+      },
+      {
+        id: `evt-${u.id.slice(-4)}-07`,
+        userId: u.id,
+        title: 'Upload Document Summarizer & ROUGE Evaluation Report',
+        startAt: makeLocalIso(2, 17, 0),
+        endAt: makeLocalIso(2, 18, 0),
+        isAllDay: false,
+        calendarName: 'Academic',
+        eventType: 'submission',
+        location: 'HITK Academic Portal (ERP)',
+        description: 'Upload completed Document Summarization Evaluation report and model test set metrics.',
+        color: '#f97316',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-3, 10, 0),
+        updatedAt: makeLocalIso(-3, 10, 0)
+      },
+
+      // Day +3 Events
+      {
+        id: `evt-${u.id.slice(-4)}-08`,
+        userId: u.id,
+        title: 'Random Forest Model Stress Testing & Profiling',
+        startAt: makeLocalIso(3, 14, 0),
+        endAt: makeLocalIso(3, 15, 30),
+        isAllDay: false,
+        calendarName: 'Project',
+        eventType: 'test',
+        location: 'Dev Environment / Local Server',
+        description: 'Run automated load benchmarks across 5,000 synthetic tasks; verify P95 latency < 50ms.',
+        color: '#a855f7',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-4, 15, 0),
+        updatedAt: makeLocalIso(-4, 15, 0)
+      },
+
+      // Day +4 Events
+      {
+        id: `evt-${u.id.slice(-4)}-09`,
+        userId: u.id,
+        title: 'AI Workspace Prototype Presentation to CSBS Faculty',
+        startAt: makeLocalIso(4, 11, 0),
+        endAt: makeLocalIso(4, 12, 30),
+        isAllDay: false,
+        calendarName: 'Academic',
+        eventType: 'presentation',
+        location: 'Department Seminar Hall, CSBS',
+        description: 'Demonstration of 3-layer architecture, deterministic calendar scheduling, and user testing metrics.',
+        color: '#22c55e',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-5, 11, 0),
+        updatedAt: makeLocalIso(-5, 11, 0)
+      },
+      {
+        id: `evt-${u.id.slice(-4)}-10`,
+        userId: u.id,
+        title: 'Project Milestone 3 Code Freeze & GitHub Release',
+        startAt: makeLocalIso(4, 18, 0),
+        endAt: makeLocalIso(4, 18, 30),
+        isAllDay: false,
+        calendarName: 'Project',
+        eventType: 'submission',
+        location: 'GitHub Repository',
+        description: 'Final tag v1.0.0 push with signed commits and release documentation.',
+        color: '#f97316',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-5, 12, 0),
+        updatedAt: makeLocalIso(-5, 12, 0)
+      },
+
+      // Day +5 Events
+      {
+        id: `evt-${u.id.slice(-4)}-11`,
+        userId: u.id,
+        title: 'MAKAUT University Practical & Viva Exam',
+        startAt: makeLocalIso(5, 10, 30),
+        endAt: makeLocalIso(5, 12, 30),
+        isAllDay: false,
+        calendarName: 'Academic',
+        eventType: 'exam',
+        location: 'Heritage Institute Main Examination Hall',
+        description: 'End-semester practical viva on Software Engineering, Data Structures, and Cloud Integration.',
+        color: '#eb4d3d',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-6, 9, 0),
+        updatedAt: makeLocalIso(-6, 9, 0)
+      },
+
+      // Earlier in Month Events (-6 days, -3 days)
+      {
+        id: `evt-${u.id.slice(-4)}-12`,
+        userId: u.id,
+        title: 'Database Schema & Firestore Real-time Sync Design',
+        startAt: makeLocalIso(-6, 14, 0),
+        endAt: makeLocalIso(-6, 15, 30),
+        isAllDay: false,
+        calendarName: 'Project',
+        eventType: 'meeting',
+        location: 'Google Meet',
+        description: 'Technical architecture sync on Firestore snapshot listeners and dual-mode data layer.',
+        color: '#007aff',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-7, 10, 0),
+        updatedAt: makeLocalIso(-7, 10, 0)
+      },
+      {
+        id: `evt-${u.id.slice(-4)}-13`,
+        userId: u.id,
+        title: 'Mid-Term Architecture & Wireframe Review',
+        startAt: makeLocalIso(-3, 11, 0),
+        endAt: makeLocalIso(-3, 12, 30),
+        isAllDay: false,
+        calendarName: 'Academic',
+        eventType: 'presentation',
+        location: 'Room 401, CSBS',
+        description: 'First milestone evaluation reviewing UI wireframes and baseline prioritization model.',
+        color: '#22c55e',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-8, 10, 0),
+        updatedAt: makeLocalIso(-8, 10, 0)
+      },
+
+      // Next Week Event (+8 days)
+      {
+        id: `evt-${u.id.slice(-4)}-14`,
+        userId: u.id,
+        title: 'Departmental Final Seminar & Term Paper Defense',
+        startAt: makeLocalIso(8, 15, 0),
+        endAt: makeLocalIso(8, 16, 30),
+        isAllDay: false,
+        calendarName: 'Academic',
+        eventType: 'presentation',
+        location: 'Auditorium 1, Heritage Institute of Technology',
+        description: 'Comprehensive seminar presentation with external academic evaluator committee.',
+        color: '#22c55e',
+        isReadOnly: false,
+        createdAt: makeLocalIso(-4, 10, 0),
+        updatedAt: makeLocalIso(-4, 10, 0)
+      }
+    ];
+
+    for (const ev of eventsToSeed) {
+      db.saveCalendarEvent(ev);
+    }
+
+    // --- 3. Smart Reminders ---
+    const remindersToSeed: Reminder[] = [
+      {
+        id: `rem-${u.id.slice(-4)}-01`,
+        userId: u.id,
+        taskId: tasksToSeed[0].id,
+        title: 'Seminar 3 Slides Review',
+        level: 'urgent',
+        message: 'Review starts today at 16:30 with Prof. Sajal Mitra in Cabin 214.',
+        urgencyScore: 92.0,
+        triggerAt: makeLocalIso(0, 15, 30),
+        isDismissed: false,
+        createdAt: makeLocalIso(0, 9, 0)
+      },
+      {
+        id: `rem-${u.id.slice(-4)}-02`,
+        userId: u.id,
+        taskId: tasksToSeed[2].id,
+        title: 'IEEE Draft Submission Approaching',
+        level: 'warning',
+        message: 'IEEE paper deadline is tomorrow at 18:00. Check LaTeX bibliography formatting.',
+        urgencyScore: 78.0,
+        triggerAt: makeLocalIso(1, 12, 0),
+        isDismissed: false,
+        createdAt: makeLocalIso(0, 9, 0)
+      },
+      {
+        id: `rem-${u.id.slice(-4)}-03`,
+        userId: u.id,
+        taskId: tasksToSeed[7].id,
+        title: 'Overdue Assignment Notice',
+        level: 'critical',
+        message: 'Cloud Architecture Assignment 4 deadline has passed. Submit immediately.',
+        urgencyScore: 96.0,
+        triggerAt: makeLocalIso(0, 8, 0),
+        isDismissed: false,
+        createdAt: makeLocalIso(0, 8, 0)
+      }
+    ];
+
+    for (const r of remindersToSeed) {
+      db.saveReminder(r);
+    }
+
+    // --- 4. Notes ---
+    const notesToSeed: Note[] = [
+      {
+        id: `note-${u.id.slice(-4)}-01`,
+        userId: u.id,
         title: 'Seminar 3 Discussion Notes with Mentor',
         content: `# Meeting Notes: Prof. Sajal Mitra Review
-Date: October 2026
+Date: November 2026
 Location: HITK CSBS Department
 
 ### Key Decisions
@@ -151,17 +610,20 @@ Location: HITK CSBS Department
 `,
         format: 'markdown',
         pinned: true,
-        tags: ['academic', 'seminar', 'hitk']
+        tags: ['academic', 'seminar', 'hitk'],
+        createdAt: makeLocalIso(-4, 10, 0),
+        updatedAt: makeLocalIso(-1, 14, 0)
       },
       {
-        id: 'note-002',
+        id: `note-${u.id.slice(-4)}-02`,
+        userId: u.id,
         title: 'AI Workspace Architecture & Feature Ideas',
         content: `# Architecture Ideas & Milestones
 
-- Front-End: React.js with Tailwind CSS for clean dark workspace UX.
-- Back-End: Node.js Express REST API server with ownership validation.
-- AI Layer: Python 3.14 Random Forest ML service and NLP summarizer.
-- Cloud: Firestore NoSQL database schema with real-time sync.
+- **Front-End**: React.js with Tailwind CSS for clean dark workspace UX.
+- **Back-End**: Node.js Express REST API server with ownership validation.
+- **AI Layer**: Python 3.14 Random Forest ML service and NLP summarizer.
+- **Cloud**: Firestore NoSQL database schema with real-time sync.
 
 ### Next Steps:
 - Add drag-and-drop document upload with instant summary breakdown.
@@ -169,19 +631,29 @@ Location: HITK CSBS Department
 `,
         format: 'markdown',
         pinned: false,
-        tags: ['project', 'architecture']
+        tags: ['project', 'architecture'],
+        createdAt: makeLocalIso(-3, 11, 0),
+        updatedAt: makeLocalIso(0, 10, 0)
       }
     ];
 
     for (const n of notesToSeed) {
-      db.saveNote({
-        ...n,
-        userId,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      } as Note);
+      db.saveNote(n);
     }
 
-    console.log('[Seed] Successfully seeded initial demo tasks and notes for Vinayak Chandra!');
+    // --- 5. Generate Today's Daily Schedule Plan ---
+    const todayStr = new Date().toISOString().split('T')[0];
+    PlannerService.generateDailyPlan(u.id, todayStr);
+
+    console.log(`[Seed] Successfully seeded polished tasks, calendar events, reminders, and daily plan for ${u.displayName}!`);
   }
+}
+
+if (process.argv[1]?.includes('seedData')) {
+  (async () => {
+    await db.init();
+    await seedDemoData(true);
+    console.log('[Seed] Database seeding completed successfully.');
+    process.exit(0);
+  })();
 }
