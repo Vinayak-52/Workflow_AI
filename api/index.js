@@ -39,7 +39,6 @@ var __toESM = (mod3, isNodeMode, target) => (target = mod3 != null ? __create(__
   isNodeMode || !mod3 || !mod3.__esModule ? __defProp(target, "default", { value: mod3, enumerable: true }) : target,
   mod3
 ));
-var __toCommonJS = (mod3) => __copyProps(__defProp({}, "__esModule", { value: true }), mod3);
 
 // ai-workspace/server/node_modules/depd/index.js
 var require_depd = __commonJS({
@@ -196940,13 +196939,6 @@ var require_multer = __commonJS({
   }
 });
 
-// api/handler.ts
-var handler_exports = {};
-__export(handler_exports, {
-  default: () => handler
-});
-module.exports = __toCommonJS(handler_exports);
-
 // ai-workspace/server/src/app.ts
 var import_express12 = __toESM(require_express2());
 var import_cors = __toESM(require_lib3());
@@ -200276,20 +200268,32 @@ function createApp() {
 var appInstance = null;
 var initPromise = null;
 async function handler(req, res) {
-  if (!initPromise) {
-    initPromise = db.init().catch((err) => {
-      console.warn("[Vercel Serverless] DB init warning:", err.message);
-    });
+  try {
+    if (!initPromise) {
+      initPromise = Promise.race([
+        db.init(),
+        new Promise((resolve) => setTimeout(resolve, 3500))
+      ]).catch((err) => {
+        console.warn("[Vercel Serverless] DB init warning:", err.message);
+      });
+    }
+    await initPromise;
+    if (!appInstance) {
+      appInstance = createApp();
+    }
+    if (req.url && !req.url.startsWith("/api") && req.url.startsWith("/v1")) {
+      req.url = "/api" + req.url;
+    }
+    return appInstance(req, res);
+  } catch (err) {
+    console.error("[Vercel Serverless] Request error:", err);
+    res.statusCode = 500;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify({ error: { message: err?.message || "Internal Server Error" } }));
   }
-  await initPromise;
-  if (!appInstance) {
-    appInstance = createApp();
-  }
-  if (req.url && !req.url.startsWith("/api") && req.url.startsWith("/v1")) {
-    req.url = "/api" + req.url;
-  }
-  return appInstance(req, res);
 }
+module.exports = handler;
+module.exports.default = handler;
 /*! Bundled license information:
 
 depd/index.js:
