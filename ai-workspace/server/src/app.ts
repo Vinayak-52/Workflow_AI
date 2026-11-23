@@ -38,7 +38,7 @@ export function createApp() {
   });
 
   // Health check
-  app.get('/api/v1/health', (_req, res) => {
+  app.get(['/api/v1/health', '/api/health', '/health'], (_req, res) => {
     res.json({
       status: 'healthy',
       app: 'AI Workspace Backend',
@@ -48,7 +48,7 @@ export function createApp() {
   });
 
   // Clock endpoint (07 - API Specification.md Section 4)
-  app.get('/api/v1/clock', (req, res) => {
+  app.get(['/api/v1/clock', '/api/clock', '/clock'], (req, res) => {
     const tz = (req.query.timezone as string) || 'Asia/Kolkata';
     const now = new Date();
     res.json({

@@ -17,8 +17,9 @@
     "test:reminders": "python ai-workspace/tests/test_priorities_and_reminders.py",
     "test:summarizer": "python ai-workspace/ml/data/document_test_set/evaluate_test_set.py",
     "build:server": "npm --prefix ai-workspace/server run build",
+    "build:api": "npx esbuild api/handler.ts --bundle --platform=node --target=node20 --outfile=api/index.js",
     "build:client": "npm --prefix ai-workspace/client run build",
-    "build": "npm run build:server && npm run build:client",
+    "build": "npm run build:server && npm run build:api && npm run build:client",
     "seed": "npm --prefix ai-workspace/server run seed"
   },
   "author": "Group 7 (HITK CSBS) - Ayantik Goswami, Ankit Kumar Kunwar, Vinayak Chandra, Yash Raj",
