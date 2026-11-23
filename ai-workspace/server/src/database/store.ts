@@ -137,31 +137,33 @@ class DatabaseStore {
       this.save();
       console.log(`[Firebase] Firestore sync complete: Loaded ${pulledCount} documents from Firestore.`);
 
-      // Realtime listener for incoming changes from Firestore
-      for (const colName of collections) {
-        fsDb.collection(colName).onSnapshot(
-          snapshot => {
-            let hasChanges = false;
-            snapshot.docChanges().forEach(change => {
-              if (change.type === 'added' || change.type === 'modified') {
-                const docData = change.doc.data();
-                if (docData) {
-                  (this.data[colName] as any)[change.doc.id] = docData;
+      // Realtime listener for incoming changes from Firestore (disabled in serverless lambdas like Vercel)
+      if (!process.env.VERCEL && !process.env.AWS_LAMBDA_FUNCTION_NAME) {
+        for (const colName of collections) {
+          fsDb.collection(colName).onSnapshot(
+            snapshot => {
+              let hasChanges = false;
+              snapshot.docChanges().forEach(change => {
+                if (change.type === 'added' || change.type === 'modified') {
+                  const docData = change.doc.data();
+                  if (docData) {
+                    (this.data[colName] as any)[change.doc.id] = docData;
+                    hasChanges = true;
+                  }
+                } else if (change.type === 'removed') {
+                  delete (this.data[colName] as any)[change.doc.id];
                   hasChanges = true;
                 }
-              } else if (change.type === 'removed') {
-                delete (this.data[colName] as any)[change.doc.id];
-                hasChanges = true;
+              });
+              if (hasChanges) {
+                this.save();
               }
-            });
-            if (hasChanges) {
-              this.save();
+            },
+            err => {
+              console.warn(`[Firebase] Listener warning for '${colName}':`, err.message);
             }
-          },
-          err => {
-            console.warn(`[Firebase] Listener warning for '${colName}':`, err.message);
-          }
-        );
+          );
+        }
       }
     } catch (err: any) {
       console.warn('[Firebase] Firestore initialization failed, falling back to local store:', err.message);
